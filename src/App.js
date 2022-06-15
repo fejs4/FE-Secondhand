@@ -7,6 +7,7 @@ import "swiper/css";
 
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import DetailProductPage from './pages/DetailProductPage';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
             <Route path='/' element={<HomePage/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
+            <Route path='/detail/:Id' element={<DetailProductPage/>} />
+            <Route path='*' element={<><h1 className='text-center'>404 ERROR</h1></>}/>
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
