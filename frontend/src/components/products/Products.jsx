@@ -7,7 +7,7 @@ import ItemCard from './ItemCard'
 const Products = () => {
   return (
     <Box sx={{ mx: { xl: 24, md: 15, sm: 8, xs: 5 } }}>
-      <Typography variant='h5' fontWeight={700} sx={{ fontSize:{xs:'18px', md:'24px'} }}>
+      <Typography variant='h5' fontWeight={700} sx={{ fontSize:{xs:'1.1em', md:'2em'} }}>
         Telusuri Kategori
       </Typography>
       <FilterCategory />

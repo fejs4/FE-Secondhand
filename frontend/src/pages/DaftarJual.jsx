@@ -1,12 +1,14 @@
 import React from 'react'
-import DaftarJualSeller from '../components/products/DaftarJualSeller'
 import Navbars from '../components/header/Navbars'
+import InfoSeller from '../components/seller/InfoSeller'
+import ListJual from '../components/seller/ListJual'
 
 const DaftarJual = () => {
   return (
     <>
-        <Navbars/>
-        <DaftarJualSeller/>
+      <Navbars/>
+      <InfoSeller/>
+      <ListJual/>
     </>
   )
 }
