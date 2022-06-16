@@ -7,13 +7,13 @@ import { Button, FormControl, Grid, Input, InputAdornment, InputLabel, Link, Men
 
 const FormProduct = () => {
   return (
-    <Box width={'70%'} mx={'auto'} mt={3}>
+    <Box width={{ md:'70%', xs:'90%' }} mx={'auto'} mt={3}>
         <Toolbar position='relative' >
             <ArrowBackSharpIcon  sx={{ zIndex: 100, padding: 1, cursor: 'pointer', '&:hover': {
                 backgroundColor: '#aaa',
                 opacity: [0.9, 0.8, 0.7],
                 } }} />
-            <Box position='absolute' width={'60%'}  mx={'auto'} sx={{ left: 0, right: 0,top: 0 }} >
+            <Box position='absolute' width={ '60%'}  mx={'auto'} sx={{ left: 0, right: 0,top: 0 }} >
                 <InputLabel margin="start" htmlFor="filled-adornment-amount">Nama Produk</InputLabel>
                 <Input
                 sx={{ mt:0, mb:2, border: '1px solid', borderRadius:'10px', p: 1 }}
@@ -23,6 +23,7 @@ const FormProduct = () => {
                 fullWidth
                 placeholder="Nama produk"
                 id="name"
+                autoComplete='false'
                 />
                 <InputLabel margin="start" htmlFor="filled-adornment-amount">Harga</InputLabel>
                 <Input
@@ -33,6 +34,7 @@ const FormProduct = () => {
                 required
                 fullWidth
                 placeholder='0,00'
+                autoComplete='false'
                 />
                 <InputLabel margin="start" htmlFor="filled-adornment-amount">Kategori</InputLabel>
                 <FormControl sx={{ width: '100%' }} size='small'> 
@@ -56,6 +58,7 @@ const FormProduct = () => {
                 fullWidth
                 placeholder="Contoh: Jalan Ikan Hiu 33"
                 id="name"
+                autoComplete='false'
                 />
 
                 <InputLabel margin="start" htmlFor="filled-adornment-amount">Foto Produk</InputLabel>
