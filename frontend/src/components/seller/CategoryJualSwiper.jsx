@@ -12,7 +12,7 @@ const CategoryJualSwiper = () => {
   
  
   return (
-    <Box mt={3}>
+    <Box >
       <Swiper
         slidesPerView={"auto"}
         className="mySwiper"
