@@ -8,9 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 const CategoryJualSwiper = () => {
   const [clicked, setClicked] = React.useState('Semua');
-  let items = [];
-  
- 
+
   return (
     <Box >
       <Swiper
