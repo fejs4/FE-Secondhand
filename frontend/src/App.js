@@ -7,6 +7,8 @@ import "swiper/css";
 
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import DaftarJual from './pages/DaftarJual';
+import InfoProduk from './pages/InfoProduk';
 import DetailProductSeller from './pages/DetailProductSeller';
 import DetailProductBuyer from './pages/DetailProductBuyer';
 
@@ -19,6 +21,8 @@ function App() {
             <Route path='/' element={<HomePage/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
+            <Route path='/info-produk' element={<InfoProduk/>} />
+            <Route path='/daftar-jual' element={<DaftarJual/>} />
             <Route path='/detail-product-seller/:Id' element={<DetailProductSeller/>} />
             <Route path='/detail-product-buyer/:Id' element={<DetailProductBuyer />} />
             <Route path='*' element={<><h1 className='text-center'>404 ERROR</h1></>}/>
