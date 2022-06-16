@@ -1,12 +1,16 @@
 import React from 'react'
 import Navbars from '../components/header/Navbars'
 import ProductDetails from '../components/detailproduct/ProductDetails'
+import { Box } from '@mui/material'
+import ProductInfo from '../components/detailproduct/ProductInfo'
 
 const DetailProductPage = () => {
   return (
     <>
-        <Navbars/>
-        <ProductDetails/>
+        <Box display={{ md:'block', xs:'none' }}>
+          <Navbars/>
+        </Box>
+        <ProductDetails productInfo={<ProductInfo/>}/>
     </>
   )
 }
