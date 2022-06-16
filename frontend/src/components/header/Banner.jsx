@@ -13,7 +13,7 @@ const Banner = () => {
               <Typography variant='h6' fontWeight={500} sx={{ fontSize:{md:'1.5rem', xs:'1rem'} }} my={1}>Diskon Hingga</Typography>
               <Typography variant='h5' fontWeight={700} my={1} sx={{ fontSize:{md:'2rem', xs:'1.5rem'}, color:'red' }} >60%</Typography>
             </Box>
-            <Box width={'60%'} height={'288px'} position={'relative'} >
+            <Box width={{ lg:'40%', md:'45%', xs:'50%' }} height={'100%'} position={'relative'} >
               <Box component={'img'} src='/images/banner/Rectangle 137.png' display={{ xs:'none', md:'block' }} width={'100%'} height={'100%'}  position={'absolute'} />
               <Box component={'img'} src='/images/banner/Rectangle 136.png' display={{ xs:'none', md:'block' }} width={'100%'} height={'100%'} position={'absolute'}/>
               <Box component={'img'} src='/images/banner/png_gift_88837.png' width={{ sm:'10rem',xs:'8rem' }} height={{ sm:'10rem',xs:'8rem' }}  top={'25%'}  position={'absolute'}/>
