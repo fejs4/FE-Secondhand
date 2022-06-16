@@ -32,23 +32,23 @@ const Register = () => {
     };
     return (
         <>
-            <Grid container minHeight={'100vh'} overflow={'hidden'}>
+            <Grid container height={'100vh'} overflow={'hidden'}>
                 <Grid item xs={12} sm={12} md={6} sx={{ display: { xs: 'none', md: 'flex' } }}>
-                    <img src="/images/img.png" alt="brand" style={{ minHeight: '100%', height: '1000px', width: '100%', objectFit: 'cover' }} />
+                    <img src="/images/img.png" alt="brand" style={{ minHeight: '100%', width: '100%', width: '100%', objectFit: 'cover' }} />
                 </Grid>
-                <Grid container item xs={12} sm={12} md={6} direction={'column'} justifyContent={{ xl: 'center', md: 'center', sm: 'none' }} sx={{ px: { xl: 20, md: 10, sm: 10, xs: 5 } }} >
+                <Grid container item xs={12} sm={12} md={6} height={'100%'} direction={'column'} justifyContent={{ xl: 'center', md: 'center', sm: 'none' }} sx={{ px: { xl: 20, md: 10, sm: 10, xs: 5 } }} >
                     <Box>
                         <Box display={{ sm: 'block', md: 'none' }} mt={{ sm: 5, xs: 5 }}>
                             <IconButton sx={{ padding: 0 }}>
-                                <ArrowBackIcon sx={{ fontSize: '44px', color: 'black' }} />
+                                <ArrowBackIcon sx={{ fontSize: '2rem', color: 'black' }} />
                             </IconButton>
                         </Box>
                         <Box mt={{ sm: 5, xs: 5 }}>
-                            <Typography variant='h3' fontWeight={700}>
+                            <Typography variant='h4' fontWeight={700}>
                                 Daftar
                             </Typography>
                             <FormControl sx={{ width: '100%', mt: 3 }} variant="outlined">
-                                <Typography variant='h6'>
+                                <Typography variant='h6' sx={{ fontSize:'1rem' }}>
                                     Nama
                                 </Typography>
                                 <OutlinedInput
@@ -58,7 +58,7 @@ const Register = () => {
                                 />
                             </FormControl>
                             <FormControl sx={{ width: '100%', mt: 3 }} variant="outlined">
-                                <Typography variant='h6'>
+                                <Typography variant='h6' sx={{ fontSize:'1rem' }}>
                                     Email
                                 </Typography>
                                 <OutlinedInput
@@ -68,7 +68,7 @@ const Register = () => {
                                 />
                             </FormControl>
                             <FormControl sx={{ width: '100%', mt: 3 }} variant="outlined">
-                                <Typography variant='h6'>
+                                <Typography variant='h6' sx={{ fontSize:'1rem' }}>
                                     Password
                                 </Typography>
                                 <OutlinedInput
