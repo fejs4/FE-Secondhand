@@ -32,13 +32,13 @@ const ListProductJual = () => {
                                 alt="green iguana"
                             />
                             <CardContent>
-                                <Typography gutterBottom variant="h6" component="div">
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                                     Jam Tangan
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="text.secondary" mb={2}>
                                     Aksesoris
                                 </Typography>
-                                <Typography gutterBottom variant="h6" component="div">
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                                     Rp.10.000,00
                                 </Typography>
                             </CardContent>
@@ -55,13 +55,13 @@ const ListProductJual = () => {
                                 alt="green iguana"
                             />
                             <CardContent>
-                                <Typography gutterBottom variant="h6" component="div">
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                                     Jam Tangan
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="text.secondary" mb={2}>
                                     Aksesoris
                                 </Typography>
-                                <Typography gutterBottom variant="h6" component="div">
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                                     Rp.10.000,00
                                 </Typography>
                             </CardContent>
@@ -78,13 +78,13 @@ const ListProductJual = () => {
                                 alt="green iguana"
                             />
                             <CardContent>
-                                <Typography gutterBottom variant="h6" component="div">
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                                     Jam Tangan
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="text.secondary" mb={2}>
                                     Aksesoris
                                 </Typography>
-                                <Typography gutterBottom variant="h6" component="div">
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                                     Rp.10.000,00
                                 </Typography>
                             </CardContent>
@@ -101,13 +101,13 @@ const ListProductJual = () => {
                                 alt="green iguana"
                             />
                             <CardContent>
-                                <Typography gutterBottom variant="h6" component="div">
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                                     Jam Tangan
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="text.secondary" mb={2}>
                                     Aksesoris
                                 </Typography>
-                                <Typography gutterBottom variant="h6" component="div">
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                                     Rp.10.000,00
                                 </Typography>
                             </CardContent>
@@ -124,13 +124,13 @@ const ListProductJual = () => {
                                 alt="green iguana"
                             />
                             <CardContent>
-                                <Typography gutterBottom variant="h6" component="div">
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                                     Jam Tangan
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="text.secondary" mb={2}>
                                     Aksesoris
                                 </Typography>
-                                <Typography gutterBottom variant="h6" component="div">
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                                     Rp.10.000,00
                                 </Typography>
                             </CardContent>
@@ -147,13 +147,13 @@ const ListProductJual = () => {
                                 alt="green iguana"
                             />
                             <CardContent>
-                                <Typography gutterBottom variant="h6" component="div">
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                                     Jam Tangan
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="text.secondary" mb={2}>
                                     Aksesoris
                                 </Typography>
-                                <Typography gutterBottom variant="h6" component="div">
+                                <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                                     Rp.10.000,00
                                 </Typography>
                             </CardContent>
