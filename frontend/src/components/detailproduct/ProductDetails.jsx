@@ -27,8 +27,8 @@ const ProductDetails = ({ status }) => {
           <Box display={{ sm: 'block', md: 'none' }} mt={{ sm: 5, xs: 5 }}>
             <ArrowBackSharpIcon sx={{
               fontSize: { sm: '2.5rem', xs: '2rem' }, zIndex: 10, padding: 1, position: 'absolute', borderRadius: '50px', background: 'white', left: '4rem', cursor: 'pointer', '&:hover': {
-                backgroundColor: '#aaa',
                 opacity: [0.9, 0.8, 0.7],
+                color:'purple'
               }
             }} />
           </Box>
@@ -48,7 +48,7 @@ const ProductDetails = ({ status }) => {
               {status === 'buyer' ? <PublishBuyer /> : <PublishSeller />}
             </Box>
           </Grid>
-          <Stack position="absolute" className="alert" mx={'auto'} zIndex={100} width={{ md: '40%', xs: '90%' }} sx={{ left: 0, right: 0, top: 0, transition: '0.5s' }} style={{ 'margin-top': success ? "-25px" : "-350px" }} >
+          <Stack position="absolute" className="alert" mx={'auto'} zIndex={100} width={{ md: '40%', xs: '90%' }} sx={{ left: 0, right: 0, top: 0, transition: '0.5s' }} style={{ 'marginTop': success ? "-25px" : "-350px" }} >
             <Alert variant="filled" severity="success" onClose={handleClose}>Harga tawarmu berhasil dikirim ke penjual</Alert>
           </Stack>
         </Grid>

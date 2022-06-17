@@ -1,11 +1,11 @@
 import React from 'react'
-import NavbarAddUser from '../components/header/NavbarAddUser'
+import Navbars from '../components/header/Navbars'
 import FormUser from '../components/products/FormUser'
 
 const InfoUser = () => {
   return  (
     <>
-      <NavbarAddUser/>
+      <Navbars info={'Lengkapi Info Akun'}/>
       <FormUser/>
     </>
   )
