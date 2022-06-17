@@ -5,7 +5,7 @@ import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlin
 import React from 'react'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-const CategoryJual = () => {
+const CategoryJual = ({category, clicked}) => {
     return (
         <>
             <Box p={2} pr={0} sx={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.25)', borderRadius: '16px' }}>
@@ -13,33 +13,33 @@ const CategoryJual = () => {
                     Kategori
                 </Typography>
                 <MenuList  >
-                    <MenuItem sx={{ paddingLeft: '5px !important'}}>
+                    <MenuItem sx={{ paddingLeft: '5px !important', color:clicked === 'Semua Produk'? '#7126B5' : '' }} onClick={()=> category('Semua Produk')}>
                         <ListItemIcon>
-                            <ListAltIcon fontSize="small" />
+                            <ListAltIcon fontSize="small" sx={{ color:clicked === 'Semua Produk'? '#7126B5' : '' }} />
                         </ListItemIcon>
                         <ListItemText>Semua Produk</ListItemText>
-                        <Typography variant="h5" color="black">
-                            <ArrowForwardIosIcon />
+                        <Typography variant="h5" >
+                            <ArrowForwardIosIcon sx={{ color:clicked === 'Semua Produk'? '#7126B5' : '', fontSize:'16px' }}/>
                         </Typography>
                     </MenuItem>
                     <Divider sx={{ mt: '0 !important' }} />
-                    <MenuItem sx={{ paddingLeft: '5px !important' }}>
+                    <MenuItem sx={{ paddingLeft: '5px !important', color:clicked === 'Diminati'? '#7126B5' : '' }} onClick={()=> category('Diminati')}>
                         <ListItemIcon>
-                            <FavoriteIcon fontSize="small" />
+                            <FavoriteIcon fontSize="small" sx={{ color:clicked === 'Diminati'? '#7126B5' : '' }}/>
                         </ListItemIcon>
                         <ListItemText>Diminati</ListItemText>
-                        <Typography variant="h5" color="black">
-                            <ArrowForwardIosIcon />
+                        <Typography variant="h5" >
+                            <ArrowForwardIosIcon sx={{ color:clicked === 'Diminati'? '#7126B5' : '', fontSize:'16px' }}/>
                         </Typography>
                     </MenuItem >
                     <Divider sx={{ mt: '0 !important' }} />
-                    <MenuItem sx={{ paddingLeft: '5px !important' }}>
+                    <MenuItem sx={{ paddingLeft: '5px !important', color:clicked === 'Terjual'? '#7126B5' : '' }} onClick={()=> category('Terjual')}>
                         <ListItemIcon>
-                            <MonetizationOnOutlinedIcon fontSize="small" />
+                            <MonetizationOnOutlinedIcon fontSize="small" sx={{ color:clicked === 'Terjual'? '#7126B5' : '' }}/>
                         </ListItemIcon>
                         <ListItemText>Terjual</ListItemText>
-                        <Typography variant="h5" color="black">
-                            <ArrowForwardIosIcon />
+                        <Typography variant="h5" >
+                            <ArrowForwardIosIcon sx={{ color:clicked === 'Terjual'? '#7126B5' : '', fontSize:'16px' }}/>
                         </Typography>
                     </MenuItem>
 
