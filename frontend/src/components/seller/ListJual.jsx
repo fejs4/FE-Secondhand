@@ -3,19 +3,22 @@ import React from 'react'
 import CategoryJual from './CategoryJual'
 import CategoryJualSwiper from './CategoryJualSwiper'
 import ListProductJual from './ListProductJual'
+import ProdukDiminati from './ProdukDiminati'
+import ProdukTerjual from './ProdukTerjual'
 
 const ListJual = () => {
+  const [clickedCategory, setClickedCategory] = React.useState('Semua Produk');
   return (
     <Box sx={{ mx: { xl: 24, md: 15, sm: 8, xs: 5 }, my: 3 }} >
       <Grid container>
-        <Grid display={{ xs: 'none', md:'block' }} xl={3} md={4}  pr={2} >
-          <CategoryJual /> 
+        <Grid item display={{ xs: 'none', md:'block' }} xl={3} md={4}  pr={2} >
+          <CategoryJual category={setClickedCategory} clicked={clickedCategory}/> 
         </Grid>
-        <Grid display={{ xs: 'block', md:'none' }} xs={12} mb={2} >
-          <CategoryJualSwiper/>
+        <Grid item display={{ xs: 'block', md:'none' }} xs={12} mb={2} >
+          <CategoryJualSwiper category={setClickedCategory} clicked={clickedCategory}/>
         </Grid>
-        <Grid xs={12} md={8} xl={9} >
-          <ListProductJual/>
+        <Grid item xs={12} md={8} xl={9} >
+          {clickedCategory === 'Semua Produk'? <ListProductJual/> : clickedCategory === 'Diminati'? <ProdukDiminati/> : clickedCategory === 'Terjual'? <ProdukTerjual/> : <ListProductJual/>}
         </Grid>
       </Grid>
     </Box>
