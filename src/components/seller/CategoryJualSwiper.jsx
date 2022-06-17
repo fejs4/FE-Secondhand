@@ -6,18 +6,16 @@ import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlin
 import { Swiper, SwiperSlide } from "swiper/react";
 
 
-const CategoryJualSwiper = () => {
-  const [clicked, setClicked] = React.useState('Semua');
-
+const CategoryJualSwiper = ({category, clicked}) => {
   return (
     <Box >
       <Swiper
         slidesPerView={"auto"}
         className="mySwiper"
       >
-        <SwiperSlide className='filter-button'><Button className={'produk' === clicked ? 'button-active button-controll' : 'button-controll'} onClick={()=>setClicked('produk')}><ListAltIcon/>Produk </Button></SwiperSlide>
-        <SwiperSlide className='filter-button'><Button className={'diminati' === clicked ? 'button-active button-controll' : 'button-controll'} onClick={()=>setClicked('diminati')}><FavoriteIcon/>Diminati </Button></SwiperSlide>
-        <SwiperSlide className='filter-button'><Button className={'terjual' === clicked ? 'button-active button-controll' : 'button-controll'} onClick={()=>setClicked('terjual')}><MonetizationOnOutlinedIcon/>Terjual </Button></SwiperSlide>
+        <SwiperSlide className='filter-button'><Button className={'Semua Produk' === clicked ? 'button-active button-controll' : 'button-controll'} onClick={()=>category('Semua Produk')}><ListAltIcon/>Produk </Button></SwiperSlide>
+        <SwiperSlide className='filter-button'><Button className={'Diminati' === clicked ? 'button-active button-controll' : 'button-controll'} onClick={()=>category('Diminati')}><FavoriteIcon/>Diminati </Button></SwiperSlide>
+        <SwiperSlide className='filter-button'><Button className={'Terjual' === clicked ? 'button-active button-controll' : 'button-controll'} onClick={()=>category('Terjual')}><MonetizationOnOutlinedIcon/>Terjual </Button></SwiperSlide>
       </Swiper>
     </Box>
   )

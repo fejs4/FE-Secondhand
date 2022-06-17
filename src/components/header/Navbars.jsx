@@ -5,7 +5,7 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SearchField from './SearchField';
 import LoginIcon from '@mui/icons-material/Login';
-import { Link} from 'react-router-dom';
+import { Link, useLocation} from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Notifications from '../modals/Notifications';
 import Sidebar from '../sidebar/Sidebar';
@@ -14,6 +14,7 @@ const Navbars = ({ info }) => {
     const [user, setUser] = React.useState('a')
     const [anchorEl, setAnchorEl] = React.useState(null);
     const isNotifOpen = Boolean(anchorEl);
+    const location = useLocation().pathname
 
     const handleNotifOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -57,13 +58,14 @@ const Navbars = ({ info }) => {
                         :
                         <Sidebar/>
                     }
-
-                    <Box
-                        component={'img'}
-                        sx={{ display: { xs: 'none', md: 'block' } }}
-                        src='/images/Rectangle.png'
-                        alt='logo-rectangle'
-                    />
+                    <Link to='/'>
+                        <Box
+                            component={'img'}
+                            sx={{ display: { xs: 'none', md: 'block' } }}
+                            src='/images/Rectangle.png'
+                            alt='logo-rectangle'
+                        />
+                    </Link>
                     {info ? '' :
                         <Box display={{ xs: 'none', md: 'block' }}>
                             <SearchField />
@@ -82,14 +84,15 @@ const Navbars = ({ info }) => {
                         <Box display={{ xs: 'none', md: 'flex' }} gap={2}>
                             {user ?
                                 <>
-                                <IconButton>
-                                    <FormatListBulletedIcon sx={{ cursor: 'pointer' }} />
-                                </IconButton> 
+                                <Link to='/daftar-jual' style={{ textDecoration:'none' }}>
+                                    <IconButton>
+                                        <FormatListBulletedIcon sx={{ cursor: 'pointer', color: location === '/daftar-jual' ? '#7126B5' : 'black' }} />
+                                    </IconButton> 
+                                </Link>
                                 <IconButton
                                     aria-label="account of current user"
                                     aria-haspopup="true"
                                     onClick={handleNotifOpen}
-                                    color="inherit"
                                 >
                                     <NotificationsNoneOutlinedIcon sx={{ cursor: 'pointer' }} />
                                 </IconButton> 

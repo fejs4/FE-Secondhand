@@ -93,10 +93,10 @@ const FormProduct = () => {
             <Toolbar position='relative' >
                 <Link to='/'>
                     <ArrowBackSharpIcon sx={{
-                        display: { md: 'block', xs: 'none' }
+                        display: { md: 'block', xs: 'none' }, borderRadius: '50px', background: 'white'
                         , zIndex: 100, padding: 1, cursor: 'pointer', '&:hover': {
-                            backgroundColor: '#aaa',
                             opacity: [0.9, 0.8, 0.7],
+                            color:'purple'
                         }
                     }} />
                 </Link>
@@ -128,9 +128,9 @@ const FormProduct = () => {
                             required
                             sx={{ mt: 0, mb: 2, borderRadius: '16px' }}
                         >
-                            <MenuItem sx={{ width: '100%' }} defaultValue='10'>Ten</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} defaultValue='20'>Twenty</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} defaultValue='30'>Thirty</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value='10'>Ten</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value='20'>Twenty</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value='30'>Thirty</MenuItem>
                         </Select>
                     </FormControl>
                     <InputLabel htmlFor="filled-adornment-amount">Deskripsi</InputLabel>

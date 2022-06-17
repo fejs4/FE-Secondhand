@@ -1,12 +1,13 @@
-import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from '@mui/material'
+import { Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from '@mui/material'
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const ListProductJual = () => {
   return (
     <>
-        <Box p={2} sx={{boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.25)', borderRadius: '16px', overflow: 'hidden' }}>
             <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} overflow='hidden' >
                 <Grid item xs={6} sm={3} md={4} >
+                    <Link to='/info-produk' style={{ textDecoration:'none' }}>
                     <Card sx={{ height: '100%' }} >
                         <CardActionArea sx={{ height: '100%', border: '1px dashed #bbb' }}>
                             
@@ -21,6 +22,7 @@ const ListProductJual = () => {
                             </CardContent>
                         </CardActionArea>
                     </Card>
+                    </Link>
                 </Grid>
                 <Grid item xs={6} sm={3} md={4} >
                     <Card >
@@ -160,11 +162,7 @@ const ListProductJual = () => {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                
-                
-                
             </Grid>
-        </Box>
     </>
   )
 }
