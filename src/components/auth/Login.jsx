@@ -52,7 +52,7 @@ const Login = () => {
                                     Email
                                 </Typography>
                                 <OutlinedInput
-                                    type='text'
+                                    type='email'
                                     sx={{ borderRadius: '16px' }}
                                     placeholder='Johndoe@gmail.com'
                                 />

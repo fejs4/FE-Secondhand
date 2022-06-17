@@ -92,8 +92,9 @@ const FormProduct = () => {
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
             <Toolbar position='relative' >
                 <Link to='/'>
-                    <ArrowBackSharpIcon sx={{ display:{ md:'block', xs:'none' }
-                        ,zIndex: 100, padding: 1, cursor: 'pointer', '&:hover': {
+                    <ArrowBackSharpIcon sx={{
+                        display: { md: 'block', xs: 'none' }
+                        , zIndex: 100, padding: 1, cursor: 'pointer', '&:hover': {
                             backgroundColor: '#aaa',
                             opacity: [0.9, 0.8, 0.7],
                         }
@@ -144,16 +145,15 @@ const FormProduct = () => {
                     />
 
                     <InputLabel htmlFor="filled-adornment-amount">Foto Produk</InputLabel>
-                    <div {...getRootProps({ className: 'dropzone' })}>
+                    <Box {...getRootProps({ className: 'dropzone' })}>
                         <Box sx={{ border: '1px dashed #D0D0D0', minWidth: '96px', minHeight: '96px', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
                             <input {...getInputProps()} />
                             {files.length !== 0 ? '' : <AddIcon />}
-                            <Box display={'flex'} flexWrap={'wrap'}>
+                            <Box >
                                 {thumbs}
                             </Box>
                         </Box>
-                    </div>
-
+                    </Box>
 
                     <Grid container spacing={2} mt={2}>
                         <Grid item xs={6}>
@@ -164,9 +164,11 @@ const FormProduct = () => {
                             </Link>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button fullWidth variant="contained" color="primary" sx={{ height: '48px' }}>
-                                Terbitkan
-                            </Button>
+                            <Link to='/daftar-jual' style={{ textDecoration: 'none' }}>
+                                <Button fullWidth variant="contained" color="primary" sx={{ height: '48px' }}>
+                                    Terbitkan
+                                </Button>
+                            </Link>
                         </Grid>
                     </Grid>
                 </Box>

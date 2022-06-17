@@ -6,7 +6,7 @@ import FormProduct from '../components/products/FormProduct'
 const InfoProduk = () => {
   return (
     <>
-      <Navbars info={'Info Penawar'}/>
+      <Navbars info={'Lengkapi Detail Produk'}/>
       <FormProduct/>
     </>
   )

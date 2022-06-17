@@ -10,7 +10,7 @@ const DetailProductBuyer = () => {
         <Box display={{ md:'block', xs:'none' }}>
           <Navbars/>
         </Box>
-        <ProductDetails productInterest={<ProductInterest/>}/>
+        <ProductDetails status={'buyer'}/>
     </>
   )
 }
