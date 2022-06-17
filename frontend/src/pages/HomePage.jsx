@@ -1,14 +1,14 @@
 import React from 'react'
 import Banner from '../components/header/Banner'
-import Navbar from '../components/header/Navbar'
-import ProductCards from '../components/products/Products'
+import Navbars from '../components/header/Navbars'
+import Products from '../components/products/Products'
 
 const HomePage = () => {
   return (
     <>
-        <Navbar/>
+        <Navbars/>
         <Banner/>
-        <ProductCards/>
+        <Products/>
     </>
   )
 }

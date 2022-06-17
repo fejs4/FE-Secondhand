@@ -11,7 +11,10 @@ export const Theme = createTheme({
       }
     },
     typography:{
-      fontFamily:"Poppins, sans-serif"
+      fontFamily:"Poppins, sans-serif",
+      button:{
+        textTransform:'none'
+      }
     },
     palette:{
       primary: {
