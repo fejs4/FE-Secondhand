@@ -1,10 +1,10 @@
 import { ThemeProvider } from '@mui/system';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
+import InfoUser from './pages/InfoUser';
+import './style/App.css';
 import HomePage from './pages/HomePage';
 import { theme } from './style/Theme';
 import "swiper/css";
-
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import DaftarJual from './pages/DaftarJual';
@@ -20,6 +20,8 @@ function App() {
         <ThemeProvider theme={theme}>
           <Routes>
             <Route path='/' element={<HomePage/>} />
+            <Route path='/auth' element={<Login/>} />
+            <Route path='/info-user' element={<InfoUser/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
             <Route path='/akunsaya' element={<AkunSaya/>} />

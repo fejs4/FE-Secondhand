@@ -10,7 +10,7 @@ const DetailProductPage = () => {
         <Box display={{ md:'block', xs:'none' }}>
           <Navbars/>
         </Box>
-        <ProductDetails productInfo={<ProductInfo/>}/>
+        <ProductDetails status={'seller'}/>
     </>
   )
 }
