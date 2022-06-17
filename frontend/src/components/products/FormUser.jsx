@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Box from '@mui/material/Box';
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import PhotoCameraOutlinedIcon from '@mui/icons-material/PhotoCameraOutlined';
 import Toolbar from '@mui/material/Toolbar';
-import { Button, FormControl, Grid, InputAdornment, IconButton, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import { Button, FormControl, Grid, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 
@@ -13,8 +12,6 @@ const thumb = {
     display: 'inline-flex',
     borderRadius: 2,
     border: '1px solid #eaeaea',
-    marginBottom: 8,
-    marginRight: 8,
     width: 100,
     height: 100,
     padding: 4,
@@ -49,7 +46,7 @@ function maxFilesValidator(file) {
 const FormProduct = () => {
     const [files, setFiles] = useState([]);
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
-        maxFiles: 4,
+        maxFiles: 1,
         validator: maxFilesValidator,
         accept: {
             'image/*': []
@@ -93,35 +90,25 @@ const FormProduct = () => {
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
             <Toolbar position='relative' >
                 <Link to='/'>
-                    <ArrowBackSharpIcon sx={{ display:{ md:'block', xs:'none' }
-                        ,zIndex: 100, padding: 1, cursor: 'pointer', '&:hover': {
-                            backgroundColor: '#aaa',
+                    <ArrowBackSharpIcon sx={{
+                        display: { md: 'block', xs: 'none' }, borderRadius: '50px', background: 'white'
+                        , zIndex: 100, padding: 1, cursor: 'pointer', '&:hover': {
                             opacity: [0.9, 0.8, 0.7],
+                            color: 'purple'
                         }
                     }} />
                 </Link>
                 <Box position='absolute' width={'60%'} mx={'auto'} sx={{ left: 0, right: 0, top: 0 }} >
-
-                <InputLabel htmlFor="filled-adornment-amount"></InputLabel>
-                <div {...getRootProps({ className: 'dropzone' })}>
-                        <Box sx={{  minWidth: '96px', minHeight: '96px', color:"primary", alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
+                    <InputLabel htmlFor="filled-adornment-amount"></InputLabel>
+                    <Box {...getRootProps({ className: 'dropzone' })} sx={{ maxWidth: '96px', height: '96px', m: 'auto' }}>
+                        <Box sx={{ color: "primary", background: '#E2D4F0', height: '100%', width: '100%', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
                             <input {...getInputProps()} />
-                            {files.length !== 0 ? '' : <PhotoCamera/>}
+                            {files.length !== 0 ? '' : <PhotoCameraOutlinedIcon sx={{ color: '#7126B5' }} />}
                             <Box display={'flex'} flexWrap={'wrap'}>
                                 {thumbs}
                             </Box>
                         </Box>
-                    </div>
-
-                        {/* <Box sx={{ border: '1px dashed #D0D0D0', minWidth: '96px', minHeight: '96px', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
-                            <input {...getInputProps()} />
-                            {files.length !== 0 ? '' : <AddIcon />}
-                            <Box display={'flex'} flexWrap={'wrap'}>
-                                {thumbs}
-                            </Box>
-                        </Box>
-                    </div> */}
-
+                    </Box>
 
                     <InputLabel htmlFor="filled-adornment-amount">Nama*</InputLabel>
                     <OutlinedInput
@@ -141,12 +128,12 @@ const FormProduct = () => {
                             required
                             sx={{ mt: 0, mb: 2, borderRadius: '16px' }}
                         >
-                            <MenuItem sx={{ width: '100%' }} defaultValue='10'>Jakarta</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} defaultValue='20'>Bogor</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} defaultValue='30'>Depok</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value='jakarta'>Jakarta</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value='bogor'>Bogor</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value='depok'>Depok</MenuItem>
                         </Select>
                     </FormControl>
-                
+
                     <InputLabel htmlFor="filled-adornment-amount">Alamat*</InputLabel>
                     <OutlinedInput
                         type='text'
@@ -160,7 +147,6 @@ const FormProduct = () => {
 
                     <InputLabel htmlFor="filled-adornment-amount">No. Handphone*</InputLabel>
                     <OutlinedInput
-                        // startAdornment={<InputAdornment position="start">Rp</InputAdornment>}
                         sx={{ mt: 0, mb: 2, borderRadius: '16px', p: 1 }}
                         size="small"
                         required
@@ -168,31 +154,13 @@ const FormProduct = () => {
                         placeholder='+62812345678'
                         autoComplete='false'
                     />
-
-                    {/* <InputLabel htmlFor="filled-adornment-amount">Foto Produk</InputLabel>
-                    <div {...getRootProps({ className: 'dropzone' })}>
-                        <Box sx={{ border: '1px dashed #D0D0D0', minWidth: '96px', minHeight: '96px', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
-                            <input {...getInputProps()} />
-                            {files.length !== 0 ? '' : <AddIcon />}
-                            <Box display={'flex'} flexWrap={'wrap'}>
-                                {thumbs}
-                            </Box>
-                        </Box>
-                    </div> */}
-
-
                     <Grid container spacing={2} mt={2}>
-                        {/* <Grid item xs={6}>
-                            <Link to='/detail-product-seller/1' style={{ textDecoration: 'none' }}>
-                                <Button fullWidth variant="outlined" color="primary" sx={{ height: '48px' }} >
-                                    Preview
+                        <Grid item xs={12}>
+                            <Link to='/'>
+                                <Button fullWidth variant="contained" color="primary" sx={{ height: '48px' }}>
+                                    Simpan
                                 </Button>
                             </Link>
-                        </Grid> */}
-                        <Grid item xs={12}>
-                            <Button fullWidth variant="contained" color="primary" sx={{ height: '48px' }}>
-                                Simpan
-                            </Button>
                         </Grid>
                     </Grid>
                 </Box>
