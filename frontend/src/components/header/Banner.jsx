@@ -16,7 +16,7 @@ const Banner = () => {
             <Box width={{ lg:'40%', md:'45%', xs:'50%' }} height={'100%'} position={'relative'} >
               <Box component={'img'} src='/images/banner/Rectangle 137.png' display={{ xs:'none', md:'block' }} width={'100%'} height={'100%'}  position={'absolute'} />
               <Box component={'img'} src='/images/banner/Rectangle 136.png' display={{ xs:'none', md:'block' }} width={'100%'} height={'100%'} position={'absolute'}/>
-              <Box component={'img'} src='/images/banner/png_gift_88837.png' width={{ sm:'10rem',xs:'8rem' }} height={{ sm:'10rem',xs:'8rem' }}  top={'25%'}  position={'absolute'}/>
+              <Box component={'img'} src='/images/banner/png_gift_88837.png' width={{ md:'8rem',sm:'8rem', xs:'7rem' }} height={{ md:'8rem',sm:'8rem',xs:'7rem' }}  top={{ md:'30%', xs:'40%' }}  position={'absolute'}/>
             </Box>
         </Box>
         <Box display={{ xs: 'none', md: 'block' }} sx={{ width: '236px', height: '224px', backgroundColor: '#E2D4F0', borderRadius: '20px 0 0 20px' }}/>

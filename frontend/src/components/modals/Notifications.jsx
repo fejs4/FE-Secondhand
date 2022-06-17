@@ -8,12 +8,12 @@ const Notifications = () => {
         <Grid container my={1} p={1} sx={{  cursor: 'pointer', '&:hover': {
                 backgroundColor: '#eee',
                 } }} >
-            <Grid xs={2} textAlign="center">
+            <Grid item xs={2} textAlign="center">
                 <IconButton >
                     <Avatar alt="" src="/static/images/avatar/2.jpg" />
                 </IconButton>
             </Grid>
-            <Grid xs={6}>
+            <Grid item xs={6}>
                 <Typography variant="caption" color='text.secondary' component="h2" >
                     Penawaran Produk
                 </Typography>
@@ -27,7 +27,7 @@ const Notifications = () => {
                     Ditawar Rp 200.000
                 </Typography>
             </Grid>
-            <Grid xs={4} textAlign="end" >
+            <Grid item xs={4} textAlign="end" >
                 <Typography variant="caption" color='text.secondary' component="h2" >
                     20 April, 14:04 <CircleIcon style={{ color: 'red', fontSize:'0.9em' }}/>
                 </Typography>
@@ -37,12 +37,12 @@ const Notifications = () => {
         <Grid container my={1} p={1} sx={{  cursor: 'pointer', '&:hover': {
                 backgroundColor: '#eee',
                 } }} >
-            <Grid xs={2} textAlign="center">
+            <Grid item xs={2} textAlign="center">
                 <IconButton >
                     <Avatar alt="" src="/static/images/avatar/2.jpg" />
                 </IconButton>
             </Grid>
-            <Grid xs={6}>
+            <Grid item xs={6}>
                 <Typography variant="caption" color='text.secondary' component="h2" >
                     Berhasil di terbitkan
                 </Typography>
@@ -53,7 +53,7 @@ const Notifications = () => {
                     Rp 250.000
                 </Typography>
             </Grid>
-            <Grid xs={4} textAlign="end" >
+            <Grid item xs={4} textAlign="end" >
                 <Typography variant="caption" color='text.secondary' component="h2" >
                     20 April, 12:00 <CircleIcon style={{ color: 'red', fontSize:'0.9em' }}/>
                 </Typography>
