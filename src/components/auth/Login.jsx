@@ -1,5 +1,5 @@
 import { Box, Grid, Typography, Button } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -62,7 +62,6 @@ const Login = () => {
                                     Password
                                 </Typography>
                                 <OutlinedInput
-                                    id="outlined-adornment-password"
                                     type={values.showPassword ? 'text' : 'password'}
                                     value={values.password}
                                     onChange={handleChange('password')}

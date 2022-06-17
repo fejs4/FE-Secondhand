@@ -10,7 +10,7 @@ const FilterCategory = () => {
   let keys = ['Semua', 'Hobi', 'Kendaraan', 'Baju', 'Elektronik', 'Kesehatan']
   keys.map((item)=>{
     items.push(
-      <SwiperSlide className='filter-button'><Button className={item === clicked ? 'button-active button-controll' : 'button-controll'} onClick={()=>setClicked(item)}><SearchIcon/>{item} </Button></SwiperSlide>
+      <SwiperSlide className='filter-button' key={item}><Button className={item === clicked ? 'button-active button-controll' : 'button-controll'} onClick={()=>setClicked(item)}><SearchIcon/>{item} </Button></SwiperSlide>
     )
   })
 

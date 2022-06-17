@@ -3,16 +3,10 @@ import { useDropzone } from 'react-dropzone';
 import Box from '@mui/material/Box';
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 import Toolbar from '@mui/material/Toolbar';
-import { Button, FormControl, Grid, Input, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
+import { Button, FormControl, Grid, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 
-const thumbsContainer = {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginLeft: '.5rem'
-};
 
 const thumb = {
     display: 'inline-flex',
@@ -66,15 +60,15 @@ const FormProduct = () => {
         }
     })
 
-    const fileRejectionItems = fileRejections.map(({ errors }) => {
-        const temp = []
-        console.log(fileRejections[0].errors[0].message)
+    // const fileRejectionItems = fileRejections.map(({ errors }) => {
+    //     const temp = []
+    //     console.log(fileRejections[0].errors[0].message)
 
-        return (
-            <>
-            </>
-        )
-    });
+    //     return (
+    //         <>
+    //         </>
+    //     )
+    // })
 
     const thumbs = files.map(file => (
         <div style={thumb} key={file.name}>
@@ -82,6 +76,7 @@ const FormProduct = () => {
                 <img
                     src={file.preview}
                     style={img}
+                    alt='images'
                     // Revoke data uri after image is loaded
                     onLoad={() => { URL.revokeObjectURL(file.preview) }}
                 />
@@ -96,66 +91,65 @@ const FormProduct = () => {
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
             <Toolbar position='relative' >
-                <ArrowBackSharpIcon sx={{
-                    zIndex: 100, padding: 1, cursor: 'pointer', '&:hover': {
-                        backgroundColor: '#aaa',
-                        opacity: [0.9, 0.8, 0.7],
-                    }
-                }} />
+                <Link to='/'>
+                    <ArrowBackSharpIcon sx={{ display:{ md:'block', xs:'none' }
+                        ,zIndex: 100, padding: 1, cursor: 'pointer', '&:hover': {
+                            backgroundColor: '#aaa',
+                            opacity: [0.9, 0.8, 0.7],
+                        }
+                    }} />
+                </Link>
                 <Box position='absolute' width={'60%'} mx={'auto'} sx={{ left: 0, right: 0, top: 0 }} >
-                    <InputLabel margin="start" htmlFor="filled-adornment-amount">Nama Produk</InputLabel>
+                    <InputLabel htmlFor="filled-adornment-amount">Nama Produk</InputLabel>
                     <OutlinedInput
                         sx={{ mt: 0, mb: 2, borderRadius: '16px', p: 1 }}
                         size="small"
-                        margin="normal"
                         required
                         fullWidth
                         placeholder="Nama produk"
                         id="name"
                         autoComplete='false'
                     />
-                    <InputLabel margin="start" htmlFor="filled-adornment-amount">Harga</InputLabel>
+                    <InputLabel htmlFor="filled-adornment-amount">Harga</InputLabel>
                     <OutlinedInput
                         startAdornment={<InputAdornment position="start">Rp</InputAdornment>}
-                        sx={{ mt: 0, mb: 2,  borderRadius: '16px', p: 1 }}
+                        sx={{ mt: 0, mb: 2, borderRadius: '16px', p: 1 }}
                         size="small"
-                        margin="normal"
                         required
                         fullWidth
                         placeholder='0,00'
                         autoComplete='false'
                     />
-                    <InputLabel margin="start" htmlFor="filled-adornment-amount">Kategori</InputLabel>
+                    <InputLabel htmlFor="filled-adornment-amount">Kategori</InputLabel>
                     <FormControl sx={{ width: '100%' }} size='small'>
                         <Select
                             id="demo-simple-select"
                             required
                             sx={{ mt: 0, mb: 2, borderRadius: '16px' }}
                         >
-                            <MenuItem sx={{ width: '100%' }} value={10}>Ten</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} value={20}>Twenty</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} value={30}>Thirty</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} defaultValue='10'>Ten</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} defaultValue='20'>Twenty</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} defaultValue='30'>Thirty</MenuItem>
                         </Select>
                     </FormControl>
-                    <InputLabel margin="start" htmlFor="filled-adornment-amount">Deskripsi</InputLabel>
+                    <InputLabel htmlFor="filled-adornment-amount">Deskripsi</InputLabel>
                     <OutlinedInput
                         type='text'
                         autoComplete='false'
                         fullWidth
                         multiline
                         rows={4}
-                        sx={{ borderRadius: '16px', mt: 0, mb: 2,}}
+                        sx={{ borderRadius: '16px', mt: 0, mb: 2, }}
                         placeholder="Contoh: Jalan Ikan Hiu 33"
                     />
 
-                    <InputLabel margin="start" htmlFor="filled-adornment-amount">Foto Produk</InputLabel>
+                    <InputLabel htmlFor="filled-adornment-amount">Foto Produk</InputLabel>
                     <div {...getRootProps({ className: 'dropzone' })}>
-                        <Box sx={{ border: '1px dashed #D0D0D0', minWidth: '96px', minHeight: '96px', alignItems: 'center', display: 'flex', justifyContent:'center' }}>
+                        <Box sx={{ border: '1px dashed #D0D0D0', minWidth: '96px', minHeight: '96px', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
                             <input {...getInputProps()} />
                             {files.length !== 0 ? '' : <AddIcon />}
                             <Box display={'flex'} flexWrap={'wrap'}>
-
-                            {thumbs}
+                                {thumbs}
                             </Box>
                         </Box>
                     </div>
@@ -163,14 +157,14 @@ const FormProduct = () => {
 
                     <Grid container spacing={2} mt={2}>
                         <Grid item xs={6}>
-                            <Link to='/detail-product-seller/1' style={{ textDecoration:'none' }}>
-                                <Button fullWidth variant="outlined" color="primary" sx={{ height:'48px' }} >
+                            <Link to='/detail-product-seller/1' style={{ textDecoration: 'none' }}>
+                                <Button fullWidth variant="outlined" color="primary" sx={{ height: '48px' }} >
                                     Preview
                                 </Button>
                             </Link>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button fullWidth variant="contained" color="primary" sx={{ height:'48px' }}>
+                            <Button fullWidth variant="contained" color="primary" sx={{ height: '48px' }}>
                                 Terbitkan
                             </Button>
                         </Grid>
