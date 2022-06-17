@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@mui/system';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
+import './style/App.css';
 import HomePage from './pages/HomePage';
 import { theme } from './style/Theme';
 import "swiper/css";
