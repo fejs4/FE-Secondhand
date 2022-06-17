@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import InfoUser from './pages/InfoUser';
 import './style/App.css';
 import HomePage from './pages/HomePage';
-import { theme } from './style/Theme';
+import { Theme } from './style/Theme';
 import "swiper/css";
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
@@ -17,14 +17,14 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={Theme}>
           <Routes>
             <Route path='/' element={<HomePage/>} />
             <Route path='/auth' element={<Login/>} />
             <Route path='/info-user' element={<InfoUser/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
-            <Route path='/akunsaya' element={<AkunSaya/>} />
+            <Route path='/myakun' element={<AkunSaya/>} />
             <Route path='/info-produk' element={<InfoProduk/>} />
             <Route path='/daftar-jual' element={<DaftarJual/>} />
             <Route path='/detail-product-seller/:Id' element={<DetailProductSeller/>} />

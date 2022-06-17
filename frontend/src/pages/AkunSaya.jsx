@@ -1,10 +1,12 @@
 import React from 'react'
-import AkunSayaMobile from '../components/header/AkunSayaMobile'
+import InfoAkunSaya from '../components/header/InfoAkunSaya'
+import Navbars from '../components/header/Navbars'
 
 const AkunSaya = () => {
   return (
     <>
-        <AkunSayaMobile/>
+       <Navbars info={'Akun Saya'}/>
+      <InfoAkunSaya/>
     </>
   )
 }

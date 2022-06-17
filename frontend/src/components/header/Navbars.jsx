@@ -94,7 +94,7 @@ const Navbars = ({ info }) => {
                                     <NotificationsNoneOutlinedIcon sx={{ cursor: 'pointer' }} />
                                 </IconButton> 
                                 <IconButton>
-                                    <PersonOutlineOutlinedIcon sx={{ cursor: 'pointer' }} />
+                                    <Link to='myakun'> <PersonOutlineOutlinedIcon sx={{ cursor: 'pointer' }} /></Link>
                                 </IconButton> 
                             </>
                                 :
