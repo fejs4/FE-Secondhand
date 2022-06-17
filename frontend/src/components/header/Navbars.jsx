@@ -22,7 +22,7 @@ const Navbars = () => {
 
     const renderMenu = (
         <Menu
-          PaperProps={{sx: {width: '30%'}}}
+          PaperProps={{sx: {width: {md:'30%', xs:'100%'}}}}
           sx={{ top: "50px" }}
           anchorEl={anchorEl}
           anchorOrigin={{

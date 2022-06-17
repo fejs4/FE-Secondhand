@@ -11,6 +11,7 @@ import DaftarJual from './pages/DaftarJual';
 import InfoProduk from './pages/InfoProduk';
 import DetailProductSeller from './pages/DetailProductSeller';
 import DetailProductBuyer from './pages/DetailProductBuyer';
+import AkunSaya from './pages/AkunSaya';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path='/' element={<HomePage/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
+            <Route path='/akunsaya' element={<AkunSaya/>} />
             <Route path='/info-produk' element={<InfoProduk/>} />
             <Route path='/daftar-jual' element={<DaftarJual/>} />
             <Route path='/detail-product-seller/:Id' element={<DetailProductSeller/>} />
