@@ -6,7 +6,8 @@ import Toolbar from '@mui/material/Toolbar';
 import { Button, FormControl, Grid, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-
+import { useDispatch } from "react-redux";
+import { setTemporary } from '../../redux/product';
 
 const thumb = {
     display: 'inline-flex',
@@ -32,9 +33,9 @@ const img = {
     height: '100%'
 };
 
-const maxFile = 4
 
 function maxFilesValidator(file) {
+    const maxFile = 4
     if (file.length > maxFile) {
         return {
             code: "file-overload",
@@ -47,6 +48,24 @@ function maxFilesValidator(file) {
 
 const FormProduct = () => {
     const [files, setFiles] = useState([]);
+    const dispatch = useDispatch()
+
+    const [data, setData] = useState(
+        {
+            nama:'',
+            harga: 0,
+            kategori:'semua',
+            deskripsi:'',
+            images:[]
+        }
+    )
+    const temp = []
+    if (files.length !== 0) {
+        files.map((file) => {
+            temp.push(file.path)
+        })
+    }
+
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
         maxFiles: 4,
         validator: maxFilesValidator,
@@ -56,7 +75,7 @@ const FormProduct = () => {
         onDrop: acceptedFiles => {
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
-            })));
+            })))
         }
     })
 
@@ -85,8 +104,11 @@ const FormProduct = () => {
     ));
     useEffect(() => {
         // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-        return () => files.forEach(file => URL.revokeObjectURL(file.preview));
-    }, [])
+        dispatch(setTemporary(data))
+        return () => {
+            files.forEach(file => URL.revokeObjectURL(file.preview))
+        }
+    }, [files, data])
 
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
@@ -108,6 +130,7 @@ const FormProduct = () => {
                         required
                         fullWidth
                         placeholder="Nama produk"
+                        onChange={(e) => setData({...data, nama: e.target.value})}
                         id="name"
                         autoComplete='false'
                     />
@@ -116,9 +139,11 @@ const FormProduct = () => {
                         startAdornment={<InputAdornment position="start">Rp</InputAdornment>}
                         sx={{ mt: 0, mb: 2, borderRadius: '16px', p: 1 }}
                         size="small"
+                        type='number'
                         required
                         fullWidth
                         placeholder='0,00'
+                        onChange={(e) => setData({...data, harga: e.target.value})}
                         autoComplete='false'
                     />
                     <InputLabel htmlFor="filled-adornment-amount">Kategori</InputLabel>
@@ -127,10 +152,13 @@ const FormProduct = () => {
                             id="demo-simple-select"
                             required
                             sx={{ mt: 0, mb: 2, borderRadius: '16px' }}
+                            value={data.kategori}
+                            onChange={(e) => setData({...data, kategori: e.target.value})}
                         >
-                            <MenuItem sx={{ width: '100%' }} value='10'>Ten</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} value='20'>Twenty</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} value='30'>Thirty</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value={'semua'} hidden >Pilih Kategori</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value={'hobi'}>hobi</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value={'hewan'}>hewan</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value={'perlengkapan'}>perlengkapan</MenuItem>
                         </Select>
                     </FormControl>
                     <InputLabel htmlFor="filled-adornment-amount">Deskripsi</InputLabel>
@@ -142,12 +170,13 @@ const FormProduct = () => {
                         rows={4}
                         sx={{ borderRadius: '16px', mt: 0, mb: 2, }}
                         placeholder="Contoh: Jalan Ikan Hiu 33"
+                        onChange={(e) => setData({...data, deskripsi: e.target.value})}
                     />
 
                     <InputLabel htmlFor="filled-adornment-amount">Foto Produk</InputLabel>
                     <Box {...getRootProps({ className: 'dropzone' })}>
                         <Box sx={{ border: '1px dashed #D0D0D0', minWidth: '96px', minHeight: '96px', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
-                            <input {...getInputProps()} />
+                            <input {...getInputProps()}/>
                             {files.length !== 0 ? '' : <AddIcon />}
                             <Box >
                                 {thumbs}

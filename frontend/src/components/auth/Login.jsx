@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Button } from '@mui/material'
+import { Box, Grid, Typography, Button, FormHelperText } from '@mui/material'
 import React from 'react'
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -8,13 +8,21 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
+import { loginValidation } from '../../validator/validator'
 
 const Login = () => {
     // Login
+    const [error, setError] = React.useState({});
     const [values, setValues] = React.useState({
         password: '',
+        email: '',
         showPassword: false,
     });
+
+    const loginValidate = (e) => {
+        e.preventDefault()
+        loginValidation(values, setError)
+    }
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -48,23 +56,31 @@ const Login = () => {
                                 Masuk
                             </Typography>
                             <FormControl sx={{ width: '100%', mt: 2 }} variant="outlined">
-                                <Typography variant='h6' sx={{ fontSize:'1rem' }}>
+                                <Typography variant='h6' sx={{ fontSize: '1rem' }}>
                                     Email
                                 </Typography>
                                 <OutlinedInput
+                                    onChange={handleChange('email')}
                                     type='email'
+                                    error={error.email}
                                     sx={{ borderRadius: '16px' }}
                                     placeholder='Johndoe@gmail.com'
                                 />
+                                <FormHelperText sx={{ color: 'red', position:'relative' }}>
+                                    <Typography sx={{ fontSize: '12px', position:'absolute' }}>
+                                        {error.email ? error.email : ''}
+                                    </Typography>
+                                </FormHelperText>
                             </FormControl>
                             <FormControl sx={{ width: '100%', mt: 2 }} variant="outlined">
-                                <Typography variant='h6' sx={{ fontSize:'1rem' }}>
+                                <Typography variant='h6' sx={{ fontSize: '1rem' }}>
                                     Password
                                 </Typography>
                                 <OutlinedInput
                                     type={values.showPassword ? 'text' : 'password'}
                                     value={values.password}
                                     onChange={handleChange('password')}
+                                    error={error.password}
                                     placeholder='Masukkan password'
                                     sx={{ borderRadius: '16px' }}
                                     endAdornment={
@@ -80,11 +96,22 @@ const Login = () => {
                                         </InputAdornment>
                                     }
                                 />
+                                <FormHelperText sx={{ color: 'red', position:'relative' }}>
+                                    <Typography sx={{ fontSize: '12px', position:'absolute' }}>
+                                        {error.password ? error.password : ''}
+                                    </Typography>
+                                </FormHelperText>
                             </FormControl>
-                            <Button color='primary' variant='contained' sx={{ borderRadius: '16px', width: '100%', height: '48px', mt: 2 }}>Masuk</Button>
-                            <Box display={'flex'} justifyContent={'center'} mt={{ md: 3, sm: 18, xs: 18 }}>
+                            <Button
+                                color='primary'
+                                variant='contained'
+                                sx={{ borderRadius: '16px', width: '100%', height: '48px', mt: 3 }}
+                                onMouseUp={loginValidate}
+                            >Masuk
+                            </Button>
+                            <Box display={'flex'} justifyContent={'center'} mt={{ md: 3, xs: 30.5 }}>
                                 <Typography variant='h6'>Belum punya akun? </Typography>
-                                <Link to='/register' style={{ textDecoration:'none' }}>
+                                <Link to='/register' style={{ textDecoration: 'none' }}>
                                     <Typography variant='h6' sx={{ ml: 1, fontWeight: '700', cursor: 'pointer' }} color='primary' >Daftar di sini</Typography>
                                 </Link>
                             </Box>

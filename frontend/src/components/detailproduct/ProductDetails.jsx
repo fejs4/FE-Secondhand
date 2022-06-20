@@ -10,10 +10,10 @@ import ProductInfo from './ProductInfo'
 import ProductInterest from './ProductInterest'
 
 const ProductDetails = ({ status }) => {
+
   const [error, setError] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const [deleted, setDeleted] = React.useState(false);
-
   const handleClose = () => {
     setError(false);
     setSuccess(false);
