@@ -1,8 +1,7 @@
 import { Box } from '@mui/material'
 import React from 'react'
-import ProductDetails from '../components/detailproduct/ProductDetails'
-import ProductInterest from '../components/detailproduct/ProductInterest'
-import Navbars from '../components/header/Navbars'
+import ProductDetails from '../components/detailproduct/main/ProductDetails'
+import Navbars from '../components/header/navbar/Navbars'
 
 const DetailProductBuyer = () => {
   return (

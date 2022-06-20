@@ -20,7 +20,7 @@ const ProductInfo = () => {
                         Terbitkan
                     </Button>
                 </Link>
-                <Link to='/info-produk' style={{ textDecoration:'none' }}>
+                <Link to='/info-produk/1' style={{ textDecoration:'none' }}>
                     <Button color='primary' variant='outlined' fullWidth sx={{ borderRadius: '16px', height: '48px', display: { md: 'block', xs: 'none' } }}>
                         Edit
                     </Button>
