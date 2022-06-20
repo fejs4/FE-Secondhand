@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbars from '../components/header/Navbars'
+import Navbars from '../components/header/navbar/Navbars'
 import Notif from '../components/notification/Notif'
 
 const Notification = () => {

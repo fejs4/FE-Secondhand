@@ -1,13 +1,14 @@
 import { Alert, Box, Grid, Stack } from '@mui/material'
 import React from 'react'
-import DescriptionProduct from './DescriptionProduct'
-import ProductImage from './ProductImage'
-import SellerInfo from './SellerInfo'
+import DescriptionProduct from '../DescriptionProduct'
+import ProductImage from '../ProductImage'
+import SellerInfo from '../SellerInfo'
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
-import PublishSeller from './PublishSeller'
-import PublishBuyer from './PublishBuyer'
-import ProductInfo from './ProductInfo'
-import ProductInterest from './ProductInterest'
+import PublishSeller from '../seller/PublishSeller'
+import PublishBuyer from '../buyer/PublishBuyer'
+import ProductInfo from '../seller/ProductInfo'
+import ProductInterest from '../buyer/ProductInterest'
+import { Link } from 'react-router-dom'
 
 const ProductDetails = ({ status }) => {
 
@@ -22,15 +23,17 @@ const ProductDetails = ({ status }) => {
 
   return (
     <>
-      <Box sx={{ mx: { xl: 15, md: 15, sm: 0 }, mt: { md: 5, xs: 0 } }}>
-        <Grid container rowSpacing={2} columnSpacing={{ xs: 3, sm: 3, md: 3 }} justifyContent={'center'} position={'relative'}>
+      <Box sx={{ mx: { xl: 15, md: 15, sm: 0 }, mt: { md: 5, xs: 0 },pb:3 }} >
+        <Grid container rowSpacing={2} columnSpacing={{ xs: 3, sm: 3, md: 3 }} justifyContent={'center'} position={'relative'} >
           <Box display={{ sm: 'block', md: 'none' }} mt={{ sm: 5, xs: 5 }}>
-            <ArrowBackSharpIcon sx={{
-              fontSize: { sm: '2.5rem', xs: '2rem' }, zIndex: 10, padding: 1, position: 'absolute', borderRadius: '50px', background: 'white', left: '4rem', cursor: 'pointer', '&:hover': {
-                opacity: [0.9, 0.8, 0.7],
-                color:'purple'
-              }
-            }} />
+            <Link to={-1}>
+              <ArrowBackSharpIcon sx={{
+                fontSize: { sm: '2.5rem', xs: '2rem' }, zIndex: 10, padding: 1, position: 'absolute', borderRadius: '50px', background: 'white', left: '4rem', cursor: 'pointer', '&:hover': {
+                  opacity: [0.9, 0.8, 0.7],
+                  color:'purple'
+                }
+              }} />
+            </Link>
           </Box>
           <Grid item xl={6} md={8} xs={12} >
             <ProductImage />

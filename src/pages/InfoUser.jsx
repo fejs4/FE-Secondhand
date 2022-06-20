@@ -1,6 +1,6 @@
 import React from 'react'
-import Navbars from '../components/header/Navbars'
-import FormUser from '../components/products/FormUser'
+import Navbars from '../components/header/navbar/Navbars'
+import FormUser from '../components/form/user/FormUser'
 
 const InfoUser = () => {
   return  (

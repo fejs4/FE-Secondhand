@@ -5,10 +5,10 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SearchField from './SearchField';
 import LoginIcon from '@mui/icons-material/Login';
-import { Link, useLocation, Navigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Notifications from '../modals/Notifications';
-import Sidebar from '../sidebar/Sidebar';
+import Notifications from '../../notification/NotificationsModal';
+import Sidebar from '../../sidebar/Sidebar';
 
 const Navbars = ({ info }) => {
     const [user, setUser] = React.useState('a')
@@ -103,7 +103,9 @@ const Navbars = ({ info }) => {
                                     </Link>
                                 </>
                                 :
-                                <Button color='primary' variant='contained' sx={{ borderRadius: '12px', height: '48px', width: '105px' }}><LoginIcon sx={{ mr: 1 }} />Masuk</Button>
+                                <Link to='/login' style={{ textDecoration:'none' }}>
+                                    <Button color='primary' variant='contained' sx={{ borderRadius: '12px', height: '48px', width: '105px' }}><LoginIcon sx={{ mr: 1 }} />Masuk</Button>
+                                </Link>
                             }
                         </Box>
                     </Box>

@@ -28,9 +28,10 @@ function App() {
             <Route path='/myakun' element={<AkunSaya/>} />
             <Route path='/notifikasi' element={<Notification/>} />
             <Route path='/info-produk' element={<InfoProduk/>} />
+            <Route path='/info-produk/:id' element={<InfoProduk/>} />
             <Route path='/daftar-jual' element={<DaftarJual/>} />
-            <Route path='/detail-product-seller/:Id' element={<DetailProductSeller/>} />
-            <Route path='/detail-product-buyer/:Id' element={<DetailProductBuyer />} />
+            <Route path='/detail-product-seller/:id' element={<DetailProductSeller/>} />
+            <Route path='/detail-product-buyer/:id' element={<DetailProductBuyer />} />
             <Route path='*' element={<><h1 className='text-center'>404 ERROR</h1></>}/>
           </Routes>
         </ThemeProvider>

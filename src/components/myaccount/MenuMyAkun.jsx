@@ -1,9 +1,5 @@
-import { Box, Divider, ListItemIcon, ListItemText, MenuItem, MenuList, Typography } from '@mui/material'
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ListAltIcon from '@mui/icons-material/ListAlt';
-import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import { Box, Divider, ListItemIcon, ListItemText, MenuItem, MenuList } from '@mui/material'
 import React from 'react'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import EditIcon from '@mui/icons-material/Edit';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';

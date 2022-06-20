@@ -1,8 +1,7 @@
 import React from 'react'
-import Navbars from '../components/header/Navbars'
-import ProductDetails from '../components/detailproduct/ProductDetails'
+import Navbars from '../components/header/navbar/Navbars'
+import ProductDetails from '../components/detailproduct/main/ProductDetails'
 import { Box } from '@mui/material'
-import ProductInfo from '../components/detailproduct/ProductInfo'
 
 const DetailProductPage = () => {
   return (

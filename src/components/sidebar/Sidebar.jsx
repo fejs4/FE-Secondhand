@@ -38,13 +38,15 @@ const Sidebar = () => {
             </Box>
             <List>
                 {['Notifikasi', 'Daftar Jual', 'Akun Saya'].map((text) => (
-                    <Link to={text === 'Notifikasi' ? '/notifikasi' : text === 'Daftar Jual' ? '/daftar-jual' : text === 'Akun Saya' ? '/myakun' : '/'} style={{ textDecoration:'none', color:'black' }}>
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    </Link>
+                    <React.Fragment key={text}>
+                        <Link to={text === 'Notifikasi' ? '/notifikasi' : text === 'Daftar Jual' ? '/daftar-jual' : text === 'Akun Saya' ? '/myakun' : '/'} style={{ textDecoration: 'none', color: 'black' }}>
+                            <ListItem disablePadding>
+                                <ListItemButton key={text} >
+                                    <ListItemText primary={text} />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
+                    </React.Fragment>
                 ))}
             </List>
         </Box>
@@ -53,7 +55,7 @@ const Sidebar = () => {
         <div>
             <React.Fragment key='left'>
                 <Button onClick={toggleDrawer('left', true)} sx={{ display: { xs: 'flex', md: 'none' } }}>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' }, color:'black', background: '#f5f5f5', width: '48px', height: '48px', borderRadius: '16px', justifyContent: 'center', alignContent: 'center', cursor: 'pointer' }}>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' }, color: 'black', background: '#f5f5f5', width: '48px', height: '48px', borderRadius: '16px', justifyContent: 'center', alignContent: 'center', cursor: 'pointer' }}>
                         <MenuIcon sx={{ mt: 1.5 }} />
                     </Box>
                 </Button>
