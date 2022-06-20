@@ -3,19 +3,15 @@ import { useDropzone } from 'react-dropzone';
 import Box from '@mui/material/Box';
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 import Toolbar from '@mui/material/Toolbar';
-import { Button, FormControl, Grid, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-import CategoryJual from '../seller/CategoryJual';
-import MenuMyAkun from '../auth/MenuMyAkun';
+import MenuMyAkun from './MenuMyAkun';
 
 
 const thumb = {
     display: 'inline-flex',
     borderRadius: 2,
     border: '1px solid #eaeaea',
-    marginBottom: 8,
-    marginRight: 8,
     width: 100,
     height: 100,
     padding: 4,
@@ -83,7 +79,7 @@ const InfoAkunSaya = () => {
     return (
         <Box width={{ md: '70%', xs: '100%' }} mx={'auto'} mt={3}>
             <Toolbar  >
-                <Link to='/'>
+                <Link to={-1}>
                     <ArrowBackSharpIcon sx={{
                         display: { md: 'block', xs: 'none' }
                         , zIndex: 100, padding: 1, cursor: 'pointer', '&:hover': {

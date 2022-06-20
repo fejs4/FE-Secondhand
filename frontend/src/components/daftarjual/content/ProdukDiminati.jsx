@@ -2,13 +2,13 @@ import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Typography } f
 import React from 'react'
 
 const ProdukDiminati = () => {
-  const [product, setProduct] = React.useState(null);
+  const [product, setProduct] = React.useState('a');
   return (
     <>
       {product ?
-        <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} overflow='hidden' >
-          <Grid item xs={6} sm={3} md={4} >
-            <Card >
+        <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }}>
+          <Grid item xs={6} sm={6} md={4}>
+            <Card sx={{ maxWidth: 345 }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
@@ -17,21 +17,21 @@ const ProdukDiminati = () => {
                   alt="green iguana"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
+                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                     Jam Tangan
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" mb={2}>
+                  <Typography variant="body2" color="text.secondary" mb={1} sx={{ fontSize:{xs:'0.8em', md:'1.2em'} }}>
                     Aksesoris
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
+                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                     Rp.10.000,00
                   </Typography>
                 </CardContent>
               </CardActionArea>
             </Card>
           </Grid>
-          <Grid item xs={6} sm={3} md={4} >
-            <Card >
+          <Grid item xs={6} sm={6} md={4}>
+            <Card sx={{ maxWidth: 345 }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
@@ -40,21 +40,21 @@ const ProdukDiminati = () => {
                   alt="green iguana"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
+                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                     Jam Tangan
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" mb={2}>
+                  <Typography variant="body2" color="text.secondary" mb={1} sx={{ fontSize:{xs:'0.8em', md:'1.2em'} }}>
                     Aksesoris
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
+                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                     Rp.10.000,00
                   </Typography>
                 </CardContent>
               </CardActionArea>
             </Card>
           </Grid>
-          <Grid item xs={6} sm={3} md={4} >
-            <Card >
+          <Grid item xs={6} sm={6} md={4}>
+            <Card sx={{ maxWidth: 345 }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
@@ -63,21 +63,21 @@ const ProdukDiminati = () => {
                   alt="green iguana"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
+                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                     Jam Tangan
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" mb={2}>
+                  <Typography variant="body2" color="text.secondary" mb={1} sx={{ fontSize:{xs:'0.8em', md:'1.2em'} }}>
                     Aksesoris
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
+                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                     Rp.10.000,00
                   </Typography>
                 </CardContent>
               </CardActionArea>
             </Card>
           </Grid>
-          <Grid item xs={6} sm={3} md={4} >
-            <Card >
+          <Grid item xs={6} sm={6} md={4}>
+            <Card sx={{ maxWidth: 345 }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
@@ -86,21 +86,21 @@ const ProdukDiminati = () => {
                   alt="green iguana"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
+                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                     Jam Tangan
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" mb={2}>
+                  <Typography variant="body2" color="text.secondary" mb={1} sx={{ fontSize:{xs:'0.8em', md:'1.2em'} }}>
                     Aksesoris
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
+                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                     Rp.10.000,00
                   </Typography>
                 </CardContent>
               </CardActionArea>
             </Card>
           </Grid>
-          <Grid item xs={6} sm={3} md={4} >
-            <Card >
+          <Grid item xs={6} sm={6} md={4}>
+            <Card sx={{ maxWidth: 345 }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
@@ -109,21 +109,21 @@ const ProdukDiminati = () => {
                   alt="green iguana"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
+                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                     Jam Tangan
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" mb={2}>
+                  <Typography variant="body2" color="text.secondary" mb={1} sx={{ fontSize:{xs:'0.8em', md:'1.2em'} }}>
                     Aksesoris
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
+                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                     Rp.10.000,00
                   </Typography>
                 </CardContent>
               </CardActionArea>
             </Card>
           </Grid>
-          <Grid item xs={6} sm={3} md={4} >
-            <Card >
+          <Grid item xs={6} sm={6} md={4}>
+            <Card sx={{ maxWidth: 345 }}>
               <CardActionArea>
                 <CardMedia
                   component="img"
@@ -132,13 +132,13 @@ const ProdukDiminati = () => {
                   alt="green iguana"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
+                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                     Jam Tangan
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" mb={2}>
+                  <Typography variant="body2" color="text.secondary" mb={1} sx={{ fontSize:{xs:'0.8em', md:'1.2em'} }}>
                     Aksesoris
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
+                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize:{xs:'1.1em', md:'1.5em'} }}>
                     Rp.10.000,00
                   </Typography>
                 </CardContent>

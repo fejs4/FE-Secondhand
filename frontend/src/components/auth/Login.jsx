@@ -47,9 +47,11 @@ const Login = () => {
                 <Grid container item xs={12} sm={12} md={6} height={'100%'} direction={'column'} justifyContent={{ xl: 'center', md: 'center', sm: 'none' }} sx={{ px: { xl: 20, md: 10, sm: 10, xs: 5 } }}>
                     <Box>
                         <Box display={{ sm: 'block', md: 'none' }} mt={{ sm: 5, xs: 5 }}>
-                            <IconButton sx={{ padding: 0 }}>
-                                <ArrowBackIcon sx={{ fontSize: '2rem', color: 'black' }} />
-                            </IconButton>
+                            <Link to={-1}>
+                                <IconButton sx={{ padding: 0 }}>
+                                    <ArrowBackIcon sx={{ fontSize: '2rem', color: 'black' }} />
+                                </IconButton>
+                            </Link>
                         </Box>
                         <Box mt={{ sm: 5, xs: 5 }}>
                             <Typography variant='h4' fontWeight={700}>
@@ -66,8 +68,8 @@ const Login = () => {
                                     sx={{ borderRadius: '16px' }}
                                     placeholder='Johndoe@gmail.com'
                                 />
-                                <FormHelperText sx={{ color: 'red', position:'relative' }}>
-                                    <Typography sx={{ fontSize: '12px', position:'absolute' }}>
+                                <FormHelperText sx={{ color: 'red', position: 'relative' }}>
+                                    <Typography sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.email ? error.email : ''}
                                     </Typography>
                                 </FormHelperText>
@@ -96,8 +98,8 @@ const Login = () => {
                                         </InputAdornment>
                                     }
                                 />
-                                <FormHelperText sx={{ color: 'red', position:'relative' }}>
-                                    <Typography sx={{ fontSize: '12px', position:'absolute' }}>
+                                <FormHelperText sx={{ color: 'red', position: 'relative' }}>
+                                    <Typography sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.password ? error.password : ''}
                                     </Typography>
                                 </FormHelperText>
