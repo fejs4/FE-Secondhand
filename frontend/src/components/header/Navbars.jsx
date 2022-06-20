@@ -25,7 +25,7 @@ const Navbars = ({ info }) => {
 
     const renderMenu = (
         <Menu
-          PaperProps={{sx: {width: '30%'}}}
+          PaperProps={{sx: {width: {md:'30%', xs:'100%'}}}}
           sx={{ top: "50px" }}
           anchorEl={anchorEl}
           anchorOrigin={{
@@ -97,7 +97,7 @@ const Navbars = ({ info }) => {
                                     <NotificationsNoneOutlinedIcon sx={{ cursor: 'pointer' }} />
                                 </IconButton> 
                                 <IconButton>
-                                    <PersonOutlineOutlinedIcon sx={{ cursor: 'pointer' }} />
+                                    <Link to='myakun'> <PersonOutlineOutlinedIcon sx={{ cursor: 'pointer' }} /></Link>
                                 </IconButton> 
                             </>
                                 :
