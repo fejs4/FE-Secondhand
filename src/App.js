@@ -13,6 +13,7 @@ import DetailProductSeller from './pages/DetailProductSeller';
 import DetailProductBuyer from './pages/DetailProductBuyer';
 import AkunSaya from './pages/AkunSaya';
 import Notification from './pages/Notification';
+import InfoPenawar from './pages/InfoPenawar';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path='/daftar-jual' element={<DaftarJual/>} />
             <Route path='/detail-product-seller/:id' element={<DetailProductSeller/>} />
             <Route path='/detail-product-buyer/:id' element={<DetailProductBuyer />} />
+            <Route path='/info-penawar' element={<InfoPenawar />} />
             <Route path='*' element={<><h1 className='text-center'>404 ERROR</h1></>}/>
           </Routes>
         </ThemeProvider>
