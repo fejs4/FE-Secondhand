@@ -15,6 +15,8 @@ const Navbars = ({ info }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const isNotifOpen = Boolean(anchorEl);
     const location = useLocation().pathname
+    
+    const dimension = window.innerWidth
 
     const handleNotifOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -58,7 +60,7 @@ const Navbars = ({ info }) => {
                         :
                         <Sidebar/>
                     }
-                    <Link to='/'>
+                    <Link to='/' style={{ zIndex:100 }}>
                         <Box
                             component={'img'}
                             sx={{ display: { xs: 'none', md: 'block' } }}

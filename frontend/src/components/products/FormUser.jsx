@@ -45,6 +45,14 @@ function maxFilesValidator(file) {
 
 const FormProduct = () => {
     const [files, setFiles] = useState([]);
+    const [data, setData] = useState({
+        foto:[],
+        nama: '',
+        kota: '',
+        alamat: '',
+        nohp: ''
+    })
+    console.log(data);
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
         maxFiles: 1,
         validator: maxFilesValidator,
@@ -75,6 +83,7 @@ const FormProduct = () => {
                     src={file.preview}
                     style={img}
                     alt='images'
+                    onChange={(e) => setData({foto: e.target.value})}
                     // Revoke data uri after image is loaded
                     onLoad={() => { URL.revokeObjectURL(file.preview) }}
                 />
@@ -119,6 +128,7 @@ const FormProduct = () => {
                         placeholder="Nama"
                         id="name"
                         autoComplete='false'
+                        onChange={(e) => setData({nama: e.target.value})}
                     />
 
                     <InputLabel htmlFor="filled-adornment-amount">Kota*</InputLabel>
@@ -127,10 +137,11 @@ const FormProduct = () => {
                             id="demo-simple-select"
                             required
                             sx={{ mt: 0, mb: 2, borderRadius: '16px' }}
+                            onChange={(e) => setData({kota: e.target.value})}
                         >
-                            <MenuItem sx={{ width: '100%' }} value='jakarta'>Jakarta</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} value='bogor'>Bogor</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} value='depok'>Depok</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value={'jakarta'}>Jakarta</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value={'bogor'}>Bogor</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value={'depok'}>Depok</MenuItem>
                         </Select>
                     </FormControl>
 
@@ -141,6 +152,7 @@ const FormProduct = () => {
                         fullWidth
                         multiline
                         rows={4}
+                        onChange={(e) => setData({alamat: e.target.value})}
                         sx={{ borderRadius: '16px', mt: 0, mb: 2, }}
                         placeholder="Contoh: Jalan Ikan Hiu 33"
                     />
@@ -153,14 +165,13 @@ const FormProduct = () => {
                         fullWidth
                         placeholder='+62812345678'
                         autoComplete='false'
+                        onChange={(e) => setData({nohp: e.target.value})}
                     />
                     <Grid container spacing={2} mt={2}>
                         <Grid item xs={12}>
-                            <Link to='/'>
-                                <Button fullWidth variant="contained" color="primary" sx={{ height: '48px' }}>
-                                    Simpan
-                                </Button>
-                            </Link>
+                            <Button fullWidth variant="contained" color="primary" sx={{ height: '48px' }}>
+                                Simpan
+                            </Button>
                         </Grid>
                     </Grid>
                 </Box>
