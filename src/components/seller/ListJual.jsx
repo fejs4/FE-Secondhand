@@ -1,5 +1,6 @@
 import { Box, Grid } from '@mui/material'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import CategoryJual from './CategoryJual'
 import CategoryJualSwiper from './CategoryJualSwiper'
 import ListProductJual from './ListProductJual'
@@ -8,6 +9,10 @@ import ProdukTerjual from './ProdukTerjual'
 
 const ListJual = () => {
   const [clickedCategory, setClickedCategory] = React.useState('Semua Produk');
+
+  const product = useSelector(state => state.product.temporary)
+  console.log(product);
+
   return (
     <Box sx={{ mx: { xl: 24, md: 15, sm: 8, xs: 5 }, my: 3 }} >
       <Grid container>

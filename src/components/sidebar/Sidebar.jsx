@@ -9,6 +9,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
     const [state, setState] = React.useState({
@@ -36,12 +37,14 @@ const Sidebar = () => {
                 <CloseIcon sx={{ cursor: 'pointer' }} onClick={toggleDrawer(anchor, false)} />
             </Box>
             <List>
-                {['Notifikasi', 'Daftar Jual', 'Akun Saya'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
+                {['Notifikasi', 'Daftar Jual', 'Akun Saya'].map((text) => (
+                    <Link to={text === 'Notifikasi' ? '/notifikasi' : text === 'Daftar Jual' ? '/daftar-jual' : text === 'Akun Saya' ? 'akun-saya' : '/'} style={{ textDecoration:'none', color:'black' }}>
+                        <ListItem key={text} disablePadding>
+                            <ListItemButton>
+                                <ListItemText primary={text} />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
                 ))}
             </List>
         </Box>
