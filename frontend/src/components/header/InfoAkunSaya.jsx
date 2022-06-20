@@ -3,10 +3,8 @@ import { useDropzone } from 'react-dropzone';
 import Box from '@mui/material/Box';
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 import Toolbar from '@mui/material/Toolbar';
-import { Button, FormControl, Grid, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-import CategoryJual from '../seller/CategoryJual';
 import MenuMyAkun from '../auth/MenuMyAkun';
 
 
