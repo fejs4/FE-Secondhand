@@ -38,7 +38,7 @@ const Sidebar = () => {
             </Box>
             <List>
                 {['Notifikasi', 'Daftar Jual', 'Akun Saya'].map((text) => (
-                    <Link to={text === 'Notifikasi' ? '/notifikasi' : text === 'Daftar Jual' ? '/daftar-jual' : text === 'Akun Saya' ? 'akun-saya' : '/'} style={{ textDecoration:'none', color:'black' }}>
+                    <Link to={text === 'Notifikasi' ? '/notifikasi' : text === 'Daftar Jual' ? '/daftar-jual' : text === 'Akun Saya' ? '/myakun' : '/'} style={{ textDecoration:'none', color:'black' }}>
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                                 <ListItemText primary={text} />
