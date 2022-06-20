@@ -1,10 +1,6 @@
 import React from 'react'
-import Navbars from '../components/header/Navbars'
-import ProductDetails from '../components/detailproduct/ProductDetails'
-import { Box } from '@mui/material'
-import ProductInfo from '../components/detailproduct/ProductInfo'
-import SellerInfo from '../components/detailproduct/SellerInfo'
-import DataPenawar from '../components/seller/DataPenawar'
+import Navbars from '../components/header/navbar/Navbars'
+import DataPenawar from '../components/infopenawar/DataPenawar'
 
 
 const InfoPenawar = () => {
