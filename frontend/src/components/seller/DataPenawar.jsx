@@ -3,7 +3,7 @@ import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 import Toolbar from '@mui/material/Toolbar';
 import { Button, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Box, Typography } from '@mui/material'
+import { Box, Modal, Typography, Alert, Stack} from '@mui/material'
 import BuyerInfo from '../detailproduct/BuyerInfo';
 import CircleIcon from '@mui/icons-material/Circle';
 
@@ -32,7 +32,17 @@ const img = {
     height: '100%'
 };
 
+
 const DataPenawar = () => {
+    const [error, setError] = React.useState(false);
+    const [success, setSuccess] = React.useState(false);
+    const [deleted, setDeleted] = React.useState(false);
+    const handleClose = () => {
+    setError(false);
+    setSuccess(false);
+    setDeleted(false)
+  }; 
+
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
             <Toolbar position='relative' >
@@ -82,7 +92,9 @@ const DataPenawar = () => {
                         <Grid item xs={3}>
                                 <Button fullWidth variant="contained" color="primary" sx={{ height: '40px', borderRadius:'25px'  }}>
                                     Terima
+                                    
                                 </Button>
+                        
                         </Grid>
                     </Grid>
                 {/* <Link to='/' style={{ textDecoration:'none' }}>
