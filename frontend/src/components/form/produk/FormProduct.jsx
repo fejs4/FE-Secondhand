@@ -59,7 +59,6 @@ const FormProduct = () => {
 
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
         maxFiles: 4,
-        validator: maxFilesValidator,
         accept: {
             'image/*': []
         },

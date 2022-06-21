@@ -9,6 +9,7 @@ import { Link, useLocation } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Notifications from '../../notification/NotificationsModal';
 import Sidebar from '../../sidebar/Sidebar';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 const Navbars = ({ info }) => {
     const [user, setUser] = React.useState('a')
@@ -49,7 +50,7 @@ const Navbars = ({ info }) => {
                 <Box component={'div'} display={'flex'} alignItems={'center'} justifyContent={{ xs: 'space-between', sm: 'space-between', md: 'space-between' }} >
                     {info ?
                         <Box display={{ sm: 'block', md: 'none' }} zIndex={10}>
-                            <Link to='/'>
+                            <Link to={-1}>
                                 <IconButton sx={{ padding: 0 }}>
                                     <ArrowBackIcon sx={{ fontSize: '2rem', color: 'black' }} />
                                 </IconButton>
@@ -94,11 +95,16 @@ const Navbars = ({ info }) => {
                                         aria-haspopup="true"
                                         onClick={handleNotifOpen}
                                     >
-                                        <NotificationsNoneOutlinedIcon sx={{ cursor: 'pointer', color: location === '/myakun' ? '#7126B5' : 'black' }} />
+                                        <NotificationsNoneOutlinedIcon sx={{ cursor: 'pointer', color: location === '/notifikasi' ? '#7126B5' : 'black' }} />
                                     </IconButton>
-                                    <Link to='/myakun' style={{ textDecoration: 'none', fontSize: '1.5rem' }}>
+                                    <Link to='/myaccount' style={{ textDecoration: 'none', fontSize: '1.5rem' }}>
                                         <IconButton>
-                                            <PersonOutlineOutlinedIcon sx={{ cursor: 'pointer', color: location === '/myakun' ? '#7126B5' : 'black' }} />
+                                            <PersonOutlineOutlinedIcon sx={{ cursor: 'pointer', color: location === '/myaccount' ? '#7126B5' : 'black' }} />
+                                        </IconButton>
+                                    </Link>
+                                    <Link to='/wishlist' style={{ textDecoration: 'none', fontSize: '1.5rem' }}>
+                                        <IconButton>
+                                            <FavoriteBorderOutlinedIcon sx={{ cursor: 'pointer', color: location === '/wishlist' ? '#7126B5' : 'black' }}/>
                                         </IconButton>
                                     </Link>
                                 </>
