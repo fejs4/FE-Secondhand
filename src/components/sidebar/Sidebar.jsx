@@ -39,7 +39,7 @@ const Sidebar = () => {
             <List>
                 {['Notifikasi', 'Daftar Jual', 'Akun Saya'].map((text) => (
                     <React.Fragment key={text}>
-                        <Link to={text === 'Notifikasi' ? '/notifikasi' : text === 'Daftar Jual' ? '/daftar-jual' : text === 'Akun Saya' ? '/myakun' : '/'} style={{ textDecoration: 'none', color: 'black' }}>
+                        <Link to={text === 'Notifikasi' ? '/notifikasi' : text === 'Daftar Jual' ? '/daftar-jual' : text === 'Akun Saya' ? '/myaccount' : '/'} style={{ textDecoration: 'none', color: 'black' }}>
                             <ListItem disablePadding>
                                 <ListItemButton key={text} >
                                     <ListItemText primary={text} />

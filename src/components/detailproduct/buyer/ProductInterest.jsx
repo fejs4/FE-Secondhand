@@ -1,4 +1,4 @@
-import { Box, Button, InputAdornment, Modal, OutlinedInput, Typography } from '@mui/material'
+import { Box, Button, IconButton, InputAdornment, Modal, OutlinedInput, Typography } from '@mui/material'
 import React from 'react'
 import CloseIcon from '@mui/icons-material/Close';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -33,9 +33,9 @@ const ProductInterest = ({success}) => {
                     <Typography variant='h6' fontWeight={800}>
                         Jam Tangan Casio
                     </Typography>
-                    <Box>
-                        <FavoriteIcon sx={{ fontSize:'2rem' }}/>
-                    </Box>
+                    <IconButton sx={{ padding: .5 }} onClick={() => setLove(true)}>
+                        <FavoriteIcon sx={{ fontSize:'2rem', color:love ? 'red' : 'unset' }}/>
+                    </IconButton>
                 </Box>
                 <Typography variant='h6' sx={{ color: '#8A8A8A' }}>
                     Aksesoris

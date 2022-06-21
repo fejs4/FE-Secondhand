@@ -14,6 +14,7 @@ import DetailProductBuyer from './pages/DetailProductBuyer';
 import AkunSaya from './pages/AkunSaya';
 import Notification from './pages/Notification';
 import InfoPenawar from './pages/InfoPenawar';
+import Wishlist from './pages/Wishlist';
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
             <Route path='/info-user' element={<InfoUser/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
-            <Route path='/myakun' element={<AkunSaya/>} />
+            <Route path='/myaccount' element={<AkunSaya/>} />
+            <Route path='/wishlist' element={<Wishlist/>} />
             <Route path='/notifikasi' element={<Notification/>} />
             <Route path='/info-produk' element={<InfoProduk/>} />
             <Route path='/info-produk/:id' element={<InfoProduk/>} />
