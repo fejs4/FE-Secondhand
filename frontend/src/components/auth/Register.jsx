@@ -48,16 +48,18 @@ const Register = () => {
                 <Grid container item xs={12} sm={12} md={6} height={'100%'} direction={'column'} justifyContent={{ xl: 'center', md: 'center', sm: 'none' }} sx={{ px: { xl: 20, md: 10, sm: 10, xs: 5 } }} >
                     <Box>
                         <Box display={{ sm: 'block', md: 'none' }} mt={{ sm: 5, xs: 5 }}>
-                            <IconButton sx={{ padding: 0 }}>
-                                <ArrowBackIcon sx={{ fontSize: '2rem', color: 'black' }} />
-                            </IconButton>
+                            <Link to={-1}>
+                                <IconButton sx={{ padding: 0 }}>
+                                    <ArrowBackIcon sx={{ fontSize: '2rem', color: 'black' }} />
+                                </IconButton>
+                            </Link>
                         </Box>
                         <Box mt={{ sm: 5, xs: 5 }}>
                             <Typography variant='h4' fontWeight={700}>
                                 Daftar
                             </Typography>
                             <FormControl sx={{ width: '100%', mt: 3 }} variant="outlined">
-                                <Typography variant='h6' sx={{ fontSize:'1rem' }}>
+                                <Typography variant='h6' sx={{ fontSize: '1rem' }}>
                                     Nama
                                 </Typography>
                                 <OutlinedInput
@@ -67,14 +69,14 @@ const Register = () => {
                                     sx={{ borderRadius: '16px' }}
                                     placeholder='John doe'
                                 />
-                                <FormHelperText sx={{ color: 'red', position:'relative' }}>
-                                    <Typography sx={{ fontSize: '12px', position:'absolute' }}>
+                                <FormHelperText sx={{ color: 'red', position: 'relative' }}>
+                                    <Typography sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.name ? error.name : ''}
                                     </Typography>
                                 </FormHelperText>
                             </FormControl>
                             <FormControl sx={{ width: '100%', mt: 3 }} variant="outlined">
-                                <Typography variant='h6' sx={{ fontSize:'1rem' }}>
+                                <Typography variant='h6' sx={{ fontSize: '1rem' }}>
                                     Email
                                 </Typography>
                                 <OutlinedInput
@@ -84,14 +86,14 @@ const Register = () => {
                                     sx={{ borderRadius: '16px' }}
                                     placeholder='Johndoe@gmail.com'
                                 />
-                                <FormHelperText sx={{ color: 'red', position:'relative' }}>
-                                    <Typography sx={{ fontSize: '12px', position:'absolute' }}>
+                                <FormHelperText sx={{ color: 'red', position: 'relative' }}>
+                                    <Typography sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.email ? error.email : ''}
                                     </Typography>
                                 </FormHelperText>
                             </FormControl>
                             <FormControl sx={{ width: '100%', mt: 3 }} variant="outlined">
-                                <Typography variant='h6' sx={{ fontSize:'1rem' }}>
+                                <Typography variant='h6' sx={{ fontSize: '1rem' }}>
                                     Password
                                 </Typography>
                                 <OutlinedInput
@@ -115,8 +117,8 @@ const Register = () => {
                                         </InputAdornment>
                                     }
                                 />
-                                <FormHelperText sx={{ color: 'red', position:'relative' }}>
-                                    <Typography sx={{ fontSize: '12px', position:'absolute' }}>
+                                <FormHelperText sx={{ color: 'red', position: 'relative' }}>
+                                    <Typography sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.password ? error.password : ''}
                                     </Typography>
                                 </FormHelperText>
@@ -124,7 +126,7 @@ const Register = () => {
                             <Button color='primary' onMouseUp={registerValidate} variant='contained' sx={{ borderRadius: '16px', width: '100%', height: '48px', mt: 3 }}>Daftar</Button>
                             <Box display={'flex'} justifyContent={'center'} mt={{ md: 3, xs: 15 }}>
                                 <Typography variant='h6'>Sudah punya akun? </Typography>
-                                <Link to='/login' style={{ textDecoration:'none' }}>
+                                <Link to='/login' style={{ textDecoration: 'none' }}>
                                     <Typography variant='h6' sx={{ ml: 1, fontWeight: '700', cursor: 'pointer' }} color='primary' >Login di sini</Typography>
                                 </Link>
                             </Box>

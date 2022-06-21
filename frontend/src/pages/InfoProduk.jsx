@@ -1,6 +1,6 @@
 import React from 'react'
-import Navbars from '../components/header/Navbars'
-import FormProduct from '../components/products/FormProduct'
+import Navbars from '../components/header/navbar/Navbars'
+import FormProduct from '../components/form/produk/FormProduct'
 
 const InfoProduk = () => {
   return (

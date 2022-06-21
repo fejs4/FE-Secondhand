@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 const ListProductJual = () => {
   return (
     <>
-            <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} overflow='hidden' >
-                <Grid item xs={6} sm={3} md={4} >
+            <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} >
+                <Grid item xs={6} sm={4} md={4} >
                     <Link to='/info-produk' style={{ textDecoration:'none' }}>
                     <Card sx={{ height: '100%' }} >
                         <CardActionArea sx={{ height: '100%', border: '1px dashed #bbb' }}>
@@ -24,7 +24,7 @@ const ListProductJual = () => {
                     </Card>
                     </Link>
                 </Grid>
-                <Grid item xs={6} sm={3} md={4} >
+                <Grid item xs={6} sm={4} md={4} >
                     <Card >
                         <CardActionArea>
                             <CardMedia
@@ -47,7 +47,7 @@ const ListProductJual = () => {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item xs={6} sm={3} md={4} >
+                <Grid item xs={6} sm={4} md={4} >
                     <Card >
                         <CardActionArea>
                             <CardMedia
@@ -70,7 +70,7 @@ const ListProductJual = () => {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item xs={6} sm={3} md={4} >
+                <Grid item xs={6} sm={4} md={4} >
                     <Card >
                         <CardActionArea>
                             <CardMedia
@@ -93,7 +93,7 @@ const ListProductJual = () => {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item xs={6} sm={3} md={4} >
+                <Grid item xs={6} sm={4} md={4} >
                     <Card >
                         <CardActionArea>
                             <CardMedia
@@ -116,7 +116,7 @@ const ListProductJual = () => {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item xs={6} sm={3} md={4} >
+                <Grid item xs={6} sm={4} md={4} >
                     <Card >
                         <CardActionArea>
                             <CardMedia
@@ -139,7 +139,7 @@ const ListProductJual = () => {
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item xs={6} sm={3} md={4} >
+                <Grid item xs={6} sm={4} md={4} >
                     <Card >
                         <CardActionArea>
                             <CardMedia

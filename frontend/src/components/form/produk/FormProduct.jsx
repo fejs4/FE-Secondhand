@@ -7,30 +7,21 @@ import { Button, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Outlin
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { setTemporary } from '../../redux/product';
+import { setTemporary } from '../../../redux/product';
 
 const thumb = {
     display: 'inline-flex',
     borderRadius: 2,
-    border: '1px solid #eaeaea',
-    marginBottom: 8,
     marginRight: 8,
     width: 100,
     height: 100,
     padding: 4,
-    boxSizing: 'border-box'
 };
 
 const thumbInner = {
     display: 'flex',
     minWidth: 0,
     overflow: 'hidden'
-};
-
-const img = {
-    display: 'block',
-    width: 'auto',
-    height: '100%'
 };
 
 
@@ -52,11 +43,11 @@ const FormProduct = () => {
 
     const [data, setData] = useState(
         {
-            nama:'',
+            nama: '',
             harga: 0,
-            kategori:'semua',
-            deskripsi:'',
-            images:[]
+            kategori: 'semua',
+            deskripsi: '',
+            images: []
         }
     )
     const temp = []
@@ -94,7 +85,6 @@ const FormProduct = () => {
             <div style={thumbInner}>
                 <img
                     src={file.preview}
-                    style={img}
                     alt='images'
                     // Revoke data uri after image is loaded
                     onLoad={() => { URL.revokeObjectURL(file.preview) }}
@@ -113,16 +103,16 @@ const FormProduct = () => {
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
             <Toolbar position='relative' >
-                <Link to='/'>
+                <Link to={-1}>
                     <ArrowBackSharpIcon sx={{
                         display: { md: 'block', xs: 'none' }, borderRadius: '50px', background: 'white'
                         , zIndex: 100, padding: 1, cursor: 'pointer', '&:hover': {
                             opacity: [0.9, 0.8, 0.7],
-                            color:'purple'
+                            color: 'purple'
                         }
                     }} />
                 </Link>
-                <Box position='absolute' width={'60%'} mx={'auto'} sx={{ left: 0, right: 0, top: 0 }} >
+                <Box position='absolute' width={'60%'} mx={'auto'} sx={{ left: 0, right: 0, top: 0 }} pb={3} >
                     <InputLabel htmlFor="filled-adornment-amount">Nama Produk</InputLabel>
                     <OutlinedInput
                         sx={{ mt: 0, mb: 2, borderRadius: '16px', p: 1 }}
@@ -130,7 +120,7 @@ const FormProduct = () => {
                         required
                         fullWidth
                         placeholder="Nama produk"
-                        onChange={(e) => setData({...data, nama: e.target.value})}
+                        onChange={(e) => setData({ ...data, nama: e.target.value })}
                         id="name"
                         autoComplete='false'
                     />
@@ -143,7 +133,7 @@ const FormProduct = () => {
                         required
                         fullWidth
                         placeholder='0,00'
-                        onChange={(e) => setData({...data, harga: e.target.value})}
+                        onChange={(e) => setData({ ...data, harga: e.target.value })}
                         autoComplete='false'
                     />
                     <InputLabel htmlFor="filled-adornment-amount">Kategori</InputLabel>
@@ -153,7 +143,7 @@ const FormProduct = () => {
                             required
                             sx={{ mt: 0, mb: 2, borderRadius: '16px' }}
                             value={data.kategori}
-                            onChange={(e) => setData({...data, kategori: e.target.value})}
+                            onChange={(e) => setData({ ...data, kategori: e.target.value })}
                         >
                             <MenuItem sx={{ width: '100%' }} value={'semua'} hidden >Pilih Kategori</MenuItem>
                             <MenuItem sx={{ width: '100%' }} value={'hobi'}>hobi</MenuItem>
@@ -170,18 +160,23 @@ const FormProduct = () => {
                         rows={4}
                         sx={{ borderRadius: '16px', mt: 0, mb: 2, }}
                         placeholder="Contoh: Jalan Ikan Hiu 33"
-                        onChange={(e) => setData({...data, deskripsi: e.target.value})}
+                        onChange={(e) => setData({ ...data, deskripsi: e.target.value })}
                     />
 
                     <InputLabel htmlFor="filled-adornment-amount">Foto Produk</InputLabel>
-                    <Box {...getRootProps({ className: 'dropzone' })}>
-                        <Box sx={{ border: '1px dashed #D0D0D0', minWidth: '96px', minHeight: '96px', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
-                            <input {...getInputProps()}/>
-                            {files.length !== 0 ? '' : <AddIcon />}
-                            <Box >
+                    <Box {...getRootProps()} maxWidth={files.length === 0? '100px' : 'unset'}>
+                        <input {...getInputProps()} />
+                        {files.length !== 0 ?
+                            <Box sx={{ border: '1px dashed #D0D0D0', alignItems: 'center', display: 'flex', justifyContent: 'space-around', flexWrap:'wrap' }}>
                                 {thumbs}
                             </Box>
-                        </Box>
+                            :
+                            <Box sx={{ border: '1px dashed #D0D0D0', width: '96px', height: '96px', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
+                                <AddIcon />
+                            </Box>
+                        }
+
+
                     </Box>
 
                     <Grid container spacing={2} mt={2}>
