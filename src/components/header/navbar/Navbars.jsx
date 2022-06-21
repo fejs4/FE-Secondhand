@@ -5,18 +5,16 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SearchField from './SearchField';
 import LoginIcon from '@mui/icons-material/Login';
-import { Link, useLocation} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Notifications from '../modals/Notifications';
-import Sidebar from '../sidebar/Sidebar';
+import Notifications from '../../notification/NotificationsModal';
+import Sidebar from '../../sidebar/Sidebar';
 
 const Navbars = ({ info }) => {
     const [user, setUser] = React.useState('a')
     const [anchorEl, setAnchorEl] = React.useState(null);
     const isNotifOpen = Boolean(anchorEl);
     const location = useLocation().pathname
-    
-    const dimension = window.innerWidth
 
     const handleNotifOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -27,27 +25,27 @@ const Navbars = ({ info }) => {
 
     const renderMenu = (
         <Menu
-          PaperProps={{sx: {width: {md:'30%', xs:'100%'}}}}
-          sx={{ top: "50px" }}
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={isNotifOpen}
-          onClose={handleNotifClose}
+            PaperProps={{ sx: { width: { md: '30%', xs: '100%' } } }}
+            sx={{ top: "50px" }}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isNotifOpen}
+            onClose={handleNotifClose}
         >
-            <Notifications/>
+            <Notifications />
         </Menu>
-      );
+    );
     return (
         <>
-            <Box component={'div'} height={'3rem'} display={'flex'} sx={{ px: { xs: 5, sm: 7, md: 10, lg:15 }, py: 2, boxShadow: { xs: 'none', md: '0px 0px 10px rgba(0, 0, 0, 0.15)' } }} justifyContent={'space-between'} alignItems={'center'} position={{ md: 'unset', xs: 'relative' }}>
+            <Box component={'div'} height={'3rem'} display={'flex'} sx={{ px: { xs: 5, sm: 7, md: 10, lg: 15 }, py: 2, boxShadow: { xs: 'none', md: '0px 0px 10px rgba(0, 0, 0, 0.15)' } }} justifyContent={'space-between'} alignItems={'center'} position={{ md: 'unset', xs: 'relative' }}>
                 <Box component={'div'} display={'flex'} alignItems={'center'} justifyContent={{ xs: 'space-between', sm: 'space-between', md: 'space-between' }} >
                     {info ?
                         <Box display={{ sm: 'block', md: 'none' }} zIndex={10}>
@@ -58,9 +56,9 @@ const Navbars = ({ info }) => {
                             </Link>
                         </Box>
                         :
-                        <Sidebar/>
+                        <Sidebar />
                     }
-                    <Link to='/' style={{ zIndex:100 }}>
+                    <Link to='/' style={{ zIndex: 100 }}>
                         <Box
                             component={'img'}
                             sx={{ display: { xs: 'none', md: 'block' } }}
@@ -86,30 +84,34 @@ const Navbars = ({ info }) => {
                         <Box display={{ xs: 'none', md: 'flex' }} gap={2}>
                             {user ?
                                 <>
-                                <Link to='/daftar-jual' style={{ textDecoration:'none' }}>
-                                    <IconButton>
-                                        <FormatListBulletedIcon sx={{ cursor: 'pointer', color: location === '/daftar-jual' ? '#7126B5' : 'black' }} />
-                                    </IconButton> 
-                                </Link>
-                                <IconButton
-                                    aria-label="account of current user"
-                                    aria-haspopup="true"
-                                    onClick={handleNotifOpen}
-                                >
-                                    <NotificationsNoneOutlinedIcon sx={{ cursor: 'pointer' }} />
-                                </IconButton> 
-                                <IconButton>
-                                    <Link to='myakun'> <PersonOutlineOutlinedIcon sx={{ cursor: 'pointer' }} /></Link>
-                                </IconButton> 
-                            </>
+                                    <Link to='/daftar-jual' style={{ textDecoration: 'none', fontSize: '1.5rem' }}>
+                                        <IconButton>
+                                            <FormatListBulletedIcon sx={{ cursor: 'pointer', color: location === '/daftar-jual' ? '#7126B5' : 'black' }} />
+                                        </IconButton>
+                                    </Link>
+                                    <IconButton
+                                        aria-label="account of current user"
+                                        aria-haspopup="true"
+                                        onClick={handleNotifOpen}
+                                    >
+                                        <NotificationsNoneOutlinedIcon sx={{ cursor: 'pointer', color: location === '/myakun' ? '#7126B5' : 'black' }} />
+                                    </IconButton>
+                                    <Link to='/myakun' style={{ textDecoration: 'none', fontSize: '1.5rem' }}>
+                                        <IconButton>
+                                            <PersonOutlineOutlinedIcon sx={{ cursor: 'pointer', color: location === '/myakun' ? '#7126B5' : 'black' }} />
+                                        </IconButton>
+                                    </Link>
+                                </>
                                 :
-                                <Button color='primary' variant='contained' sx={{ borderRadius: '12px', height: '48px', width: '105px' }}><LoginIcon sx={{ mr: 1 }} />Masuk</Button>
+                                <Link to='/login' style={{ textDecoration:'none' }}>
+                                    <Button color='primary' variant='contained' sx={{ borderRadius: '12px', height: '48px', width: '105px' }}><LoginIcon sx={{ mr: 1 }} />Masuk</Button>
+                                </Link>
                             }
                         </Box>
                     </Box>
-                    }
-                    {renderMenu}
-                        
+                }
+                {renderMenu}
+
             </Box>
         </>
     )

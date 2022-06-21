@@ -1,6 +1,7 @@
 import { Box, Button, InputAdornment, Modal, OutlinedInput, Typography } from '@mui/material'
 import React from 'react'
 import CloseIcon from '@mui/icons-material/Close';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const style = {
     position: 'absolute',
@@ -17,6 +18,7 @@ const style = {
 
 const ProductInterest = ({success}) => {
     const [open, setOpen] = React.useState(false)
+    const [love, setLove] = React.useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
 
@@ -27,9 +29,14 @@ const ProductInterest = ({success}) => {
     return (
         <>
             <Box component={'div'} rowGap={2} p={4} flexDirection={'column'} display={'flex'} sx={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)', borderRadius: '16px' }}>
-                <Typography variant='h6' fontWeight={800}>
-                    Jam Tangan Casio
-                </Typography>
+                <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                    <Typography variant='h6' fontWeight={800}>
+                        Jam Tangan Casio
+                    </Typography>
+                    <Box>
+                        <FavoriteIcon sx={{ fontSize:'2rem' }}/>
+                    </Box>
+                </Box>
                 <Typography variant='h6' sx={{ color: '#8A8A8A' }}>
                     Aksesoris
                 </Typography>
