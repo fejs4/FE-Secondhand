@@ -3,8 +3,13 @@ import React from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
 
 const MenuMyAkun = () => {
+    const navigate = useNavigate()
+    const handleLogout= async () =>{
+        navigate('/')
+    }
     return (
         <>
             <Box mt={3} p={2}>
@@ -23,7 +28,7 @@ const MenuMyAkun = () => {
                         <ListItemText>Pengaturan Akun</ListItemText>
                     </MenuItem >
                     <Divider sx={{ mt: '0 !important' }} />
-                    <MenuItem sx={{ paddingLeft: '5px !important' }}>
+                    <MenuItem sx={{ paddingLeft: '5px !important' }} onClick={handleLogout}>
                         <ListItemIcon>
                             <LogoutIcon fontSize="small" color='primary' />
                         </ListItemIcon>

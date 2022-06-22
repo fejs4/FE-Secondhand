@@ -10,9 +10,6 @@ import ProdukTerjual from '../content/ProdukTerjual'
 const ListJual = () => {
   const [clickedCategory, setClickedCategory] = React.useState('Semua Produk');
 
-  const product = useSelector(state => state.product.temporary)
-  console.log(product);
-
   return (
     <Box sx={{ mx: { xl: 24, md: 15, sm: 8, xs: 5 }, my: 3,pb:3 }} >
       <Grid container>

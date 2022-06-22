@@ -15,6 +15,7 @@ import AkunSaya from './pages/AkunSaya';
 import Notification from './pages/Notification';
 import InfoPenawar from './pages/InfoPenawar';
 import Wishlist from './pages/Wishlist';
+import React from 'react';
 
 function App() {
   return (

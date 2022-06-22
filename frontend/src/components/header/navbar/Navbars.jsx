@@ -10,13 +10,13 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Notifications from '../../notification/NotificationsModal';
 import Sidebar from '../../sidebar/Sidebar';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { useSelector } from 'react-redux';
 
 const Navbars = ({ info }) => {
-    const [user, setUser] = React.useState('a')
+    const user = useSelector(state => state.product.user);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const isNotifOpen = Boolean(anchorEl);
     const location = useLocation().pathname
-
     const handleNotifOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -83,7 +83,7 @@ const Navbars = ({ info }) => {
                             <SearchField />
                         </Box>
                         <Box display={{ xs: 'none', md: 'flex' }} gap={2}>
-                            {user ?
+                            {Object.keys(user).length !== 0 ?
                                 <>
                                     <Link to='/daftar-jual' style={{ textDecoration: 'none', fontSize: '1.5rem' }}>
                                         <IconButton>

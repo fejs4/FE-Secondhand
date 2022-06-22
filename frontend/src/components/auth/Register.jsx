@@ -9,6 +9,9 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
 import { registerValidation } from '../../validator/validator';
+import axios from 'axios'
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 const Register = () => {
     // Login
@@ -18,11 +21,36 @@ const Register = () => {
         email: '',
         name: '',
         showPassword: false,
+        success: false,
+        message: ''
     });
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
-    };
+    }
+
+    const handleRegister = async (e) => {
+        e.preventDefault()
+        if (error.email !== '' || error.name !== '' || error.password !== '' ) {
+            setValues({...values, message: 'Gagal register data belum terpenuhi', success: false})
+            console.log(error)
+        }else{
+            try {
+                const user = {
+                    name: values.name,
+                    email: values.email,
+                    password: values.password
+                }
+                const getData = await axios.post("http://localhost:5000/register", user).then(
+                    data => {
+                        setValues({...values, message: data.data.message, success: data.data.success})
+                    }
+                )
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
 
     const registerValidate = (e) => {
         e.preventDefault()
@@ -41,23 +69,32 @@ const Register = () => {
     };
     return (
         <>
-            <Grid container height={'100vh'} overflow={'hidden'}>
+            <Grid container height={'100vh'}>
                 <Grid item xs={12} sm={12} md={6} sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <img src="/images/img.png" alt="brand" style={{ minHeight: '100%', width: '100%', width: '100%', objectFit: 'cover' }} />
                 </Grid>
                 <Grid container item xs={12} sm={12} md={6} height={'100%'} direction={'column'} justifyContent={{ xl: 'center', md: 'center', sm: 'none' }} sx={{ px: { xl: 20, md: 10, sm: 10, xs: 5 } }} >
-                    <Box>
-                        <Box display={{ sm: 'block', md: 'none' }} mt={{ sm: 5, xs: 5 }}>
+                    <Box component={'div'}>
+                        <Box component={'div'} display={{ sm: 'block', md: 'none' }} mt={{ sm: 5, xs: 5 }}>
                             <Link to={-1}>
                                 <IconButton sx={{ padding: 0 }}>
                                     <ArrowBackIcon sx={{ fontSize: '2rem', color: 'black' }} />
                                 </IconButton>
                             </Link>
                         </Box>
-                        <Box mt={{ sm: 5, xs: 5 }}>
-                            <Typography variant='h4' fontWeight={700}>
-                                Daftar
-                            </Typography>
+                        <Box component={'div'} mt={{ sm: 5, xs: 5 }}>
+                            <Box display={'flex'} justifyContent={'space-between'} gap={3}>
+                                <Typography variant='h4' fontWeight={700}>
+                                    Daftar
+                                </Typography>
+                                {values.message?
+                                <Stack sx={{ width: '100%' }} spacing={2}>
+                                    <Alert severity={values.success? 'success' : 'error'}> {values.message} </Alert>
+                                </Stack>
+                                :
+                                ""
+                                }
+                            </Box>
                             <FormControl sx={{ width: '100%', mt: 3 }} variant="outlined">
                                 <Typography variant='h6' sx={{ fontSize: '1rem' }}>
                                     Nama
@@ -65,12 +102,12 @@ const Register = () => {
                                 <OutlinedInput
                                     onChange={handleChange('name')}
                                     type='text'
-                                    error={error.name}
+                                    // error={error.name}
                                     sx={{ borderRadius: '16px' }}
                                     placeholder='John doe'
                                 />
                                 <FormHelperText sx={{ color: 'red', position: 'relative' }}>
-                                    <Typography sx={{ fontSize: '12px', position: 'absolute' }}>
+                                    <Typography variant='h6' sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.name ? error.name : ''}
                                     </Typography>
                                 </FormHelperText>
@@ -82,12 +119,12 @@ const Register = () => {
                                 <OutlinedInput
                                     onChange={handleChange('email')}
                                     type='email'
-                                    error={error.email}
+                                    // error={error.email}
                                     sx={{ borderRadius: '16px' }}
                                     placeholder='Johndoe@gmail.com'
                                 />
                                 <FormHelperText sx={{ color: 'red', position: 'relative' }}>
-                                    <Typography sx={{ fontSize: '12px', position: 'absolute' }}>
+                                    <Typography variant='h6' sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.email ? error.email : ''}
                                     </Typography>
                                 </FormHelperText>
@@ -100,7 +137,7 @@ const Register = () => {
                                     id="outlined-adornment-password"
                                     type={values.showPassword ? 'text' : 'password'}
                                     value={values.password}
-                                    error={error.password}
+                                    // error={error.password}
                                     onChange={handleChange('password')}
                                     placeholder='Masukkan password'
                                     sx={{ borderRadius: '16px' }}
@@ -118,13 +155,13 @@ const Register = () => {
                                     }
                                 />
                                 <FormHelperText sx={{ color: 'red', position: 'relative' }}>
-                                    <Typography sx={{ fontSize: '12px', position: 'absolute' }}>
+                                    <Typography variant='h6' sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.password ? error.password : ''}
                                     </Typography>
                                 </FormHelperText>
                             </FormControl>
-                            <Button color='primary' onMouseUp={registerValidate} variant='contained' sx={{ borderRadius: '16px', width: '100%', height: '48px', mt: 3 }}>Daftar</Button>
-                            <Box display={'flex'} justifyContent={'center'} mt={{ md: 3, xs: 15 }}>
+                            <Button color='primary' onClick={handleRegister} onMouseUp={registerValidate} variant='contained' sx={{ borderRadius: '16px', width: '100%', height: '48px', mt: 3 }}>Daftar</Button>
+                            <Box component={'div'} display={'flex'} justifyContent={'center'} mt={3}>
                                 <Typography variant='h6'>Sudah punya akun? </Typography>
                                 <Link to='/login' style={{ textDecoration: 'none' }}>
                                     <Typography variant='h6' sx={{ ml: 1, fontWeight: '700', cursor: 'pointer' }} color='primary' >Login di sini</Typography>
