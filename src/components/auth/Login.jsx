@@ -7,8 +7,12 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginValidation } from '../../validator/validator'
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import axios from 'axios';
+
 
 const Login = () => {
     // Login
@@ -17,7 +21,38 @@ const Login = () => {
         password: '',
         email: '',
         showPassword: false,
+        success: false,
+        message: ''
     });
+    const navigate = useNavigate()
+
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        // if (error.email !== '' || error.password !== '') {
+        //     setValues({ ...values, message: 'Gagal login, lengkapi data', success: false })
+        // } else {
+            try {
+                const user = {
+                    email: values.email,
+                    password: values.password
+                }
+                const getData = await axios(
+                    {
+                        method:"POST",
+                        data:user,
+                        withCredentials:true,
+                        url:"http://localhost:5000/login"
+                    }).then(
+                    data => {
+                        setValues({ ...values, message: data.data.message, success: data.data.success })
+                        navigate('/')
+                    }
+                )
+            } catch (error) {
+                console.log(error);
+            }
+        // }
+    }
 
     const loginValidate = (e) => {
         e.preventDefault()
@@ -54,9 +89,18 @@ const Login = () => {
                             </Link>
                         </Box>
                         <Box mt={{ sm: 5, xs: 5 }}>
-                            <Typography variant='h4' fontWeight={700}>
-                                Masuk
-                            </Typography>
+                            <Box display={'flex'} justifyContent={'space-between'} gap={3}>
+                                <Typography variant='h4' fontWeight={700}>
+                                    Masuk
+                                </Typography>
+                                {values.message ?
+                                    <Stack sx={{ width: '100%' }} spacing={2}>
+                                        <Alert severity={values.success ? 'success' : 'error'}> {values.message} </Alert>
+                                    </Stack>
+                                    :
+                                    ""
+                                }
+                            </Box>
                             <FormControl sx={{ width: '100%', mt: 2 }} variant="outlined">
                                 <Typography variant='h6' sx={{ fontSize: '1rem' }}>
                                     Email
@@ -109,9 +153,10 @@ const Login = () => {
                                 variant='contained'
                                 sx={{ borderRadius: '16px', width: '100%', height: '48px', mt: 3 }}
                                 onMouseUp={loginValidate}
+                                onClick={handleLogin}
                             >Masuk
                             </Button>
-                            <Box display={'flex'} justifyContent={'center'} mt={{ md: 3, xs: 30.5 }}>
+                            <Box display={'flex'} justifyContent={'center'} mt={3}>
                                 <Typography variant='h6'>Belum punya akun? </Typography>
                                 <Link to='/register' style={{ textDecoration: 'none' }}>
                                     <Typography variant='h6' sx={{ ml: 1, fontWeight: '700', cursor: 'pointer' }} color='primary' >Daftar di sini</Typography>
