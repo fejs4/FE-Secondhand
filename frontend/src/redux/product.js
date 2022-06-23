@@ -1,28 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchUser = createAsyncThunk(
-    'product/fetchUser', async () => {
-        const res = await fetch("http://localhost:5000/users/profile",
-            {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    "Content-type": "application/json",
-                    "Access-Control-Allow-Credentials": true
-                }
-            }).then(res => {
-                if (res.status === 200) return res.json()
-            })
-        return res.data
-    }
-)
-
 export const fetchProducts = createAsyncThunk(
     'product/fetchProducts',
     async () => {
         const response = await axios.get(`http://localhost:5000/products`);
         return response.data.data.products;
+    }
+);
+
+export const postProducts = createAsyncThunk(
+    'product/postProducts',
+    async (id) => {
+        const response = await axios.post(`http://localhost:5000/products/${id}`);
+        return response.data;
     }
 );
 
@@ -84,20 +75,6 @@ const productSlice = createSlice({
         }
     },
     extraReducers: {
-
-        // Fetching Users
-        [fetchUser.pending]: (state, action) => {
-            console.log('pending')
-            return { ...state, loading: true, error: null, }
-        },
-        [fetchUser.fulfilled]: (state, action) => {
-            console.log('fulfilled')
-            return { ...state, user: action.payload }
-        },
-        [fetchUser.rejected]: (state, action) => {
-            console.log('rejected')
-            return { ...state, error: action.error }
-        },
 
         // Fetching Product
         [fetchProducts.pending]: (state, action) => {

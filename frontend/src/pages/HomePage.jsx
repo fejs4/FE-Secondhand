@@ -1,21 +1,16 @@
+import axios from 'axios'
 import React from 'react'
 import Banner from '../components/header/Banner'
 import Navbars from '../components/header/navbar/Navbars'
 import Products from '../components/products/main/Products'
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, fetchUser } from '../redux/product';
 
 const HomePage = () => {
-  const dispatch = useDispatch()
-
-  const product = useSelector(state => state.product.products)
-    console.log(product);
-
-  React.useEffect(() => {
-    dispatch(fetchUser())
-    dispatch(fetchProducts())
-  }, [dispatch])
-
+  const getData = async() =>{
+    await axios.get(`http://localhost:5000/products`).then(res => console.log(res))
+  }
+  React.useEffect(()=>{
+    getData()
+  },[])
   return (
     <>
       <Navbars />

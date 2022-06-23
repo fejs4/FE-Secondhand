@@ -6,7 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { Button, FormControl, Grid, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTemporary } from '../../../redux/product';
 import axios from 'axios';
 
@@ -50,7 +50,9 @@ const FormProduct = () => {
             deskripsi: ''
         }
     )
-    console.log(data);
+
+    const userProfile = useSelector(state => state.auth.userProfile)
+
     const temp = []
     if (files.length !== 0) {
         files.map((file) => {
@@ -61,20 +63,24 @@ const FormProduct = () => {
     const handleCreate = async (e) => {
         e.preventDefault()
         try {
+            const token = localStorage.getItem('token');
             const product = {
+                id : userProfile.id,
                 name: data.nama,
                 category: data.kategori,
                 price:data.harga,
                 description: data.deskripsi,
-                image: Gambar
+                image: files[0]
             }
             console.log(product);
-            const getData = await axios(
+            const postData = await axios(
                 {
                     method:"POST",
                     data:product,
-                    withCredentials:true,
-                    url:"http://localhost:5000/product"
+                    url:`http://localhost:5000/product/`,
+                    headers:{
+                        Authorization: token,
+                    }
                 }).then(
                 data => {
                     console.log(data)

@@ -46,11 +46,13 @@ function maxFilesValidator(file) {
 
 const FormProduct = () => {
     const [files, setFiles] = useState([]);
+    const [Gambar, setGambar] = useState('');
     const [data, setData] = useState({
         nama: '',
         kota: 'jakarta',
         alamat: '',
-        nohp: ''
+        nohp: '',
+        image: ''
     })
 
     const temp = []
@@ -68,7 +70,7 @@ const FormProduct = () => {
                 city: data.kota,
                 address:data.alamat,
                 number_mobile: data.nohp,
-                image: temp
+                image: files[0]
             }
             console.log(product);
             const getData = await axios(
@@ -107,7 +109,6 @@ const FormProduct = () => {
                     src={file.preview}
                     style={img}
                     alt='images'
-                    onChange={(e) => setData({foto: e.target.value})}
                     // Revoke data uri after image is loaded
                     onLoad={() => { URL.revokeObjectURL(file.preview) }}
                 />
@@ -133,9 +134,18 @@ const FormProduct = () => {
                 </Link>
                 <Box position='absolute' width={'60%'} mx={'auto'} sx={{ left: 0, right: 0, top: 0 }} >
                     <InputLabel htmlFor="filled-adornment-amount"></InputLabel>
+                    {/* <OutlinedInput
+                        type='file'
+                        autoComplete='false'
+                        filename="image"
+                        name="image"
+                        fullWidth
+                        onChange={(e) => setGambar(e.target.files[0])}
+                        sx={{ borderRadius: '16px', mt: 0, mb: 2, }}
+                    /> */}
                     <Box {...getRootProps({ className: 'dropzone' })} sx={{ maxWidth: '96px', height: '96px', m: 'auto' }}>
                         <Box sx={{ color: "primary", background: '#E2D4F0', height: '100%', width: '100%', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
-                            <input {...getInputProps()} />
+                            <input {...getInputProps()} type='file' name='images-product' multiple/>
                             {files.length !== 0 ? '' : <PhotoCameraOutlinedIcon sx={{ color: '#7126B5' }} />}
                             <Box display={'flex'} flexWrap={'wrap'}>
                                 {thumbs}
