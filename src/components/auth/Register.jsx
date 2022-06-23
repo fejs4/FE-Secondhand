@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerValidation } from '../../validator/validator';
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
@@ -24,6 +24,7 @@ const Register = () => {
         success: false,
         message: ''
     });
+    const navigate = useNavigate()
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -33,7 +34,6 @@ const Register = () => {
         e.preventDefault()
         if (error.email !== '' || error.name !== '' || error.password !== '' ) {
             setValues({...values, message: 'Gagal register data belum terpenuhi', success: false})
-            console.log(error)
         }else{
             try {
                 const user = {
@@ -44,6 +44,9 @@ const Register = () => {
                 const getData = await axios.post("http://localhost:5000/register", user).then(
                     data => {
                         setValues({...values, message: data.data.message, success: data.data.success})
+                        setTimeout(() => {
+                            navigate('/login')
+                        }, 1500);
                     }
                 )
             } catch (error) {
@@ -69,7 +72,7 @@ const Register = () => {
     };
     return (
         <>
-            <Grid container height={'100vh'}>
+            <Grid container height={'100vh'} overflow={'hidden'}>
                 <Grid item xs={12} sm={12} md={6} sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <img src="/images/img.png" alt="brand" style={{ minHeight: '100%', width: '100%', width: '100%', objectFit: 'cover' }} />
                 </Grid>
@@ -107,7 +110,7 @@ const Register = () => {
                                     placeholder='John doe'
                                 />
                                 <FormHelperText sx={{ color: 'red', position: 'relative' }}>
-                                    <Typography variant='h6' sx={{ fontSize: '12px', position: 'absolute' }}>
+                                    <Typography variant='p' sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.name ? error.name : ''}
                                     </Typography>
                                 </FormHelperText>
@@ -124,7 +127,7 @@ const Register = () => {
                                     placeholder='Johndoe@gmail.com'
                                 />
                                 <FormHelperText sx={{ color: 'red', position: 'relative' }}>
-                                    <Typography variant='h6' sx={{ fontSize: '12px', position: 'absolute' }}>
+                                    <Typography variant='p' sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.email ? error.email : ''}
                                     </Typography>
                                 </FormHelperText>
@@ -155,7 +158,7 @@ const Register = () => {
                                     }
                                 />
                                 <FormHelperText sx={{ color: 'red', position: 'relative' }}>
-                                    <Typography variant='h6' sx={{ fontSize: '12px', position: 'absolute' }}>
+                                    <Typography variant='p' sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.password ? error.password : ''}
                                     </Typography>
                                 </FormHelperText>

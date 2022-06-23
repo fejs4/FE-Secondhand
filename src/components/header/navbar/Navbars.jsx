@@ -13,7 +13,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import { useSelector } from 'react-redux';
 
 const Navbars = ({ info }) => {
-    const user = useSelector(state => state.product.user);
+    const userProfile = useSelector(state => state.auth.userProfile)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const isNotifOpen = Boolean(anchorEl);
     const location = useLocation().pathname
@@ -83,7 +83,7 @@ const Navbars = ({ info }) => {
                             <SearchField />
                         </Box>
                         <Box display={{ xs: 'none', md: 'flex' }} gap={2}>
-                            {Object.keys(user).length !== 0 ?
+                            {Object.keys(userProfile).length !== 0 ?
                                 <>
                                     <Link to='/daftar-jual' style={{ textDecoration: 'none', fontSize: '1.5rem' }}>
                                         <IconButton>

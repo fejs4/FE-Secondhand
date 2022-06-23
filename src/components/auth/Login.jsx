@@ -12,7 +12,8 @@ import { loginValidation } from '../../validator/validator'
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserLogin } from '../../redux/auth';
 
 const Login = () => {
     // Login
@@ -24,7 +25,9 @@ const Login = () => {
         success: false,
         message: ''
     });
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -40,12 +43,15 @@ const Login = () => {
                     {
                         method:"POST",
                         data:user,
-                        withCredentials:true,
                         url:"http://localhost:5000/login"
                     }).then(
                     data => {
+                        localStorage.setItem("token", data.data.data.test.access_token)
                         setValues({ ...values, message: data.data.message, success: data.data.success })
-                        navigate('/')
+                        dispatch(setUserLogin({id: data.data.data.test.id,email: data.data.data.test.email }))
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 2000);
                     }
                 )
             } catch (error) {
@@ -80,17 +86,17 @@ const Login = () => {
                     <img src="/images/img.png" alt="brand" style={{ minHeight: '100%', width: '100%', objectFit: 'cover' }} />
                 </Grid>
                 <Grid container item xs={12} sm={12} md={6} height={'100%'} direction={'column'} justifyContent={{ xl: 'center', md: 'center', sm: 'none' }} sx={{ px: { xl: 20, md: 10, sm: 10, xs: 5 } }}>
-                    <Box>
-                        <Box display={{ sm: 'block', md: 'none' }} mt={{ sm: 5, xs: 5 }}>
+                    <Box component={'div'}>
+                        <Box component={'div'} display={{ sm: 'block', md: 'none' }} mt={{ sm: 5, xs: 5 }}>
                             <Link to={-1}>
                                 <IconButton sx={{ padding: 0 }}>
                                     <ArrowBackIcon sx={{ fontSize: '2rem', color: 'black' }} />
                                 </IconButton>
                             </Link>
                         </Box>
-                        <Box mt={{ sm: 5, xs: 5 }}>
-                            <Box display={'flex'} justifyContent={'space-between'} gap={3}>
-                                <Typography variant='h4' fontWeight={700}>
+                        <Box component={'div'} mt={{ sm: 5, xs: 5 }}>
+                            <Box component={'div'} display={'flex'} justifyContent={'space-between'} gap={3}>
+                                <Typography component={'h4'} variant='h4' fontWeight={700}>
                                     Masuk
                                 </Typography>
                                 {values.message ?
@@ -102,7 +108,7 @@ const Login = () => {
                                 }
                             </Box>
                             <FormControl sx={{ width: '100%', mt: 2 }} variant="outlined">
-                                <Typography variant='h6' sx={{ fontSize: '1rem' }}>
+                                <Typography component={'h6'} variant='h6' sx={{ fontSize: '1rem' }}>
                                     Email
                                 </Typography>
                                 <OutlinedInput
@@ -113,13 +119,13 @@ const Login = () => {
                                     placeholder='Johndoe@gmail.com'
                                 />
                                 <FormHelperText sx={{ color: 'red', position: 'relative' }}>
-                                    <Typography sx={{ fontSize: '12px', position: 'absolute' }}>
+                                    <Typography variant='p' sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.email ? error.email : ''}
                                     </Typography>
                                 </FormHelperText>
                             </FormControl>
                             <FormControl sx={{ width: '100%', mt: 2 }} variant="outlined">
-                                <Typography variant='h6' sx={{ fontSize: '1rem' }}>
+                                <Typography component={'h6'} variant='h6' sx={{ fontSize: '1rem' }}>
                                     Password
                                 </Typography>
                                 <OutlinedInput
@@ -143,7 +149,7 @@ const Login = () => {
                                     }
                                 />
                                 <FormHelperText sx={{ color: 'red', position: 'relative' }}>
-                                    <Typography sx={{ fontSize: '12px', position: 'absolute' }}>
+                                    <Typography variant='p' sx={{ fontSize: '12px', position: 'absolute' }}>
                                         {error.password ? error.password : ''}
                                     </Typography>
                                 </FormHelperText>
