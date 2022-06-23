@@ -6,8 +6,9 @@ import Toolbar from '@mui/material/Toolbar';
 import { Button, FormControl, Grid, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTemporary } from '../../../redux/product';
+import axios from 'axios';
 
 const thumb = {
     display: 'inline-flex',
@@ -39,22 +40,55 @@ function maxFilesValidator(file) {
 
 const FormProduct = () => {
     const [files, setFiles] = useState([]);
-    const dispatch = useDispatch()
+    const [Gambar, setGambar] = useState();
 
     const [data, setData] = useState(
         {
             nama: '',
             harga: 0,
             kategori: 'semua',
-            deskripsi: '',
-            images: []
+            deskripsi: ''
         }
     )
+
+    const userProfile = useSelector(state => state.auth.userProfile)
+
     const temp = []
     if (files.length !== 0) {
         files.map((file) => {
             temp.push(file.path)
         })
+    }
+
+    const handleCreate = async (e) => {
+        e.preventDefault()
+        try {
+            const token = localStorage.getItem('token');
+            const product = {
+                id : userProfile.id,
+                name: data.nama,
+                category: data.kategori,
+                price:data.harga,
+                description: data.deskripsi,
+                image: files[0]
+            }
+            console.log(product);
+            const postData = await axios(
+                {
+                    method:"POST",
+                    data:product,
+                    url:`http://localhost:5000/product/`,
+                    headers:{
+                        Authorization: token,
+                    }
+                }).then(
+                data => {
+                    console.log(data)
+                }
+            )
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
@@ -68,16 +102,6 @@ const FormProduct = () => {
             })))
         }
     })
-
-    // const fileRejectionItems = fileRejections.map(({ errors }) => {
-    //     const temp = []
-    //     console.log(fileRejections[0].errors[0].message)
-
-    //     return (
-    //         <>
-    //         </>
-    //     )
-    // })
 
     const thumbs = files.map(file => (
         <div style={thumb} key={file.name}>
@@ -93,11 +117,10 @@ const FormProduct = () => {
     ));
     useEffect(() => {
         // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-        dispatch(setTemporary(data))
         return () => {
             files.forEach(file => URL.revokeObjectURL(file.preview))
         }
-    }, [files, data])
+    }, [files])
 
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
@@ -121,7 +144,6 @@ const FormProduct = () => {
                         placeholder="Nama produk"
                         onChange={(e) => setData({ ...data, nama: e.target.value })}
                         id="name"
-                        autoComplete='false'
                     />
                     <InputLabel htmlFor="filled-adornment-amount">Harga</InputLabel>
                     <OutlinedInput
@@ -164,7 +186,7 @@ const FormProduct = () => {
 
                     <InputLabel htmlFor="filled-adornment-amount">Foto Produk</InputLabel>
                     <Box {...getRootProps()} maxWidth={files.length === 0? '100px' : 'unset'}>
-                        <input {...getInputProps()} />
+                        <input type='file' multiple {...getInputProps()} onChange={(e) => setGambar(e.target.files)}/>
                         {files.length !== 0 ?
                             <Box sx={{ border: '1px dashed #D0D0D0', alignItems: 'center', display: 'flex', justifyContent: 'space-around', flexWrap:'wrap' }}>
                                 {thumbs}
@@ -174,8 +196,6 @@ const FormProduct = () => {
                                 <AddIcon />
                             </Box>
                         }
-
-
                     </Box>
 
                     <Grid container spacing={2} mt={2}>
@@ -187,11 +207,9 @@ const FormProduct = () => {
                             </Link>
                         </Grid>
                         <Grid item xs={6}>
-                            <Link to='/daftar-jual' style={{ textDecoration: 'none' }}>
-                                <Button fullWidth variant="contained" color="primary" sx={{ height: '48px' }}>
-                                    Terbitkan
-                                </Button>
-                            </Link>
+                            <Button fullWidth variant="contained" color="primary" sx={{ height: '48px' }} onClick={handleCreate}>
+                                Terbitkan
+                            </Button>
                         </Grid>
                     </Grid>
                 </Box>

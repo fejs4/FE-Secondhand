@@ -6,6 +6,7 @@ import PhotoCameraOutlinedIcon from '@mui/icons-material/PhotoCameraOutlined';
 import Toolbar from '@mui/material/Toolbar';
 import { Button, FormControl, Grid, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 const thumb = {
@@ -45,14 +46,48 @@ function maxFilesValidator(file) {
 
 const FormProduct = () => {
     const [files, setFiles] = useState([]);
+    const [Gambar, setGambar] = useState('');
     const [data, setData] = useState({
-        foto:[],
         nama: '',
-        kota: '',
+        kota: 'jakarta',
         alamat: '',
-        nohp: ''
+        nohp: '',
+        image: ''
     })
-    console.log(data);
+
+    const temp = []
+    if (files.length !== 0) {
+        files.map((file) => {
+            temp.push(file.path)
+        })
+    }
+
+    const handleCreate = async (e) => {
+        e.preventDefault()
+        try {
+            const product = {
+                name: data.nama,
+                city: data.kota,
+                address:data.alamat,
+                number_mobile: data.nohp,
+                image: files[0]
+            }
+            console.log(product);
+            const getData = await axios(
+                {
+                    method:"PUT",
+                    data:product,
+                    url:"http://localhost:5000/users/profile"
+                }).then(
+                data => {
+                    console.log(data)
+                }
+            )
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
         maxFiles: 1,
         validator: maxFilesValidator,
@@ -66,15 +101,6 @@ const FormProduct = () => {
         }
     })
 
-    // const fileRejectionItems = fileRejections.map(({ errors }) => {
-    //     const temp = []
-    //     console.log(fileRejections[0].errors[0].message)
-
-    //     return (
-    //         <>
-    //         </>
-    //     )
-    // })
 
     const thumbs = files.map(file => (
         <div style={thumb} key={file.name}>
@@ -83,7 +109,6 @@ const FormProduct = () => {
                     src={file.preview}
                     style={img}
                     alt='images'
-                    onChange={(e) => setData({foto: e.target.value})}
                     // Revoke data uri after image is loaded
                     onLoad={() => { URL.revokeObjectURL(file.preview) }}
                 />
@@ -109,9 +134,18 @@ const FormProduct = () => {
                 </Link>
                 <Box position='absolute' width={'60%'} mx={'auto'} sx={{ left: 0, right: 0, top: 0 }} >
                     <InputLabel htmlFor="filled-adornment-amount"></InputLabel>
+                    {/* <OutlinedInput
+                        type='file'
+                        autoComplete='false'
+                        filename="image"
+                        name="image"
+                        fullWidth
+                        onChange={(e) => setGambar(e.target.files[0])}
+                        sx={{ borderRadius: '16px', mt: 0, mb: 2, }}
+                    /> */}
                     <Box {...getRootProps({ className: 'dropzone' })} sx={{ maxWidth: '96px', height: '96px', m: 'auto' }}>
                         <Box sx={{ color: "primary", background: '#E2D4F0', height: '100%', width: '100%', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
-                            <input {...getInputProps()} />
+                            <input {...getInputProps()} type='file' name='images-product' multiple/>
                             {files.length !== 0 ? '' : <PhotoCameraOutlinedIcon sx={{ color: '#7126B5' }} />}
                             <Box display={'flex'} flexWrap={'wrap'}>
                                 {thumbs}
@@ -128,7 +162,7 @@ const FormProduct = () => {
                         placeholder="Nama"
                         id="name"
                         autoComplete='false'
-                        onChange={(e) => setData({nama: e.target.value})}
+                        onChange={(e) => setData({...data, nama: e.target.value})}
                     />
 
                     <InputLabel htmlFor="filled-adornment-amount">Kota*</InputLabel>
@@ -137,7 +171,8 @@ const FormProduct = () => {
                             id="demo-simple-select"
                             required
                             sx={{ mt: 0, mb: 2, borderRadius: '16px' }}
-                            onChange={(e) => setData({kota: e.target.value})}
+                            value={data.kota}
+                            onChange={(e) => setData({...data, kota: e.target.value})}
                         >
                             <MenuItem sx={{ width: '100%' }} value={'jakarta'}>Jakarta</MenuItem>
                             <MenuItem sx={{ width: '100%' }} value={'bogor'}>Bogor</MenuItem>
@@ -152,7 +187,7 @@ const FormProduct = () => {
                         fullWidth
                         multiline
                         rows={4}
-                        onChange={(e) => setData({alamat: e.target.value})}
+                        onChange={(e) => setData({...data, alamat: e.target.value})}
                         sx={{ borderRadius: '16px', mt: 0, mb: 2, }}
                         placeholder="Contoh: Jalan Ikan Hiu 33"
                     />
@@ -165,11 +200,11 @@ const FormProduct = () => {
                         fullWidth
                         placeholder='+62812345678'
                         autoComplete='false'
-                        onChange={(e) => setData({nohp: e.target.value})}
+                        onChange={(e) => setData({...data, nohp: e.target.value})}
                     />
                     <Grid container spacing={2} mt={2}>
                         <Grid item xs={12}>
-                            <Button fullWidth variant="contained" color="primary" sx={{ height: '48px' }}>
+                            <Button fullWidth variant="contained" color="primary" sx={{ height: '48px' }} onClick={handleCreate}>
                                 Simpan
                             </Button>
                         </Grid>
