@@ -4,14 +4,18 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import CloseIcon from '@mui/icons-material/Close';
+import LoginIcon from '@mui/icons-material/Login';
+
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
+    const userProfile = useSelector(state => state.auth.userProfile)
     const [state, setState] = React.useState({
         left: false,
     })
@@ -25,29 +29,40 @@ const Sidebar = () => {
 
     const list = (anchor) => (
         <Box
+            mx={2}
+            my={1}
             sx={{ width: 200 }}
             role="presentation"
             display={'flex'}
             flexDirection={'column'}
         >
-            <Box display={'flex'} justifyContent={'space-between'} mx={2} my={1}>
+            <Box display={'flex'} justifyContent={'space-between'} mb={1} >
                 <Typography sx={{ color: '#000000', fontWeight: 700 }}>
                     Second Hand
                 </Typography>
                 <CloseIcon sx={{ cursor: 'pointer' }} onClick={toggleDrawer(anchor, false)} />
             </Box>
             <List>
-                {['Notifikasi', 'Daftar Jual', 'Akun Saya'].map((text) => (
-                    <React.Fragment key={text}>
-                        <Link to={text === 'Notifikasi' ? '/notifikasi' : text === 'Daftar Jual' ? '/daftar-jual' : text === 'Akun Saya' ? '/myaccount' : '/'} style={{ textDecoration: 'none', color: 'black' }}>
-                            <ListItem disablePadding>
-                                <ListItemButton key={text} >
-                                    <ListItemText primary={text} />
-                                </ListItemButton>
-                            </ListItem>
-                        </Link>
-                    </React.Fragment>
-                ))}
+                {Object.keys(userProfile).length !== 0 ?
+                    <>
+                        {['Notifikasi', 'Daftar Jual', 'Akun Saya'].map((text) => (
+                        <React.Fragment key={text}>
+                            <Link to={text === 'Notifikasi' ? '/notifikasi' : text === 'Daftar Jual' ? '/daftar-jual' : text === 'Akun Saya' ? '/myaccount' : '/'} style={{ textDecoration: 'none', color: 'black' }}>
+                                <ListItem disablePadding>
+                                    <ListItemButton key={text} >
+                                        <ListItemText primary={text} />
+                                    </ListItemButton>
+                                </ListItem>
+                            </Link>
+                        </React.Fragment>
+                        ))}
+                    </>
+                    :
+                    <Link to='/login' style={{ textDecoration:'none' }}>
+                        <Button color='primary' variant='contained' sx={{ borderRadius: '12px', height: '45px', width: '100px' }}><LoginIcon sx={{ mr: 1 }} />Masuk</Button>
+                    </Link>
+                }
+                
             </List>
         </Box>
     );
