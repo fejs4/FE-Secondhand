@@ -8,7 +8,7 @@ import { setUserProfile } from '../../redux/auth';
 
 const ProtectedRoutes = () => {
     const [isLoading, setIsLoading] = React.useState(true);
-    const userLogin = useSelector(state => state.auth.userLogin)
+    const userLogin = useSelector(state => state.auth.userProfile)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation().pathname
@@ -75,7 +75,7 @@ const ProtectedRoutes = () => {
             userLogin ? 
             <Outlet/> 
             : 
-            <Navigate to='/login'/>
+            <Navigate to='/'/>
             }
       </>
   )

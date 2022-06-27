@@ -5,12 +5,7 @@ import Navbars from '../components/header/navbar/Navbars'
 import Products from '../components/products/main/Products'
 
 const HomePage = () => {
-  const getData = async() =>{
-    await axios.get(`http://localhost:5000/products`).then(res => console.log(res))
-  }
-  React.useEffect(()=>{
-    getData()
-  },[])
+  
   return (
     <>
       <Navbars />

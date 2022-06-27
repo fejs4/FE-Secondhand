@@ -18,14 +18,16 @@ import Wishlist from './pages/Wishlist';
 import React from 'react';
 import ProtectedRoutes from './components/auth/ProtectedRoutes';
 
+import DetailProductDrawer from './components/drawer/DetailProductDrawer';
+
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter forceRefresh={true}>
         <ThemeProvider theme={Theme}>
           <Routes>
             <Route path='*' element={<><h1 className='text-center'>404 ERROR</h1></>} />
-            {/* <Route exact path='/' element={<ProtectedRoutes />}> */}
+            <Route exact path='/' element={<ProtectedRoutes />}>
               <Route path='/' element={<HomePage />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
@@ -33,12 +35,13 @@ function App() {
               <Route path='/myaccount' element={<AkunSaya />} />
               <Route path='/wishlist' element={<Wishlist />} />
               <Route path='/notifikasi' element={<Notification />} />
-              <Route path='/info-produk/:id' element={<InfoProduk />} />
+              <Route path='/info-produk' element={<InfoProduk />} />
+              <Route path='/info-produk/update/:id' element={<InfoProduk />} />
               <Route path='/daftar-jual' element={<DaftarJual />} />
               <Route path='/detail-product-seller/:id' element={<DetailProductSeller />} />
               <Route path='/detail-product-buyer/:id' element={<DetailProductBuyer />} />
               <Route path='/info-penawar' element={<InfoPenawar />} />
-            {/* </Route> */}
+            </Route>
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

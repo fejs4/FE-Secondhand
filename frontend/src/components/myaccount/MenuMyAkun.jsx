@@ -6,9 +6,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const MenuMyAkun = () => {
+const MenuMyAkun = ({userProfile}) => {
     const navigate = useNavigate()
-    const userProfile = useSelector(state => state.auth.userProfile)
 
     const handleLogout = () =>{
         window.localStorage.removeItem('token')
