@@ -72,6 +72,7 @@ const FormProduct = () => {
             setData({ ...data, message: 'Gagal login, lengkapi data', success: false })
         } else {
             try {
+                const token = localStorage.getItem('token');
                 const product = new FormData()
                 product.append("id", userProfile.id)
                 product.append("name", data.nama)
@@ -83,7 +84,11 @@ const FormProduct = () => {
                     {
                         method: "PUT",
                         data: product,
-                        url: "http://localhost:5000/users/profile"
+                        url: "http://localhost:5000/users/profile",
+                        headers: {
+                            Authorization: token,
+                        }
+
                     }).then(
                         data => {
                             setData({ ...data, message:data.data.message , success: data.data.success })
@@ -147,13 +152,9 @@ const FormProduct = () => {
                             <Box component={'img'}
                             src={`http://localhost:5000/public/images/${userProfile.image}`}
                             alt='profile'
-                            sx={{ borderRadius:'12px', width:'96px', height:'96px', objectFit:'contain', boxShadow:' 0px 0px 10px rgba(0, 0, 0, 0.15)',
+                            sx={{ width:'96px', height:'96px', objectFit:'cover', boxShadow:' 0px 0px 10px rgba(0, 0, 0, 0.15)',
                             display: thumbs.length !== 0 ? 'none' : 'block' }}
-                            /> 
-                            : '' :
-                            
-                            files.length !== 0 ? 
-                            '' 
+                            /> : '' : files.length !== 0 ? '' 
                             : <PhotoCameraOutlinedIcon sx={{ color: '#7126B5' }} />}
                             <Box display={'flex'} flexWrap={'wrap'}>
                                 {thumbs}
