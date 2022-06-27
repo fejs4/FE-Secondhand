@@ -9,11 +9,10 @@ import { useSelector } from 'react-redux'
 const Products = () => {
   const userProfile = useSelector(state => state.auth.userProfile)
   const navigate = useNavigate()
-  console.log(userProfile)
 
   const handleSell = () => {
     if (Object.keys(userProfile).length !== 0) {
-      navigate(`/info-produk/${userProfile.id}`)
+      userProfile.city ? navigate(`/info-produk`) : navigate(`/info-user/${userProfile.id}`)
     } else {
       navigate('/login')
     }

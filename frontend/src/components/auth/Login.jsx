@@ -13,7 +13,7 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserLogin } from '../../redux/auth';
+import { authLogin, setMessage, setSuccess, setUserLogin } from '../../redux/auth';
 
 const Login = () => {
     // Login
@@ -22,42 +22,31 @@ const Login = () => {
         password: '',
         email: '',
         showPassword: false,
-        success: false,
-        message: ''
     });
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const message = useSelector(state=>state.auth.message)
+    const success = useSelector(state=>state.auth.success)
 
     const handleLogin = async (e) => {
         e.preventDefault()
-        // if (error.email !== '' || error.password !== '') {
-        //     setValues({ ...values, message: 'Gagal login, lengkapi data', success: false })
-        // } else {
+        if (error.email !== '' || error.password !== '') {
+            dispatch(setSuccess(false))
+            dispatch(setMessage('Gagal login, data belum terpenuhi!'))
+        } else {
             try {
                 const user = {
                     email: values.email,
                     password: values.password
                 }
-                const getData = await axios(
-                    {
-                        method:"POST",
-                        data:user,
-                        url:"http://localhost:5000/login"
-                    }).then(
-                    data => {
-                        localStorage.setItem("token", data.data.data.test.access_token)
-                        setValues({ ...values, message: data.data.message, success: data.data.success })
-                        dispatch(setUserLogin({id: data.data.data.test.id,email: data.data.data.test.email }))
-                        setTimeout(() => {
-                            window.location.reload()
-                        }, 2000);
-                    }
-                )
+                dispatch(authLogin(user))
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000);
             } catch (error) {
                 console.log(error);
             }
-        // }
+        }
     }
 
     const loginValidate = (e) => {
@@ -99,9 +88,9 @@ const Login = () => {
                                 <Typography component={'h4'} variant='h4' fontWeight={700}>
                                     Masuk
                                 </Typography>
-                                {values.message ?
+                                {message ?
                                     <Stack sx={{ width: '100%' }} spacing={2}>
-                                        <Alert severity={values.success ? 'success' : 'error'}> {values.message} </Alert>
+                                        <Alert severity={success ? 'success' : 'error'}> {message} </Alert>
                                     </Stack>
                                     :
                                     ""
@@ -114,7 +103,7 @@ const Login = () => {
                                 <OutlinedInput
                                     onChange={handleChange('email')}
                                     type='email'
-                                    error={error.email}
+                                    error={error.email ? true: false}
                                     sx={{ borderRadius: '16px' }}
                                     placeholder='Johndoe@gmail.com'
                                 />
@@ -132,7 +121,7 @@ const Login = () => {
                                     type={values.showPassword ? 'text' : 'password'}
                                     value={values.password}
                                     onChange={handleChange('password')}
-                                    error={error.password}
+                                    error={error.password ? true: false}
                                     placeholder='Masukkan password'
                                     sx={{ borderRadius: '16px' }}
                                     endAdornment={

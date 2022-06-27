@@ -1,5 +1,5 @@
 import { Box, Grid, Typography, Button, FormHelperText } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -9,9 +9,10 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerValidation } from '../../validator/validator';
-import axios from 'axios'
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import { useDispatch, useSelector } from 'react-redux';
+import { authRegister, setMessage, setSuccess } from '../../redux/auth';
 
 const Register = () => {
     // Login
@@ -21,10 +22,11 @@ const Register = () => {
         email: '',
         name: '',
         showPassword: false,
-        success: false,
-        message: ''
     });
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const message = useSelector(state=>state.auth.message)
+    const success = useSelector(state=>state.auth.success)
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -33,7 +35,8 @@ const Register = () => {
     const handleRegister = async (e) => {
         e.preventDefault()
         if (error.email !== '' || error.name !== '' || error.password !== '' ) {
-            setValues({...values, message: 'Gagal register data belum terpenuhi', success: false})
+            dispatch(setSuccess(false))
+            dispatch(setMessage('Gagal register, data belum terpenuhi!'))
         }else{
             try {
                 const user = {
@@ -41,14 +44,7 @@ const Register = () => {
                     email: values.email,
                     password: values.password
                 }
-                const getData = await axios.post("http://localhost:5000/register", user).then(
-                    data => {
-                        setValues({...values, message: data.data.message, success: data.data.success})
-                        setTimeout(() => {
-                            navigate('/login')
-                        }, 1500);
-                    }
-                )
+                dispatch(authRegister(user))
             } catch (error) {
                 console.log(error);
             }
@@ -70,6 +66,13 @@ const Register = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+    React.useEffect(() => {
+        if (success) {
+            setTimeout( () => {
+                window.location.reload()
+            }, 1500);
+        }
+    }, [success]);
     return (
         <>
             <Grid container height={'100vh'} overflow={'hidden'}>
@@ -90,9 +93,9 @@ const Register = () => {
                                 <Typography variant='h4' fontWeight={700}>
                                     Daftar
                                 </Typography>
-                                {values.message?
+                                {message?
                                 <Stack sx={{ width: '100%' }} spacing={2}>
-                                    <Alert severity={values.success? 'success' : 'error'}> {values.message} </Alert>
+                                    <Alert severity={success? 'success' : 'error'}> {message} </Alert>
                                 </Stack>
                                 :
                                 ""
@@ -105,7 +108,7 @@ const Register = () => {
                                 <OutlinedInput
                                     onChange={handleChange('name')}
                                     type='text'
-                                    // error={error.name}
+                                    error={error.name ? true: false}
                                     sx={{ borderRadius: '16px' }}
                                     placeholder='John doe'
                                 />
@@ -122,7 +125,7 @@ const Register = () => {
                                 <OutlinedInput
                                     onChange={handleChange('email')}
                                     type='email'
-                                    // error={error.email}
+                                    error={error.email ? true: false}
                                     sx={{ borderRadius: '16px' }}
                                     placeholder='Johndoe@gmail.com'
                                 />
@@ -140,7 +143,7 @@ const Register = () => {
                                     id="outlined-adornment-password"
                                     type={values.showPassword ? 'text' : 'password'}
                                     value={values.password}
-                                    // error={error.password}
+                                    error={error.password ? true: false}
                                     onChange={handleChange('password')}
                                     placeholder='Masukkan password'
                                     sx={{ borderRadius: '16px' }}
