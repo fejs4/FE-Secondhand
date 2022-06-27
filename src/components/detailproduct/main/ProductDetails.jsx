@@ -8,9 +8,13 @@ import PublishSeller from '../seller/PublishSeller'
 import PublishBuyer from '../buyer/PublishBuyer'
 import ProductInfo from '../seller/ProductInfo'
 import ProductInterest from '../buyer/ProductInterest'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchProductDetail } from '../../../redux/product'
 
 const ProductDetails = ({ status }) => {
+  const {id} = useParams()
+  const dispatch = useDispatch()
 
   const [error, setError] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -19,7 +23,14 @@ const ProductDetails = ({ status }) => {
     setError(false);
     setSuccess(false);
     setDeleted(false)
-  }; 
+  }
+
+  const data = useSelector(state=>state.product.detailProduct)
+  console.log(data)
+  React.useEffect(() => {
+    dispatch(fetchProductDetail(id))
+  }, [id]);
+  
 
   return (
     <>
@@ -36,19 +47,19 @@ const ProductDetails = ({ status }) => {
             </Link>
           </Box>
           <Grid item xl={6} md={8} xs={12} >
-            <ProductImage />
+            <ProductImage data={data}/>
             <Box component={'div'} p={4} mt={3} display={{ md: 'block', xs: 'none' }} sx={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)', borderRadius: '16px' }}>
-              <DescriptionProduct />
+              <DescriptionProduct data={data}/>
             </Box>
           </Grid>
           <Grid item xl={4} md={4} xs={12} mx={{ md: 'unset', xs: 3 }}  >
-            {status === 'buyer' ? <ProductInterest success={setSuccess}/> : <ProductInfo />}
-            <SellerInfo />
+            {status === 'buyer' ? <ProductInterest data={data} success={setSuccess}/> : <ProductInfo />}
+            <SellerInfo data={data}/>
             <Box component={'div'} p={4} mt={3} display={{ md: 'none', xs: 'block' }} sx={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)', borderRadius: '16px' }}>
               <DescriptionProduct />
             </Box>
             <Box display={{ xs: 'flex', md: 'none' }} justifyContent={'center'}>
-              {status === 'buyer' ? <PublishBuyer /> : <PublishSeller />}
+              {status === 'buyer' ? <PublishBuyer data={data}/> : <PublishSeller data={data}/>}
             </Box>
           </Grid>
           <Stack position="absolute" className="alert" mx={'auto'} zIndex={100} width={{ md: '40%', xs: '90%' }} sx={{ left: 0, right: 0, top: 0, transition: '0.5s' }} style={{ 'marginTop': success ? "-25px" : "-350px" }} >
