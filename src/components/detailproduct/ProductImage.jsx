@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper";
 import { Box } from '@mui/material';
 
-const ProductImage = () => {
+const ProductImage = ({data}) => {
     return (
         <>
             <Box>
@@ -20,15 +20,15 @@ const ProductImage = () => {
                     modules={[Pagination, Navigation]}
                     className="mySwiper"
                 >
-                    <SwiperSlide style={{ width:{xs:'300px',md:'600px'}, height:'100%', minHeight:{xs:'300px',md:'600px'} }}>
-                        <Box component={'img'} src='/images/Product.png' sx={{ borderRadius:{md:'16px',xs:0}, width:'100%', height:'100%', objectFit:'cover' }}/>
-                    </SwiperSlide>
-                    <SwiperSlide style={{ width:{xs:'300px',md:'600px'}, height:'100%', minHeight:{xs:'300px',md:'600px'} }}>
-                        <Box component={'img'} src='/images/Product.png' sx={{ borderRadius:{md:'16px',xs:0}, width:'100%', height:'100%', objectFit:'cover' }}/>
-                    </SwiperSlide>
-                    <SwiperSlide style={{ width:{xs:'300px',md:'600px'}, height:'100%', minHeight:{xs:'300px',md:'600px'} }}>
-                        <Box component={'img'} src='/images/Product.png' sx={{ borderRadius:{md:'16px',xs:0}, width:'100%', height:'100%', objectFit:'cover' }}/>
-                    </SwiperSlide>
+                    {Object.keys(data).length !== 0? data.images.map((item) =>{
+                        return(
+                            <>        
+                            <SwiperSlide style={{ width:{xs:'300px',md:'600px'}, height:'100%', minHeight:{xs:'300px',md:'600px'} }}>
+                                <Box component={'img'} src={`http://localhost:5000/public/images/${item}`} sx={{ borderRadius:{md:'16px',xs:0}, width:'100%', height:'100%', objectFit:'cover' }}/>
+                            </SwiperSlide>
+                            </>
+                       )
+                    }) : ''} 
                 </Swiper>
             </Box>
         </>
