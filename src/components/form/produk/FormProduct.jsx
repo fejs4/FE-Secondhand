@@ -5,7 +5,7 @@ import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 import Toolbar from '@mui/material/Toolbar';
 import { Button, FormControl, FormHelperText, Grid, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductDetail, postProducts, publishProduct, setTemporary, updateProduct } from '../../../redux/product';
 import axios from 'axios';
@@ -44,28 +44,37 @@ const FormProduct = () => {
     const [files, setFiles] = useState([]);
     const [error, setError] = React.useState({});
     const dispatch = useDispatch()
+    const location = useLocation().pathname
     const navigate = useNavigate()
     const { id } = useParams()
     const productDetails = useSelector(state => state.product.detailProduct)
     const [data, setData] = useState(
         {
-            nama:  productDetails !== undefined ? productDetails.name :'',
-            harga: productDetails !== undefined ? productDetails.price : '',
-            kategori: productDetails !== undefined ? productDetails.category :'semua',
-            deskripsi: productDetails !== undefined ? productDetails.description : '',
+            nama: '',
+            harga: '',
+            kategori: 'semua',
+            deskripsi: '',
             message: '',
             success: null
         }
     )
 
+    // Create form product
     const userProfile = useSelector(state => state.auth.userProfile)
-    const [idProduct, setIdProduct] = useState();
-
+    console.log(productDetails)
     const handleValidate = (e) => {
         e.preventDefault()
         formProductValidation(data, files, fileRejections, setError)
     }
-    console.log(productDetails);
+    const handleValidatePreview = (e) => {
+        e.preventDefault()
+        if (id) {
+            navigate(`/detail-product-seller/${productDetails.id}`)
+        }else{
+            formProductValidation(data, files, fileRejections, setError)
+        }
+    }
+
     const handleCreate = async (e) => {
         e.preventDefault()
         if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
@@ -73,6 +82,7 @@ const FormProduct = () => {
         } else {
             try {
                 const token = localStorage.getItem('token');
+                const idProduct = productDetails.id
                 const product = new FormData()
                 product.append("name", data.nama)
                 product.append("category", data.kategori)
@@ -85,45 +95,99 @@ const FormProduct = () => {
                     console.log(pair[0] + ', ' + pair[1]);
                 }
                 // EDIT
-                // if (Object.keys(productDetails).length !== 0) {
+                // if (location !== '/info-produk') {
                 //     if (productDetails.publish) {
-                //         dispatch(updateProduct(id, product))
+                // product.append("publish", true)
+                // dispatch(updateProduct(product,id ))
                 //     }else{
+                //         product.append("publish", true)
                 //         dispatch(updateProduct(id, product))
-                //         setTimeout(() => {
-                //             dispatch(publishProduct(id))
-                //         },1500)
                 //     }
                 // }else{
+                //     product.append("publish", true)
                 //     dispatch(postProducts(product))
-                //     setTimeout(() => {
-                //         console.log(idProduct);
-                //         dispatch(publishProduct(idProduct))
-                //     }, 1500);
                 // }
-                // const postData = await axios(
-                //     {
-                //         method: id ? "PUT" : "POST",
-                //         data: product,
-                //         url: id ? `http://localhost:5000/product/${id}` : `http://localhost:5000/product/`,
-                //         headers: {
-                //             Authorization: token,
+                if (location !== '/info-produk') {
+                    if (productDetails.publish) {
+                        product.append("publish", true)
+                        const postData = await axios(
+                            {
+                                method: "PUT",
+                                data: product,
+                                url: `http://localhost:5000/product/${id}`,
+                                headers: {
+                                    Authorization: token,
 
-                //         }
-                //     }).then(
-                //         data => {
-                //             console.log(data.data.data.product)
-                //             setIdProduct(data.data.data.product.id)
-                //             setTimeout(() => {
-                //                 navigate(`/daftar-jual`)
-                //             }, 1000);
-                //         }
-                //     )
+                                }
+                            }).then(
+                                data => {
+                                    setTimeout(() => {
+                                        navigate(`/daftar-jual`)
+                                    }, 1000);
+                                }
+                            )
+                    } else {
+                        product.append("publish", true)
+                        const postData = await axios(
+                            {
+                                method: "PUT",
+                                data: product,
+                                url: `http://localhost:5000/product/${id}`,
+                                headers: {
+                                    Authorization: token,
+
+                                }
+                            }).then(
+                                data => {
+                                    setTimeout(() => {
+                                        navigate(`/daftar-jual`)
+                                    }, 1000);
+                                }
+                            )
+                    }
+                } else {
+                    product.append("publish", true)
+                    dispatch(postProducts(product))
+                    setTimeout(() => {
+                        navigate(`/daftar-jual`)
+                    }, 1000);
+                }
             } catch (error) {
                 console.log(error);
             }
         }
     }
+
+    const handlePreview = () => {
+        if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
+            setData({ ...data, message: 'Gagal memposting produk, lengkapi data', success: false })
+        } else {
+            const productPreview = new FormData()
+            productPreview.append("name", data.nama)
+            productPreview.append("category", data.kategori)
+            productPreview.append("price", data.harga)
+            productPreview.append("description", data.deskripsi)
+            productPreview.append("publish", false)
+            files.forEach(file => {
+                productPreview.append("image", file)
+            })
+            try {
+                if (id) {
+                    navigate(`/detail-product-seller/${productDetails.id}`)
+                }else{
+                    dispatch(postProducts(productPreview)).then((data) => {
+                        setTimeout(() => {
+                            navigate(`/detail-product-seller/${data.payload.data.product.id}`)
+                        }, 2000);
+                      })
+                }
+            } catch (err) {
+                console.log(err)
+            }
+           
+        }
+    }
+
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
         maxFiles: 4,
         accept: {
@@ -150,16 +214,13 @@ const FormProduct = () => {
     ));
 
     useEffect(() => {
-        dispatch(fetchProductDetail(id))
-        if (!id) {
-            if (idProduct) {
-                dispatch(publishProduct(idProduct))
-            }
+        if (id) {
+            dispatch(fetchProductDetail(id))
         }
         return () => {
             files.forEach(file => URL.revokeObjectURL(file.preview))
         }
-    }, [files, idProduct, id])
+    }, [files,   id])
 
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
@@ -268,11 +329,9 @@ const FormProduct = () => {
 
                     <Grid container spacing={2} mt={2}>
                         <Grid item xs={6}>
-                            <Link to='/detail-product-seller/1' style={{ textDecoration: 'none' }}>
-                                <Button fullWidth onMouseUp={handleValidate} variant="outlined" color="primary" sx={{ height: '48px' }} >
-                                    Preview
-                                </Button>
-                            </Link>
+                            <Button fullWidth onMouseUp={handleValidatePreview} onClick={handlePreview} variant="outlined" color="primary" sx={{ height: '48px' }} >
+                                Preview
+                            </Button>
                         </Grid>
                         <Grid item xs={6}>
                             <Button fullWidth onMouseUp={handleValidate} variant="contained" color="primary" sx={{ height: '48px' }} onClick={handleCreate}>

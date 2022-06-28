@@ -3,6 +3,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchProductsUser, setLoading } from '../../../redux/product';
+import CardLoading from '../../loading/CardLoading';
 
 const ListProductJual = () => {
     const dispatch = useDispatch()
@@ -40,8 +41,8 @@ const ListProductJual = () => {
                             return (
                                 <>
 
-                                    <Grid item xs={6} sm={6} md={4}>
-                                        <Link to={`/info-produk/update/${item.id}`} style={{ textDecoration: 'none' }}>
+                                    <Grid item xs={6} sm={6} md={4} >
+                                        <Link to={`/detail-product-seller/${item.id}`} style={{ textDecoration: 'none' }}>
                                             <Card sx={{ maxWidth: 345 }}>
                                                 <CardActionArea>
                                                     <Typography gutterBottom variant="h6" component="div" sx={{ padding:.5, color:'white', display: item.publish? 'none':'block', background:'grey', fontSize: '.8em', position:'absolute' }}>
@@ -74,27 +75,7 @@ const ListProductJual = () => {
                             )
                         })
                         : '' :
-                    Object.keys(data).length !== 0 &&
-                    data.map((item) => {
-                        return (
-                            <>
-                                <Grid item xs={6} sm={6} md={4}>
-                                    <Link to={`/detail-product-buyer/${item.id}`} style={{ textDecoration: 'none' }}>
-                                        <Card sx={{ maxWidth: 345, width: '100%' }} key={item.name}>
-                                            <CardActionArea>
-                                                <Skeleton sx={{ height: 140, width: '100%' }} animation="wave" variant="rectangular" />
-                                                <CardContent>
-                                                    <Skeleton animation="wave" height={20} sx={{ marginBottom: 2 }} />
-                                                    <Skeleton animation="wave" height={20} sx={{ marginBottom: 2 }} />
-                                                    <Skeleton animation="wave" height={20} sx={{ marginBottom: 2 }} />
-                                                </CardContent>
-                                            </CardActionArea>
-                                        </Card>
-                                    </Link>
-                                </Grid>
-                            </>
-                        )
-                    })
+                        <CardLoading length={Object.keys(data).length}/>
                 }
             </Grid>
         </>
