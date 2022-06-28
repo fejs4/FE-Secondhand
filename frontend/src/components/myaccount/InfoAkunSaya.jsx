@@ -28,7 +28,7 @@ const InfoAkunSaya = () => {
                         <Box component={'img'}
                         src={userProfile.image ? `http://localhost:5000/public/profile/${userProfile.image}` : ''}
                         alt='profile'
-                        sx={{ borderRadius:'12px', width:'96px', height:'96px', objectFit:'contain', boxShadow:' 0px 0px 10px rgba(0, 0, 0, 0.15)' }}
+                        sx={{ borderRadius:'12px', width:'96px', height:'96px', objectFit:'cover', boxShadow:' 0px 0px 10px rgba(0, 0, 0, 0.15)' }}
                         />
                     </Box>
                     <MenuMyAkun userProfile={userProfile}/>

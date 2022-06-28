@@ -31,7 +31,7 @@ const img = {
     display: 'block',
     width: '98px',
     height: '98px',
-    objectFit: 'contain'
+    objectFit: 'cover'
 };
 
 const maxFile = 1
