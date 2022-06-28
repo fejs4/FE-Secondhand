@@ -50,10 +50,10 @@ const FormProduct = () => {
     const productDetails = useSelector(state => state.product.detailProduct)
     const [data, setData] = useState(
         {
-            nama: '',
-            harga: '',
-            kategori: 'semua',
-            deskripsi: '',
+            nama: productDetails? productDetails.name : '',
+            harga: productDetails? productDetails.price :'',
+            kategori: productDetails? productDetails.category : 'semua',
+            deskripsi: productDetails? productDetails.description :'',
             message: '',
             success: null
         }
@@ -61,16 +61,14 @@ const FormProduct = () => {
 
     // Create form product
     const userProfile = useSelector(state => state.auth.userProfile)
-    console.log(productDetails)
+
     const handleValidate = (e) => {
         e.preventDefault()
         formProductValidation(data, files, fileRejections, setError)
     }
     const handleValidatePreview = (e) => {
         e.preventDefault()
-        if (id) {
-            navigate(`/detail-product-seller/${productDetails.id}`)
-        }else{
+        if (!id) {
             formProductValidation(data, files, fileRejections, setError)
         }
     }
@@ -94,19 +92,6 @@ const FormProduct = () => {
                 for (var pair of product.entries()) {
                     console.log(pair[0] + ', ' + pair[1]);
                 }
-                // EDIT
-                // if (location !== '/info-produk') {
-                //     if (productDetails.publish) {
-                // product.append("publish", true)
-                // dispatch(updateProduct(product,id ))
-                //     }else{
-                //         product.append("publish", true)
-                //         dispatch(updateProduct(id, product))
-                //     }
-                // }else{
-                //     product.append("publish", true)
-                //     dispatch(postProducts(product))
-                // }
                 if (location !== '/info-produk') {
                     if (productDetails.publish) {
                         product.append("publish", true)
@@ -158,34 +143,54 @@ const FormProduct = () => {
         }
     }
 
-    const handlePreview = () => {
-        if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
-            setData({ ...data, message: 'Gagal memposting produk, lengkapi data', success: false })
-        } else {
+    const handlePreview = async () => {
+        // if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
+        //     setData({ ...data, message: 'Gagal memposting produk, lengkapi data', success: false })
+        // } else {
             const productPreview = new FormData()
             productPreview.append("name", data.nama)
             productPreview.append("category", data.kategori)
             productPreview.append("price", data.harga)
             productPreview.append("description", data.deskripsi)
-            productPreview.append("publish", false)
+            
             files.forEach(file => {
                 productPreview.append("image", file)
             })
+            console.log(productDetails.publish)
             try {
                 if (id) {
-                    navigate(`/detail-product-seller/${productDetails.id}`)
-                }else{
+                    const token = localStorage.getItem('token');
+                    productPreview.append("publish", productDetails.publish)
+                    const postData = await axios(
+                        {
+                            method: "PUT",
+                            data: productPreview,
+                            url: `http://localhost:5000/product/${id}`,
+                            headers: {
+                                Authorization: token,
+
+                            }
+                        }).then(
+                            data => {
+                                console.log(data)
+                                setTimeout(() => {
+                                    navigate(`/detail-product-seller/${id}`)
+                                }, 1000);
+                            }
+                        )
+                } else {
+                    productPreview.append("publish", false)
                     dispatch(postProducts(productPreview)).then((data) => {
                         setTimeout(() => {
                             navigate(`/detail-product-seller/${data.payload.data.product.id}`)
                         }, 2000);
-                      })
+                    })
                 }
             } catch (err) {
                 console.log(err)
             }
-           
-        }
+
+        // }
     }
 
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
@@ -220,7 +225,7 @@ const FormProduct = () => {
         return () => {
             files.forEach(file => URL.revokeObjectURL(file.preview))
         }
-    }, [files,   id])
+    }, [files, id])
 
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>

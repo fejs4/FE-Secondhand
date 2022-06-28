@@ -20,7 +20,7 @@ const ProductImage = ({data}) => {
                     modules={[Pagination, Navigation]}
                     className="mySwiper"
                 >
-                    {Object.keys(data).length !== 0 ? data.images.map((item) =>{
+                    {data.images ? data.images.map((item) =>{
                         return(
                             <>        
                             <SwiperSlide style={{ width:{xs:'300px',md:'600px'}, height:'100%', minHeight:{xs:'300px',md:'600px'} }}>

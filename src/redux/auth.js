@@ -34,7 +34,7 @@ const initialState = {
 }
 
 const authSlice = createSlice({
-    name: 'produk',
+    name: 'auth',
     initialState,
     reducers: {
         setUserProfile: (state, action) => {
