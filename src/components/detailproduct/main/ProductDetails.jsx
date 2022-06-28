@@ -34,7 +34,6 @@ const ProductDetails = ({ status }) => {
   }
 
   const data = useSelector(state => state.product.detailProduct)
-  console.log(data)
   React.useEffect(() => {
     dispatch(fetchProductDetail(id))
   }, [id]);
