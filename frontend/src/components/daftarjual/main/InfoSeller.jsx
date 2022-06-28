@@ -25,7 +25,7 @@ const InfoSeller = () => {
       <Grid container my={1} py={1} sx={{ pr: 2, boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.25)', borderRadius: '16px' }}>
         <Grid item xs={3} md={1} textAlign="center">
           <IconButton >
-            <Avatar alt="" src={user? `http://localhost:5000/public/images/${user.image}` : "/static/images/avatar/2.jpg"} />
+            <Avatar alt="" src={user? `http://localhost:5000/public/profile/${user.image}` : "/static/images/avatar/2.jpg"} />
           </IconButton>
         </Grid>
         <Grid item xs my={'auto'}>

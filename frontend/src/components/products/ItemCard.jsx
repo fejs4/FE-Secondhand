@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchProducts, setLoading } from '../../redux/product'
 import Skeleton from '@mui/material/Skeleton';
+import CardLoading from '../loading/CardLoading'
 
 const ItemCard = () => {
     const dispatch = useDispatch()
@@ -59,28 +60,7 @@ const ItemCard = () => {
                                 "Data Kosong"
                             </Typography>
                         </Box>
-                    :
-                    Object.keys(data).length !== 0 &&
-                    data.map((item) => {
-                        return (
-                            <>
-                                <Grid item xs={6} sm={6} md={4} xl={2}  >
-                                    <Link to={`/detail-product-buyer/${item.id}`} style={{ textDecoration: 'none' }}>
-                                        <Card sx={{ maxWidth: 345 }} key={item.name}>
-                                            <CardActionArea>
-                                                <Skeleton sx={{ height: 140 }} animation="wave" variant="rectangular" />
-                                                <CardContent>
-                                                    <Skeleton animation="wave" height={20} sx={{ marginBottom: 2 }} />
-                                                    <Skeleton animation="wave" height={20} sx={{ marginBottom: 2 }} />
-                                                    <Skeleton animation="wave" height={20} sx={{ marginBottom: 2 }} />
-                                                </CardContent>
-                                            </CardActionArea>
-                                        </Card>
-                                    </Link>
-                                </Grid>
-                            </>
-                        )
-                    })
+                    : <CardLoading length={Object.keys(data).length} xl={2}/>
                 }
             </Grid>
         </>
