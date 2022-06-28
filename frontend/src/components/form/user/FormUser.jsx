@@ -31,7 +31,7 @@ const img = {
     display: 'block',
     width: '98px',
     height: '98px',
-    objectFit: 'contain'
+    objectFit: 'cover'
 };
 
 const maxFile = 1
@@ -150,7 +150,7 @@ const FormProduct = () => {
                             <input {...getInputProps()} type='file' name='images-product' multiple />
                             {userProfile.image ? userProfile.image.length !== 0 ?
                             <Box component={'img'}
-                            src={`http://localhost:5000/public/images/${userProfile.image}`}
+                            src={`http://localhost:5000/public/profile/${userProfile.image}`}
                             alt='profile'
                             sx={{ width:'96px', height:'96px', objectFit:'cover', boxShadow:' 0px 0px 10px rgba(0, 0, 0, 0.15)',
                             display: thumbs.length !== 0 ? 'none' : 'block' }}

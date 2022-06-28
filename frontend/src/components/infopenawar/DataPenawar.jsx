@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { Button, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Box, Typography } from '@mui/material'
-import BuyerInfo from '../detailproduct/BuyerInfo';
+import BuyerInfo from './BuyerInfo';
 import CircleIcon from '@mui/icons-material/Circle';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import ModalDiterima from './ModalDiterima';
