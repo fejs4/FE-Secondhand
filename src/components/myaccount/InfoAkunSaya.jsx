@@ -26,7 +26,7 @@ const InfoAkunSaya = () => {
                 <Box position='absolute' width={{ md: '70%', xs: '100%' }} mx={'auto'} sx={{ left: 0, right: 0, top: 0 }} >
                     <Box sx={{ height: '100%', width: '100%', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
                         <Box component={'img'}
-                        src={userProfile.image ? `http://localhost:5000/public/images/${userProfile.image}` : ''}
+                        src={userProfile.image ? `http://localhost:5000/public/profile/${userProfile.image}` : ''}
                         alt='profile'
                         sx={{ borderRadius:'12px', width:'96px', height:'96px', objectFit:'contain', boxShadow:' 0px 0px 10px rgba(0, 0, 0, 0.15)' }}
                         />
