@@ -40,7 +40,6 @@ export const postProducts = createAsyncThunk(
             url:`http://localhost:5000/product/`,
             headers: {
                 Authorization: token,
-
             }
         })
         return response.data;
@@ -50,7 +49,9 @@ export const postProducts = createAsyncThunk(
 
 export const updateProduct = createAsyncThunk(
     'product/updateProduct',
-    async (id, product) => {
+    async (product: product,id: id) => {
+        console.log(product)
+        console.log(id)
         const token = localStorage.getItem('token');
         const response = await axios({
             method: "PUT",
@@ -58,7 +59,6 @@ export const updateProduct = createAsyncThunk(
             url:`http://localhost:5000/product/${id}`,
             headers: {
                 Authorization: token,
-
             }
         })
         return response.data;
@@ -175,7 +175,7 @@ const productSlice = createSlice({
         [postProducts.fulfilled]: (state, action) => {
             console.log('fulfilled')
             console.log(action.payload);
-            return { ...state, idProduct: action.payload.data.product.id}
+            return { ...state, idProduct: action.payload.data.product.id }
         },
         [postProducts.rejected]: (state, action) => {
             console.log('rejected')
@@ -189,11 +189,11 @@ const productSlice = createSlice({
         },
         [updateProduct.fulfilled]: (state, action) => {
             console.log('fulfilled')
-            console.log(action.payload);
-            return { ...state, idProduct: action.payload }
+            console.log(action.payload)
         },
         [updateProduct.rejected]: (state, action) => {
             console.log('rejected')
+            console.log(action.error)
             return { ...state, error: action.error }
         }
     }

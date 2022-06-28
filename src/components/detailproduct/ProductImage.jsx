@@ -20,11 +20,11 @@ const ProductImage = ({data}) => {
                     modules={[Pagination, Navigation]}
                     className="mySwiper"
                 >
-                    {Object.keys(data).length !== 0? data.images.map((item) =>{
+                    {Object.keys(data).length !== 0 ? data.images.map((item) =>{
                         return(
                             <>        
                             <SwiperSlide style={{ width:{xs:'300px',md:'600px'}, height:'100%', minHeight:{xs:'300px',md:'600px'} }}>
-                                <Box component={'img'} src={`http://localhost:5000/public/images/${item}`} sx={{ borderRadius:{md:'16px',xs:0}, width:'100%', height:'100%', objectFit:'cover' }}/>
+                                <Box component={'img'} src={item ?`http://localhost:5000/public/images/${item}` : ''} sx={{ borderRadius:{md:'16px',xs:0}, width:'100%', height:'100%', objectFit:'cover' }}/>
                             </SwiperSlide>
                             </>
                        )
