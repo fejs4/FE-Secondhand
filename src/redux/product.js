@@ -49,7 +49,7 @@ export const postProducts = createAsyncThunk(
 
 export const updateProduct = createAsyncThunk(
     'product/updateProduct',
-    async (product: product,id: id) => {
+    async (product, id) => {
         console.log(product)
         console.log(id)
         const token = localStorage.getItem('token');
