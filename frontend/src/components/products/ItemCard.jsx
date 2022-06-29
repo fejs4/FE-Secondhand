@@ -5,19 +5,20 @@ import { Link } from 'react-router-dom'
 import { fetchProducts, setLoading } from '../../redux/product'
 import Skeleton from '@mui/material/Skeleton';
 import CardLoading from '../loading/CardLoading'
+import axios from 'axios'
 
-const ItemCard = () => {
+const ItemCard = ({clicked}) => {
     const dispatch = useDispatch()
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
     const data = useSelector(state => state.product.products)
     const loading = useSelector(state => state.product.loading)
 
     React.useEffect(() => {
-        dispatch(fetchProducts())
+        dispatch(fetchProducts(clicked))
         setTimeout(() => {
             dispatch(setLoading(false))
         }, 1500);
-    }, [])
+    }, [clicked])
     return (
         <>
             <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} mt={3}>
@@ -33,7 +34,7 @@ const ItemCard = () => {
                                                     <CardMedia
                                                         component="img"
                                                         height="140"
-                                                        image={item.images ? `http://localhost:5000/public/images/${item.images[0]}` : ''}
+                                                        image={item.images ? `https://be-kel1.herokuapp.com/public/images/${item.images[0]}` : ''}
                                                         alt="green iguana"
                                                         sx={{ objectFit: 'cover' }}
                                                     />
