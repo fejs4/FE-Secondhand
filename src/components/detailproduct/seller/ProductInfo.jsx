@@ -35,7 +35,7 @@ const ProductInfo = ({data}) => {
                     <Button color='primary' onClick={handlePublish} variant='contained' fullWidth sx={{ borderRadius: '16px', height: '48px', display: { md: 'block', xs: 'none' } }}>
                         Terbitkan
                     </Button>
-                <Link to={`/info-produk/update/${data.id}`} style={{ textDecoration:'none' }}>
+                <Link to={`/info-produk/update/${id}`} style={{ textDecoration:'none' }}>
                     <Button color='primary' variant='outlined' fullWidth sx={{ borderRadius: '16px', height: '48px', display: { md: 'block', xs: 'none' } }}>
                         Edit
                     </Button>

@@ -50,10 +50,10 @@ const FormProduct = () => {
     const productDetails = useSelector(state => state.product.detailProduct)
     const [data, setData] = useState(
         {
-            nama: productDetails? productDetails.name : '',
-            harga: productDetails? productDetails.price :'',
-            kategori: productDetails? productDetails.category : 'semua',
-            deskripsi: productDetails? productDetails.description :'',
+            nama: Object.keys(productDetails).length? productDetails.name : '',
+            harga: Object.keys(productDetails).length? productDetails.price :'',
+            kategori: Object.keys(productDetails).length ? productDetails.category : 'semua',
+            deskripsi: Object.keys(productDetails).length? productDetails.description :'',
             message: '',
             success: null
         }
@@ -65,12 +65,6 @@ const FormProduct = () => {
     const handleValidate = (e) => {
         e.preventDefault()
         formProductValidation(data, files, fileRejections, setError)
-    }
-    const handleValidatePreview = (e) => {
-        e.preventDefault()
-        if (!id) {
-            formProductValidation(data, files, fileRejections, setError)
-        }
     }
 
     const handleCreate = async (e) => {
@@ -99,7 +93,7 @@ const FormProduct = () => {
                             {
                                 method: "PUT",
                                 data: product,
-                                url: `http://localhost:5000/product/${id}`,
+                                url: `https://be-kel1.herokuapp.com/product/${id}`,
                                 headers: {
                                     Authorization: token,
 
@@ -117,7 +111,7 @@ const FormProduct = () => {
                             {
                                 method: "PUT",
                                 data: product,
-                                url: `http://localhost:5000/product/${id}`,
+                                url: `https://be-kel1.herokuapp.com/product/${id}`,
                                 headers: {
                                     Authorization: token,
 
@@ -144,9 +138,9 @@ const FormProduct = () => {
     }
 
     const handlePreview = async () => {
-        // if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
-        //     setData({ ...data, message: 'Gagal memposting produk, lengkapi data', success: false })
-        // } else {
+        if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
+            setData({ ...data, message: 'Gagal memposting produk, lengkapi data', success: false })
+        } else {
             const productPreview = new FormData()
             productPreview.append("name", data.nama)
             productPreview.append("category", data.kategori)
@@ -165,7 +159,7 @@ const FormProduct = () => {
                         {
                             method: "PUT",
                             data: productPreview,
-                            url: `http://localhost:5000/product/${id}`,
+                            url: `https://be-kel1.herokuapp.com/product/${id}`,
                             headers: {
                                 Authorization: token,
 
@@ -189,8 +183,7 @@ const FormProduct = () => {
             } catch (err) {
                 console.log(err)
             }
-
-        // }
+        }
     }
 
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
@@ -288,9 +281,11 @@ const FormProduct = () => {
                             onChange={(e) => setData({ ...data, kategori: e.target.value })}
                         >
                             <MenuItem sx={{ width: '100%' }} value={'semua'} hidden >Pilih Kategori</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} value={'hobi'}>hobi</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} value={'hewan'}>hewan</MenuItem>
-                            <MenuItem sx={{ width: '100%' }} value={'perlengkapan'}>perlengkapan</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value={'hobi'}>Hobi</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value={'kendaraan'}>Kendaraan</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value={'baju'}>Baju</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value={'elektronik'}>Elektronik</MenuItem>
+                            <MenuItem sx={{ width: '100%' }} value={'kesehatan'}>Kesehatan</MenuItem>
                         </Select>
                     </FormControl>
 
@@ -334,7 +329,7 @@ const FormProduct = () => {
 
                     <Grid container spacing={2} mt={2}>
                         <Grid item xs={6}>
-                            <Button fullWidth onMouseUp={handleValidatePreview} onClick={handlePreview} variant="outlined" color="primary" sx={{ height: '48px' }} >
+                            <Button fullWidth onMouseUp={handleValidate} onClick={handlePreview} variant="outlined" color="primary" sx={{ height: '48px' }} >
                                 Preview
                             </Button>
                         </Grid>
