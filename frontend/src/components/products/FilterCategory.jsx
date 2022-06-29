@@ -4,8 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
-const FilterCategory = () => {
-  const [clicked, setClicked] = React.useState('Semua');
+const FilterCategory = ({clicked, setClicked}) => {
   let items = [];
   let keys = ['Semua', 'Hobi', 'Kendaraan', 'Baju', 'Elektronik', 'Kesehatan']
   keys.map((item)=>{

@@ -17,7 +17,7 @@ const ProtectedRoutes = () => {
         if (!Object.keys(userLogin).length !== 0) {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.get("http://localhost:5000/whoami", {
+                await axios.get("https://be-kel1.herokuapp.com/whoami", {
                     headers: {
                         Authorization: token,
                     }
@@ -39,7 +39,7 @@ const ProtectedRoutes = () => {
         if (!Object.keys(userLogin).length !== 0) {
             const token = localStorage.getItem('token');
             if (token) {
-                axios.get("http://localhost:5000/whoami", {
+                axios.get("https://be-kel1.herokuapp.com/whoami", {
                     headers: {
                         Authorization: token,
                     }
@@ -60,11 +60,11 @@ const ProtectedRoutes = () => {
         if (location === '/login' || location === '/register') {
             setTimeout(() => {
                 onLoginRegister()
-                }, 2000);
+                }, 1500);
         }else{
             setTimeout(() => {
                 getAuth()
-                }, 2000);
+                }, 1500);
         }
     }, [])
     return (

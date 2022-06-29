@@ -3,9 +3,14 @@ import axios from "axios";
 
 export const fetchProducts = createAsyncThunk(
     'product/fetchProducts',
-    async () => {
-        const response = await axios.get(`http://localhost:5000/products`);
-        return response.data.data.products;
+    async (clicked) => {
+        const response = await axios.get(`https://be-kel1.herokuapp.com/products`)
+        const responseFilter = await axios.get(`https://be-kel1.herokuapp.com/product/filter?cat=${clicked}`)
+        if (clicked === 'Semua') {
+            return response.data.data.products
+        }else{
+            return responseFilter.data.data.filtered
+        }
     }
 );
 
@@ -13,7 +18,7 @@ export const fetchProductsUser = createAsyncThunk(
     'product/fetchProductsUser',
     async () => {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:5000/product/user`, {
+        const response = await axios.get(`https://be-kel1.herokuapp.com/product/user`, {
             headers: { Authorization: token }
 
         })
@@ -25,7 +30,7 @@ export const fetchProductsUser = createAsyncThunk(
 export const fetchProductDetail = createAsyncThunk(
     'product/fetchProductDetail',
     async (id) => {
-        const response = await axios.get(`http://localhost:5000/product/${id}`);
+        const response = await axios.get(`https://be-kel1.herokuapp.com/product/${id}`);
         return response.data.data.product;
     }
 );
@@ -37,7 +42,7 @@ export const postProducts = createAsyncThunk(
         const response = await axios({
             method: "POST",
             data: product,
-            url:`http://localhost:5000/product/`,
+            url:`https://be-kel1.herokuapp.com/product/`,
             headers: {
                 Authorization: token,
             }
@@ -49,14 +54,12 @@ export const postProducts = createAsyncThunk(
 
 export const updateProduct = createAsyncThunk(
     'product/updateProduct',
-    async (product: product,id: id) => {
-        console.log(product)
-        console.log(id)
+    async (product,id) => {
         const token = localStorage.getItem('token');
         const response = await axios({
             method: "PUT",
             data: product,
-            url:`http://localhost:5000/product/${id}`,
+            url:`https://be-kel1.herokuapp.com/product/${id}`,
             headers: {
                 Authorization: token,
             }
@@ -72,7 +75,7 @@ export const publishProduct = createAsyncThunk(
         const response = await axios(
             {
                 method: "POST",
-                url: `http://localhost:5000/product/publish/${id}`,
+                url: `https://be-kel1.herokuapp.com/product/publish/${id}`,
                 headers: {
                     Authorization: token,
                 }
@@ -84,7 +87,7 @@ export const publishProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
     'product/deleteProduct',
     async (id) => {
-        const response = await axios.delete(`http://localhost:5000/product/${id}`);
+        const response = await axios.delete(`https://be-kel1.herokuapp.com/product/${id}`);
         return response.data;
     }
 );
@@ -92,6 +95,7 @@ export const deleteProduct = createAsyncThunk(
 
 const initialState = {
     loading: false,
+    loadingWeb:false,
     error: null,
     user: {},
     products: {},
@@ -106,6 +110,9 @@ const productSlice = createSlice({
     reducers: {
         setLoading: (state, action) => {
             state.loading = action.payload
+        },
+        setLoadingWeb: (state, action) => {
+            state.loadingWeb = action.payload
         },
     },
     extraReducers: {
@@ -138,7 +145,7 @@ const productSlice = createSlice({
             return { ...state, error: action.error }
         },
 
-        // Fetching Product
+        // Publish Product
         [publishProduct.pending]: (state, action) => {
             console.log('pending')
             return { ...state, loading: true, error: null }
@@ -198,5 +205,5 @@ const productSlice = createSlice({
         }
     }
 })
-export const { setLoading } = productSlice.actions;
+export const { setLoading,setLoadingWeb } = productSlice.actions;
 export default productSlice.reducer;
