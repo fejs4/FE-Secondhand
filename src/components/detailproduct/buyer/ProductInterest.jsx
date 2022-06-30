@@ -2,22 +2,43 @@ import { Box, Button, IconButton, InputAdornment, Modal, OutlinedInput, Typograp
 import React , { useState }from 'react'
 import CloseIcon from '@mui/icons-material/Close';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { postWishlist } from '../../../redux/wishlist';
+import { deleteWishlist, fetchWishlist, postWishlist } from '../../../redux/wishlist';
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 const ProductInterest = ({data,handleOpen}) => {
-    const [love, setLove] = React.useState(false)
+    const [love, setLove] = useState(false)
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
     const { id } = useParams()
     const dispatch = useDispatch()
     const wishlistAmbil = useSelector(state => state.wishlist.wishlist)
-    const handleWishlist = (id) => {
-        const data =  {product_id:id}
+    const getId = Object.keys(wishlistAmbil).length !== 0 && wishlistAmbil.map((data) => data.productId)
+    
+    const onWishtlist = getId ? getId.includes(Number(id)) : ''
+
+    const handleWishlist = async () => {
+        if (love === false) {
+            setLove(true)
+            const data =  {
+                product_id : id
+            }
             dispatch(postWishlist(data))
+        }else{
+            setLove(false)
+            const detailWishlist = wishlistAmbil.filter(item => item.productId === Number(id))
+            const dataId = detailWishlist[0].id
+            dispatch(deleteWishlist(id))
+        }
     }
-    // useEffect 
+
+    React.useEffect(()=>{
+        if (onWishtlist) {
+            setLove(true)
+        }
+        dispatch(fetchWishlist())
+    },[id])
  
     return (
         <>
@@ -26,8 +47,8 @@ const ProductInterest = ({data,handleOpen}) => {
                     <Typography variant='h6' fontWeight={800}>
                         {data? data.name : ''}
                     </Typography>
-                    <IconButton sx={{ padding: .5 }} onClick={() => setLove(true)}>
-                        <FavoriteIcon onClick={handleWishlist} sx={{ fontSize:'2rem', color:love ? 'red' : 'unset' }}/>
+                    <IconButton sx={{ padding: .5 }} >
+                        <FavoriteIcon onClick={handleWishlist} sx={{ fontSize:'2rem', color: love? 'red':'unset'  }}/>
                     </IconButton>
                 </Box>
                 <Typography variant='h6' sx={{ color: '#8A8A8A' }}>
