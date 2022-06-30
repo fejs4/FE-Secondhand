@@ -36,7 +36,7 @@ const ProductDetails = ({ status }) => {
   const data = useSelector(state => state.product.detailProduct)
   React.useEffect(() => {
     dispatch(fetchProductDetail(id))
-  }, [id]);
+  }, []);
 
 
   return (
@@ -69,7 +69,7 @@ const ProductDetails = ({ status }) => {
               {status === 'buyer' ? <PublishBuyer data={data} handleOpen={handleOpenModal} /> : <PublishSeller data={data} />}
             </Box>
           </Grid>
-          <Stack position="absolute" className="alert" mx={'auto'} zIndex={100} width={{ md: '50%', xs: '80%' }} sx={{ left: 0, right: 0, top: 0, transition: '0.5s' }} sx={{ marginTop: success ? {xs:"120px", md:'-25px'} : "-350px" }} >
+          <Stack position="absolute" className="alert" mx={'auto'} zIndex={100} width={{ md: '50%', xs: '80%' }} sx={{ left: 0, right: 0, top: 0, transition: '0.5s', marginTop: success ? {xs:"120px", md:'-25px'} : "-350px" }} >
             <Alert variant="filled" severity="success" onClose={handleClose}>Harga tawarmu berhasil dikirim ke penjual</Alert>
           </Stack>
         </Grid>

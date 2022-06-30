@@ -8,7 +8,7 @@ export const authLogin = createAsyncThunk(
          const response = await axios({
                 method:"POST",
                 data: user,
-                url:"http://localhost:5000/login"
+                url:"https://be-kel1.herokuapp.com/login"
             })
         return response.data;
     }
@@ -20,7 +20,7 @@ export const authRegister = createAsyncThunk(
          const response = await axios({
                 method:"POST",
                 data: user,
-                url:"http://localhost:5000/register"
+                url:"https://be-kel1.herokuapp.com/register"
             })
         return response.data;
     }
