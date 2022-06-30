@@ -55,13 +55,15 @@ const authSlice = createSlice({
         },
         [authLogin.fulfilled]: (state, action) => {
             console.log('fulfilled')
-            localStorage.setItem("token", action.payload.data.test.access_token)
+            if (action.payload.success) {
+                localStorage.setItem("token", action.payload.data.test.access_token)
+            } 
             return { ...state, message:action.payload.message, success:action.payload.success }
         },
         [authLogin.rejected]: (state, action) => {
             console.log('rejected')
             console.log(action.payload);
-            return { ...state, error: action.error }
+            return { ...state, message:action.payload.message, success:action.payload.success  }
         },
 
         // Register

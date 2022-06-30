@@ -7,7 +7,7 @@ import { Button, FormControl, FormHelperText, Grid, InputAdornment, InputLabel, 
 import AddIcon from '@mui/icons-material/Add';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductDetail, postProducts, publishProduct, setTemporary, updateProduct } from '../../../redux/product';
+import { fetchProductDetail, postProducts, publishProduct, updateProduct } from '../../../redux/product';
 import axios from 'axios';
 import { formProductValidation } from '../../../validator/validator';
 
@@ -61,7 +61,6 @@ const FormProduct = () => {
 
     // Create form product
     const userProfile = useSelector(state => state.auth.userProfile)
-
     const handleValidate = (e) => {
         e.preventDefault()
         formProductValidation(data, files, fileRejections, setError)
@@ -89,16 +88,7 @@ const FormProduct = () => {
                 if (location !== '/info-produk') {
                     if (productDetails.publish) {
                         product.append("publish", true)
-                        const postData = await axios(
-                            {
-                                method: "PUT",
-                                data: product,
-                                url: `https://be-kel1.herokuapp.com/product/${id}`,
-                                headers: {
-                                    Authorization: token,
-
-                                }
-                            }).then(
+                        dispatch(updateProduct({product,id})).then(
                                 data => {
                                     setTimeout(() => {
                                         navigate(`/daftar-jual`)
@@ -107,16 +97,7 @@ const FormProduct = () => {
                             )
                     } else {
                         product.append("publish", true)
-                        const postData = await axios(
-                            {
-                                method: "PUT",
-                                data: product,
-                                url: `https://be-kel1.herokuapp.com/product/${id}`,
-                                headers: {
-                                    Authorization: token,
-
-                                }
-                            }).then(
+                        dispatch(updateProduct({product,id})).then(
                                 data => {
                                     setTimeout(() => {
                                         navigate(`/daftar-jual`)
@@ -126,7 +107,7 @@ const FormProduct = () => {
                     }
                 } else {
                     product.append("publish", true)
-                    dispatch(postProducts(product))
+                    dispatch(postProducts(product)).then(data => console.log(data))
                     setTimeout(() => {
                         navigate(`/daftar-jual`)
                     }, 1000);
@@ -150,21 +131,11 @@ const FormProduct = () => {
             files.forEach(file => {
                 productPreview.append("image", file)
             })
-            console.log(productDetails.publish)
             try {
                 if (id) {
                     const token = localStorage.getItem('token');
                     productPreview.append("publish", productDetails.publish)
-                    const postData = await axios(
-                        {
-                            method: "PUT",
-                            data: productPreview,
-                            url: `https://be-kel1.herokuapp.com/product/${id}`,
-                            headers: {
-                                Authorization: token,
-
-                            }
-                        }).then(
+                    dispatch(updateProduct({productDetails,id})).then(
                             data => {
                                 console.log(data)
                                 setTimeout(() => {
@@ -218,7 +189,7 @@ const FormProduct = () => {
         return () => {
             files.forEach(file => URL.revokeObjectURL(file.preview))
         }
-    }, [files, id])
+    }, [files,id])
 
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
