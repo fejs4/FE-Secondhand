@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 const MenuMyAkun = ({userProfile}) => {
     const navigate = useNavigate()
-
+    console.log(userProfile);
     const handleLogout = () =>{
         window.localStorage.removeItem('token')
         window.location.reload()
