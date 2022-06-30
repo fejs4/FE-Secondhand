@@ -12,7 +12,6 @@ const SearchField = () => {
   const {id} = useParams()
   const dispatch = useDispatch()
   const searched = useSelector(state => state.product.searched)
-  // console.log(location === `/detail-product-seller/${id}`)
   const navigate = useNavigate()
   const handleKeyDown = async (e) =>{
     if (e.key === 'Enter') {
