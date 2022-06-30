@@ -8,6 +8,9 @@ const InfoSeller = () => {
   const [success, setSuccess] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const user = useSelector(state => state.auth.userProfile)
+  const successMsg = useSelector(state => state.product.success)
+  const message = useSelector(state => state.product.message)
+
   const handleClose = () => {
     setError(false);
     setSuccess(false);
@@ -16,8 +19,8 @@ const InfoSeller = () => {
 
   return (
     <Box position="relative" sx={{ mx: { xl: 24, md: 15, sm: 8, xs: 5 }, my: 3 }}>
-      <Stack position="absolute" className="alert" mx={'auto'} width={{ md: '40%', xs: '90%' }} sx={{ left: 0, right: 0, top: 0, transition: '0.5s' }} style={{ 'marginTop': success ? "-25px" : "-350px" }} >
-        <Alert variant="filled" severity="success" onClose={handleClose}>Data Berhasil di Buat</Alert>
+      <Stack position="absolute" display={message !== '' ? "block": "none"} className="alert" mx={'auto'} width={{ md: '40%', xs: '90%' }} sx={{ left: 0, right: 0, top: 0, transition: '0.5s' }} style={{ 'marginTop': success ? "-25px" : "-350px" }} >
+        <Alert variant="filled" severity={successMsg ? "success" : "error"} onClose={handleClose}>{message}</Alert>
       </Stack>
       <Typography variant='h5' fontWeight={700} sx={{ fontSize: { xs: '1.1em', md: '1.7em' } }}>
         Daftar Jual Saya

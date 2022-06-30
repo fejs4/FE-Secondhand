@@ -2,7 +2,7 @@ import { Card, CardActionArea, CardContent, CardMedia, Grid, Skeleton, Typograph
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { fetchProductsUser, setLoading } from '../../../redux/product';
+import { fetchProductsUser, setDetail, setLoading } from '../../../redux/product';
 import CardLoading from '../../loading/CardLoading';
 
 const ListProductJual = () => {
@@ -22,6 +22,7 @@ const ListProductJual = () => {
     }
 
     React.useEffect(() => {
+        dispatch(setDetail({}))
         dispatch(fetchProductsUser())
         setTimeout(() => {
             dispatch(setLoading(false))
