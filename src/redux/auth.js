@@ -55,6 +55,7 @@ const authSlice = createSlice({
         },
         [authLogin.fulfilled]: (state, action) => {
             console.log('fulfilled')
+            console.log(action.payload)
             if (action.payload.success) {
                 localStorage.setItem("token", action.payload.data.test.access_token)
             } 

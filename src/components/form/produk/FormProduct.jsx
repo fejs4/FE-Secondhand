@@ -12,11 +12,11 @@ import axios from 'axios';
 import { formProductValidation } from '../../../validator/validator';
 
 const thumb = {
-    display: 'inline-flex',
+    display: 'flex',
+    width:100, 
+    height:100,
     borderRadius: 2,
     marginRight: 8,
-    width: 100,
-    height: 100,
     padding: 4,
 };
 
@@ -50,10 +50,10 @@ const FormProduct = () => {
     const productDetails = useSelector(state => state.product.detailProduct)
     const [data, setData] = useState(
         {
-            nama: Object.keys(productDetails).length? productDetails.name : '',
-            harga: Object.keys(productDetails).length? productDetails.price :'',
+            nama: Object.keys(productDetails).length ? productDetails.name : '',
+            harga: Object.keys(productDetails).length ? productDetails.price : '',
             kategori: Object.keys(productDetails).length ? productDetails.category : 'semua',
-            deskripsi: Object.keys(productDetails).length? productDetails.description :'',
+            deskripsi: Object.keys(productDetails).length ? productDetails.description : '',
             message: '',
             success: null
         }
@@ -88,22 +88,22 @@ const FormProduct = () => {
                 if (location !== '/info-produk') {
                     if (productDetails.publish) {
                         product.append("publish", true)
-                        dispatch(updateProduct({product,id})).then(
-                                data => {
-                                    setTimeout(() => {
-                                        navigate(`/daftar-jual`)
-                                    }, 1000);
-                                }
-                            )
+                        dispatch(updateProduct({ product, id })).then(
+                            data => {
+                                setTimeout(() => {
+                                    navigate(`/daftar-jual`)
+                                }, 1000);
+                            }
+                        )
                     } else {
                         product.append("publish", true)
-                        dispatch(updateProduct({product,id})).then(
-                                data => {
-                                    setTimeout(() => {
-                                        navigate(`/daftar-jual`)
-                                    }, 1000);
-                                }
-                            )
+                        dispatch(updateProduct({ product, id })).then(
+                            data => {
+                                setTimeout(() => {
+                                    navigate(`/daftar-jual`)
+                                }, 1000);
+                            }
+                        )
                     }
                 } else {
                     product.append("publish", true)
@@ -122,30 +122,29 @@ const FormProduct = () => {
         if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
             setData({ ...data, message: 'Gagal memposting produk, lengkapi data', success: false })
         } else {
-            const productPreview = new FormData()
-            productPreview.append("name", data.nama)
-            productPreview.append("category", data.kategori)
-            productPreview.append("price", data.harga)
-            productPreview.append("description", data.deskripsi)
-            
+            const product = new FormData()
+            product.append("name", data.nama)
+            product.append("category", data.kategori)
+            product.append("price", data.harga)
+            product.append("description", data.deskripsi)
+
             files.forEach(file => {
-                productPreview.append("image", file)
+                product.append("image", file)
             })
             try {
                 if (id) {
-                    const token = localStorage.getItem('token');
-                    productPreview.append("publish", productDetails.publish)
-                    dispatch(updateProduct({productDetails,id})).then(
-                            data => {
-                                console.log(data)
-                                setTimeout(() => {
-                                    navigate(`/detail-product-seller/${id}`)
-                                }, 1000);
-                            }
-                        )
+                    product.append("publish", product.publish)
+                    dispatch(updateProduct({ product, id })).then(
+                        data => {
+                            console.log(data)
+                            setTimeout(() => {
+                                navigate(`/detail-product-seller/${id}`)
+                            }, 1000);
+                        }
+                    )
                 } else {
-                    productPreview.append("publish", false)
-                    dispatch(postProducts(productPreview)).then((data) => {
+                    product.append("publish", false)
+                    dispatch(postProducts(product)).then((data) => {
                         setTimeout(() => {
                             navigate(`/detail-product-seller/${data.payload.data.product.id}`)
                         }, 2000);
@@ -175,6 +174,7 @@ const FormProduct = () => {
                 <img
                     src={file.preview}
                     alt='images'
+                    style={{ objectFit:'contain', width:'100%' }}
                     // Revoke data uri after image is loaded
                     onLoad={() => { URL.revokeObjectURL(file.preview) }}
                 />
@@ -189,7 +189,7 @@ const FormProduct = () => {
         return () => {
             files.forEach(file => URL.revokeObjectURL(file.preview))
         }
-    }, [files,id])
+    }, [files, id])
 
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
@@ -280,16 +280,24 @@ const FormProduct = () => {
                     </FormHelperText>
 
                     <InputLabel htmlFor="filled-adornment-amount">Foto Produk</InputLabel>
-                    <Box {...getRootProps()} maxWidth={files.length === 0 ? '100px' : 'unset'}>
+                    <Box {...getRootProps()} maxWidth={files.length === 0 ? productDetails.images ? 'unset' :  '100px' : 'unset'}>
                         <input type='file' multiple {...getInputProps()} />
                         {files.length !== 0 ?
                             <Box sx={{ border: '1px dashed #D0D0D0', alignItems: 'center', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
                                 {thumbs}
                             </Box>
                             :
-                            <Box sx={{ border: '1px dashed #D0D0D0', width: '96px', height: '96px', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
-                                <AddIcon />
-                            </Box>
+                            productDetails.images ? productDetails.images.map((item) => {   
+                                return (
+                                    <Box sx={{ border: '1px dashed #D0D0D0', alignItems: 'center', width:'100%', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
+                                        <Box component={'img'} src={`https://be-kel1.herokuapp.com/public/images/${item}`} sx={{ borderRadius:{md:'16px',xs:0}, width:100, height:100, objectFit:'contain', padding:.5 }}/>
+                                    </Box>
+                                )
+                            })
+                                :
+                                <Box sx={{ border: '1px dashed #D0D0D0', width: '96px', height: '96px', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
+                                    <AddIcon />
+                                </Box>
                         }
                     </Box>
                     <FormHelperText sx={{ color: 'red' }}>
