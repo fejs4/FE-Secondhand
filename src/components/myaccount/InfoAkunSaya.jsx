@@ -7,6 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import MenuMyAkun from './MenuMyAkun';
 import { useSelector } from 'react-redux';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
 const InfoAkunSaya = () => {
     const [files, setFiles] = useState([]);
@@ -25,13 +26,19 @@ const InfoAkunSaya = () => {
                 </Link>
                 <Box position='absolute' width={{ md: '70%', xs: '100%' }} mx={'auto'} sx={{ left: 0, right: 0, top: 0 }} >
                     <Box sx={{ height: '100%', width: '100%', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
-                        <Box component={'img'}
-                        src={userProfile.image ? `http://localhost:5000/public/profile/${userProfile.image}` : ''}
-                        alt='profile'
-                        sx={{ borderRadius:'12px', width:'96px', height:'96px', objectFit:'cover', boxShadow:' 0px 0px 10px rgba(0, 0, 0, 0.15)' }}
-                        />
+                        {userProfile.image ?
+                            <Box component={'img'}
+                                src={`https://be-kel1.herokuapp.com/public/profile/${userProfile.image}`}
+                                alt='profile'
+                                sx={{ borderRadius: '12px', width: '96px', height: '96px', objectFit: 'cover', boxShadow: ' 0px 0px 10px rgba(0, 0, 0, 0.15)' }}
+                            />
+                            : 
+                            <Box sx={{ borderRadius: '12px',display:'flex', alignItems:'center',justifyContent:'center', width: '96px', height: '96px', objectFit: 'cover', boxShadow: ' 0px 0px 10px rgba(0, 0, 0, 0.15)' }}>
+                                <PersonOutlineOutlinedIcon sx={{width:'2em', height:'2em'}}/>
+                            </Box>
+                        }
                     </Box>
-                    <MenuMyAkun userProfile={userProfile}/>
+                    <MenuMyAkun userProfile={userProfile} />
                 </Box>
             </Toolbar>
 

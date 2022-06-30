@@ -12,11 +12,11 @@ export const fetchWishlist = createAsyncThunk(
 
 export const postWishlist = createAsyncThunk(
     'wishlist/postWishlist',
-    async (wishlist) => {
+    async (data) => {
         const token = localStorage.getItem('token');
         const response = await axios({
             method: "POST",
-            data: wishlist,
+            data: data,
             url:`https://be-kel1.herokuapp.com/wishlist`,
             headers: {
                 Authorization: token,
@@ -27,7 +27,7 @@ export const postWishlist = createAsyncThunk(
 );
 export const deleteWishlist = createAsyncThunk(
     'wishlist/deleteWishlist',
-    async (wishlist) => {
+    async ({wishlist,id}) => {
         const token = localStorage.getItem('token');
         const response = await axios({
             method: "DELETE",
@@ -48,7 +48,7 @@ const initialState = {
     wishlist: {}
 }
 
-const productSlice = createSlice({
+const wishlistSlice = createSlice({
     name: 'wishlist',
     initialState,
     reducers: {
@@ -102,5 +102,5 @@ const productSlice = createSlice({
 
     }
 })
-export const { setLoading } = productSlice.actions;
-export default productSlice.reducer;
+export const { setLoading } = wishlistSlice.actions;
+export default wishlistSlice.reducer;

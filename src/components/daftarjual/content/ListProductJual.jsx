@@ -1,7 +1,7 @@
 import { Card, CardActionArea, CardContent, CardMedia, Grid, Skeleton, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { fetchProductsUser, setLoading } from '../../../redux/product';
 import CardLoading from '../../loading/CardLoading';
 
@@ -10,6 +10,17 @@ const ListProductJual = () => {
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
     const data = useSelector(state => state.product.productUser)
     const loading = useSelector(state => state.product.loading)
+    const userProfile = useSelector(state => state.auth.userProfile)
+    const navigate = useNavigate()
+
+    const handleSell = () => {
+        if (Object.keys(userProfile).length !== 0) {
+            userProfile.city ? navigate(`/info-produk`) : navigate(`/info-user/${userProfile.id}`)
+        } else {
+            navigate('/login')
+        }
+    }
+
     React.useEffect(() => {
         dispatch(fetchProductsUser())
         setTimeout(() => {
@@ -20,38 +31,35 @@ const ListProductJual = () => {
         <>
             <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} >
                 <Grid item xs={6} sm={6} md={4} >
-                    <Link to='/info-produk' style={{ textDecoration: 'none' }}>
-                        <Card sx={{ maxWidth: 345, height: '100%' }} >
-                            <CardActionArea sx={{ height: '100%', border: '1px dashed #bbb' }}>
-                                <CardContent >
-                                    <Typography gutterBottom variant="h4" textAlign='center' component="div">
-                                        +
-                                    </Typography>
-                                    <Typography gutterBottom variant="subtitle1" textAlign='center' component="div">
-                                        Tambah Produk
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
-                    </Link>
+                    <Card sx={{ maxWidth: 345, height: data? '100%':'300px' }} onClick={handleSell}>
+                        <CardActionArea sx={{ height: '100%', border: '1px dashed #bbb' }}>
+                            <CardContent >
+                                <Typography gutterBottom variant="h4" textAlign='center' component="div">
+                                    +
+                                </Typography>
+                                <Typography gutterBottom variant="subtitle1" textAlign='center' component="div">
+                                    Tambah Produk
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
                 </Grid>
                 {!loading ?
                     Object.keys(data).length !== 0 ?
                         data.map((item) => {
                             return (
                                 <>
-
                                     <Grid item xs={6} sm={6} md={4} >
                                         <Link to={`/detail-product-seller/${item.id}`} style={{ textDecoration: 'none' }}>
                                             <Card sx={{ maxWidth: 345 }}>
                                                 <CardActionArea>
-                                                    <Typography gutterBottom variant="h6" component="div" sx={{ padding:.5, color:'white', display: item.publish? 'none':'block', background:'grey', fontSize: '.8em', position:'absolute' }}>
-                                                        {item.publish? '' : 'unpublish'}
+                                                    <Typography gutterBottom variant="h6" component="div" sx={{ padding: .5, color: 'white', display: item.publish ? 'none' : 'block', background: 'grey', fontSize: '.8em', position: 'absolute' }}>
+                                                        {item.publish ? '' : 'unpublish'}
                                                     </Typography>
                                                     <CardMedia
                                                         component="img"
                                                         height="140"
-                                                        image={`http://localhost:5000/public/images/${item.images[0]}`}
+                                                        image={`https://be-kel1.herokuapp.com/public/images/${item.images[0]}`}
                                                         alt="green iguana"
                                                         sx={{ objectFit: 'cover' }}
                                                     />
@@ -75,7 +83,7 @@ const ListProductJual = () => {
                             )
                         })
                         : '' :
-                        <CardLoading length={Object.keys(data).length}/>
+                    <CardLoading length={Object.keys(data).length} />
                 }
             </Grid>
         </>
