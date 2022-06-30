@@ -3,10 +3,13 @@ import axios from "axios";
 
 export const fetchWishlist = createAsyncThunk(
     'wishlist/fetchWishlist',
-    async (id) => {
+    async () => {
         const token = localStorage.getItem('token')
-        const response = await axios.get(`https://be-kel1.herokuapp.com/wishlist${id}`)
-        return response.data.data.wishlist;
+        const response = await axios.get(`https://be-kel1.herokuapp.com/wishlist`,
+        {headers: {
+            Authorization: token,
+        }})
+        return response.data;
     }
 );
 
@@ -27,12 +30,11 @@ export const postWishlist = createAsyncThunk(
 );
 export const deleteWishlist = createAsyncThunk(
     'wishlist/deleteWishlist',
-    async ({wishlist,id}) => {
+    async (id) => {
         const token = localStorage.getItem('token');
         const response = await axios({
             method: "DELETE",
-            data: wishlist,
-            url:`https://be-kel1.herokuapp.com/wishlist${id}`,
+            url:`https://be-kel1.herokuapp.com/wishlist/${id}`,
             headers: {
                 Authorization: token,
             }
@@ -45,7 +47,9 @@ export const deleteWishlist = createAsyncThunk(
 const initialState = {
     loading: false,
     error: null,
-    wishlist: {}
+    wishlist: {},
+    productId:null
+
 }
 
 const wishlistSlice = createSlice({
@@ -65,7 +69,7 @@ const wishlistSlice = createSlice({
         },
         [fetchWishlist.fulfilled]: (state, action) => {
             console.log('fetching fulfilled')
-            return { ...state, wishlist: action.payload }
+            return { ...state, wishlist: action.payload.data }
         },
         [fetchWishlist.rejected]: (state, action) => {
             console.log('fetching rejected')
@@ -83,6 +87,7 @@ const wishlistSlice = createSlice({
         },
         [postWishlist.rejected]: (state, action) => {
             console.log('post rejected')
+            console.log(action.payload);
             return { ...state, error: action.error }
         },
 
