@@ -25,12 +25,12 @@ const ItemCard = ({clicked}) => {
             <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} mt={3}>
                 {!loading ?
                     Object.keys(data).length !== 0 ?
-                        data.map((item) => {
+                        data.map((item,index) => {
                             return (
                                 <>
-                                    <Grid item xs={6} sm={6} md={4} xl={2}  >
+                                    <Grid key={index} item xs={6} sm={6} md={4} xl={2}  >
                                         <Link to={`/detail-product-buyer/${item.id}`} style={{ textDecoration: 'none' }}>
-                                            <Card sx={{ maxWidth: 345 }} key={item.name}>
+                                            <Card sx={{ maxWidth: 345 }}>
                                                 <CardActionArea>
                                                     <CardMedia
                                                         component="img"
@@ -62,7 +62,8 @@ const ItemCard = ({clicked}) => {
                                 "Data Kosong"
                             </Typography>
                         </Box>
-                    : <CardLoading length={Object.keys(data).length} xl={2}/>
+                    : 
+                    <CardLoading key={'loading'} length={Object.keys(data).length} xl={2}/>
                 }
             </Grid>
         </>
