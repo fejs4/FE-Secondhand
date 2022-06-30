@@ -98,7 +98,7 @@ export const deleteProduct = createAsyncThunk(
 
 const initialState = {
     loading: false,
-    error: null,
+    error: {},
     user: {},
     products: {},
     detailProduct: {},
@@ -194,10 +194,11 @@ const productSlice = createSlice({
         },
         [postProducts.rejected]: (state, action) => {
             console.log('rejected')
-            return { ...state, error: action.error }
+            console.log(action.payload)
+            return { ...state, error: action.payload, message: action.payload.message, success: action.payload.success }
         },
 
-        // Post Product
+        // Update Product
         [updateProduct.pending]: (state, action) => {
             console.log('pending')
             return { ...state, loading: true, error: null }
