@@ -3,17 +3,21 @@ import React from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios'
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts, setSearch } from '../../../redux/product';
 
 const SearchField = () => {
-  const [Search, setSearch] = React.useState('');
+  const [searching, setSearching] = React.useState();
   const location = useLocation().pathname
   const {id} = useParams()
-  console.log(location === `/detail-product-seller/${id}`)
+  const dispatch = useDispatch()
+  const searched = useSelector(state => state.product.searched)
+  // console.log(location === `/detail-product-seller/${id}`)
   const navigate = useNavigate()
   const handleKeyDown = async (e) =>{
     if (e.key === 'Enter') {
         navigate('/')
-        const search = await axios.get(`https://be-kel1.herokuapp.com/product?search=${Search}`).then(data => console.log(data.data.data.filtered))
+        dispatch(setSearch(searching))
     }
   }
   return (
@@ -21,10 +25,11 @@ const SearchField = () => {
       <FormControl>
         <TextField
           onKeyDown={handleKeyDown}
-          onChange= {(e) => setSearch(e.target.value)}
+          onChange= {(e) => setSearching(e.target.value)}
           id="search"
           placeholder="Cari di sini ..."
           fullWidth
+          defaultValue={searched}
           variant="standard"
           sx={{ ml: 3, width: '100%', minWidth: { xs: '100%', md: '380px' } }}
           InputProps={{

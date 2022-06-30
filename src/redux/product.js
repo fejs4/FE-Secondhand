@@ -3,10 +3,13 @@ import axios from "axios";
 
 export const fetchProducts = createAsyncThunk(
     'product/fetchProducts',
-    async (clicked) => {
+    async ({clicked,searched}) => {
         const response = await axios.get(`https://be-kel1.herokuapp.com/products`)
         const responseFilter = await axios.get(`https://be-kel1.herokuapp.com/product/filter?cat=${clicked}`)
-        if (clicked === 'Semua') {
+        const searchFilter = await axios.get(`https://be-kel1.herokuapp.com/product?search=${searched}`)
+        if (searched !== '') {
+            return searchFilter.data.data.filtered
+        }else if (clicked === 'Semua'){
             return response.data.data.products
         }else{
             return responseFilter.data.data.filtered
@@ -54,7 +57,7 @@ export const postProducts = createAsyncThunk(
 
 export const updateProduct = createAsyncThunk(
     'product/updateProduct',
-    async (product,id) => {
+    async ({product,id}) => {
         const token = localStorage.getItem('token');
         const response = await axios({
             method: "PUT",
@@ -95,13 +98,14 @@ export const deleteProduct = createAsyncThunk(
 
 const initialState = {
     loading: false,
-    loadingWeb:false,
     error: null,
     user: {},
     products: {},
     detailProduct: {},
     productUser: {},
-    idProduct: null
+    searched:'',
+    message: '',
+    success: false
 }
 
 const productSlice = createSlice({
@@ -111,8 +115,11 @@ const productSlice = createSlice({
         setLoading: (state, action) => {
             state.loading = action.payload
         },
-        setLoadingWeb: (state, action) => {
-            state.loadingWeb = action.payload
+        setSearch: (state, action) => {
+            state.searched = action.payload
+        },
+        setDetail: (state, action) => {
+            state.detailProduct = action.payload
         },
     },
     extraReducers: {
@@ -153,6 +160,7 @@ const productSlice = createSlice({
         [publishProduct.fulfilled]: (state, action) => {
             console.log(action.payload)
             console.log('fulfilled')
+            return { ...state, message: action.payload.message, success: action.payload.success }
         },
         [publishProduct.rejected]: (state, action) => {
             console.log('rejected')
@@ -182,7 +190,7 @@ const productSlice = createSlice({
         [postProducts.fulfilled]: (state, action) => {
             console.log('fulfilled')
             console.log(action.payload);
-            return { ...state, idProduct: action.payload.data.product.id }
+            return { ...state, message: action.payload.message, success: action.payload.success }
         },
         [postProducts.rejected]: (state, action) => {
             console.log('rejected')
@@ -197,6 +205,7 @@ const productSlice = createSlice({
         [updateProduct.fulfilled]: (state, action) => {
             console.log('fulfilled')
             console.log(action.payload)
+            return { ...state, message: action.payload.message, success: action.payload.success }
         },
         [updateProduct.rejected]: (state, action) => {
             console.log('rejected')
@@ -205,5 +214,5 @@ const productSlice = createSlice({
         }
     }
 })
-export const { setLoading,setLoadingWeb } = productSlice.actions;
+export const { setLoading,setSearch,setDetail } = productSlice.actions;
 export default productSlice.reducer;

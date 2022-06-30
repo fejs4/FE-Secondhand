@@ -59,8 +59,8 @@ const FormProduct = () => {
         message: '',
         success: null
     })
-    const navigate = useNavigate()
     
+    const navigate = useNavigate()
     const handleValidate = (e) => {
         e.preventDefault()
         formUserValidation(data, files,fileRejections, setError)
