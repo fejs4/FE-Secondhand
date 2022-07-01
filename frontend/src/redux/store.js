@@ -2,11 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import productReducer from "./product" 
 import authReducer from "./auth" 
 import wishlistReducer from "./wishlist" 
+import tawarReducer from "./tawar" 
+
 
 const rootReducer = {
     wishlist: wishlistReducer,
     product: productReducer,
-    auth: authReducer
+    auth: authReducer,
+    tawar: tawarReducer
 }
 
 const store = configureStore({

@@ -26,6 +26,9 @@ export const Theme = createTheme({
       background:{
         paper: '#fff',
         purple: '#7126B5'
+      },
+      action: {
+        disabled: '#fff'
       }
     }
 });
