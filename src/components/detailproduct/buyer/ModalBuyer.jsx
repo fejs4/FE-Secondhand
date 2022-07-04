@@ -25,15 +25,15 @@ const ModalBuyer = ({ data, open, handleClose, handlePost }) => {
     const { id } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    console.log(Object.keys(dataUser).length)
+    
     const handleTawar = async () => {
         if (Object.keys(dataUser).length !== 0) {
             if (dataUser.city !== null) {
                 if (dataUser.id !== detailProduct.user.id) {
                     const data = {
-                        "userId": dataUser.id,
-                        "productId": id,
-                        "price": price
+                        userId: dataUser.id,
+                        productId: id,
+                        price: price
                     }
                     try {
                         dispatch(postTawar(data)).then(data => handlePost())

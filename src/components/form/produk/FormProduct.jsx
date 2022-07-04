@@ -13,8 +13,8 @@ import { formProductValidation } from '../../../validator/validator';
 
 const thumb = {
     display: 'flex',
-    width:100, 
-    height:100,
+    width: 100,
+    height: 100,
     borderRadius: 2,
     marginRight: 8,
     padding: 4,
@@ -92,7 +92,7 @@ const FormProduct = () => {
                             data => {
                                 setTimeout(() => {
                                     navigate(`/daftar-jual`)
-                                }, 1000);
+                                }, 500);
                             }
                         )
                     } else {
@@ -101,7 +101,7 @@ const FormProduct = () => {
                             data => {
                                 setTimeout(() => {
                                     navigate(`/daftar-jual`)
-                                }, 1000);
+                                }, 500);
                             }
                         )
                     }
@@ -110,7 +110,7 @@ const FormProduct = () => {
                     dispatch(postProducts(product)).then(data => console.log(data))
                     setTimeout(() => {
                         navigate(`/daftar-jual`)
-                    }, 1000);
+                    }, 500);
                 }
             } catch (error) {
                 console.log(error);
@@ -174,7 +174,7 @@ const FormProduct = () => {
                 <img
                     src={file.preview}
                     alt='images'
-                    style={{ objectFit:'contain', width:'100%' }}
+                    style={{ objectFit: 'contain', width: '100%' }}
                     // Revoke data uri after image is loaded
                     onLoad={() => { URL.revokeObjectURL(file.preview) }}
                 />
@@ -280,20 +280,17 @@ const FormProduct = () => {
                     </FormHelperText>
 
                     <InputLabel htmlFor="filled-adornment-amount">Foto Produk</InputLabel>
-                    <Box {...getRootProps()} maxWidth={files.length === 0 ? productDetails.images ? 'unset' :  '100px' : 'unset'}>
+                    <Box {...getRootProps()} maxWidth={files.length === 0 ? productDetails.images ? 'unset' : '100px' : 'unset'}>
                         <input type='file' multiple {...getInputProps()} />
                         {files.length !== 0 ?
                             <Box sx={{ border: '1px dashed #D0D0D0', alignItems: 'center', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
                                 {thumbs}
                             </Box>
                             :
-                            productDetails.images ? productDetails.images.map((item) => {    
-                                return (
-                                    <Box sx={{ border: '1px dashed #D0D0D0', alignItems: 'center', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
-                                        <Box component={'img'} src={`https://be-kel1.herokuapp.com/public/images/${item}`} sx={{ borderRadius:{md:'16px',xs:0}, width:100, height:100, objectFit:'contain', padding:.5 }}/>
-                                    </Box>
-                                )
-                            })
+                            productDetails.images ?
+                                <Box sx={{ border: '1px dashed #D0D0D0', alignItems: 'center', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
+                                    {productDetails.images.map((item) => { return (<Box component={'img'} src={`https://be-kel1.herokuapp.com/public/images/${item}`} sx={{ borderRadius: { md: '16px', xs: 0 }, width: 100, height: 100, objectFit: 'contain', padding: .5 }} />) })}
+                                </Box>
                                 :
                                 <Box sx={{ border: '1px dashed #D0D0D0', width: '96px', height: '96px', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
                                     <AddIcon />

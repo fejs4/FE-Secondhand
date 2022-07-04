@@ -27,12 +27,12 @@ const ListProductJual = () => {
         setTimeout(() => {
             dispatch(setLoading(false))
         }, 1500);
-    }, [])
+    }, [dispatch])
     return (
         <>
             <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} >
                 <Grid item xs={6} sm={6} md={4} >
-                    <Card sx={{ maxWidth: 345, height: data? '100%':'300px' }} onClick={handleSell}>
+                    <Card sx={{ maxWidth: 345, height: data.length !== 0? '100%':'300px' }} onClick={handleSell}>
                         <CardActionArea sx={{ height: '100%', border: '1px dashed #bbb' }}>
                             <CardContent >
                                 <Typography gutterBottom variant="h4" textAlign='center' component="div">

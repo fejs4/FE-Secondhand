@@ -5,7 +5,7 @@ export const fetchTawar = createAsyncThunk(
     'tawar/fetchTawar',
     async () => {
         const token = localStorage.getItem('token')
-        const response = await axios.get(`https://be-kel1.herokuapp.com/tawar`,
+        const response = await axios.get(`https://be-kel1.herokuapp.com/tawar/`,
         {headers: {
             Authorization: token,
         }})

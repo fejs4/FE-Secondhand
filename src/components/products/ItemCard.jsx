@@ -7,25 +7,26 @@ import Skeleton from '@mui/material/Skeleton';
 import CardLoading from '../loading/CardLoading'
 import axios from 'axios'
 
-const ItemCard = ({clicked}) => {
+const ItemCard = ({ clicked }) => {
     const dispatch = useDispatch()
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
     const data = useSelector(state => state.product.products)
+    const filtered = Object.keys(data).length !== 0 ? data.filter(item => item.publish === true) : ''
     const loading = useSelector(state => state.product.loading)
     const searched = useSelector(state => state.product.searched)
     React.useEffect(() => {
         dispatch(setDetail({}))
-        dispatch(fetchProducts({clicked,searched}))
+        dispatch(fetchProducts({ clicked, searched }))
         setTimeout(() => {
             dispatch(setLoading(false))
         }, 1500);
-    }, [clicked,searched])
+    }, [clicked, searched])
     return (
         <>
             <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} mt={3}>
                 {!loading ?
                     Object.keys(data).length !== 0 ?
-                        data.map((item,index) => {
+                    filtered.map((item, index) => {
                             return (
                                 <>
                                     <Grid key={index} item xs={6} sm={6} md={4} xl={2}  >
@@ -62,8 +63,8 @@ const ItemCard = ({clicked}) => {
                                 "Data Kosong"
                             </Typography>
                         </Box>
-                    : 
-                    <CardLoading key={'loading'} length={Object.keys(data).length} xl={2}/>
+                    :
+                    <CardLoading key={'loading'} length={Object.keys(data).length} xl={2} />
                 }
             </Grid>
         </>

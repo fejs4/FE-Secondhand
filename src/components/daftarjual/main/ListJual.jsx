@@ -25,6 +25,6 @@ const ListJual = () => {
       </Grid>
     </Box>
   )
-}
+} 
 
 export default ListJual
