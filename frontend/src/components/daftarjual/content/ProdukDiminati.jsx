@@ -1,8 +1,12 @@
 import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from '@mui/material'
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const ProdukDiminati = () => {
   const [product, setProduct] = React.useState('a');
+  const dataTawar = useSelector(state=>state.tawar.tawar)
+  const userProfile = useSelector(state=>state.auth.userProfile)
+  
   return (
     <>
       {product ?

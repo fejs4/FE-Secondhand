@@ -28,6 +28,7 @@ export const postWishlist = createAsyncThunk(
         return response.data;
     }
 );
+
 export const deleteWishlist = createAsyncThunk(
     'wishlist/deleteWishlist',
     async (id) => {
