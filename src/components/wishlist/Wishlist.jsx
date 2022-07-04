@@ -21,7 +21,7 @@ const Wishlist = ({ wishlist, setWishlist, handleChange }) => {
 
   React.useEffect(() => {
     dispatch(fetchWishlist());
-  }, [dispatch,handleDelete]);
+  }, [dispatch, handleDelete]);
 
   return (
     <Box width={{ md: "70%", xs: "100%" }} mx={"auto"} mt={3}>

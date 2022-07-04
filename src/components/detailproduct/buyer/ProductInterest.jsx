@@ -42,7 +42,7 @@ const ProductInterest = ({data,handleOpen}) => {
     // Tawar
     const dataTawar = useSelector(state=>state.tawar.tawar)
     const tawarID = Object.keys(dataTawar).length !== 0 ? dataTawar.filter(item => item.productId === Number(id)) : ''
-    console.log(dataTawar)
+    
 
     React.useEffect(()=>{
         if (onWishtlist) {
