@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Typography, Menu } from '@mui/material'
+import { Box, Button, IconButton, Typography, Menu, Badge } from '@mui/material'
 import React from 'react'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
@@ -95,21 +95,23 @@ const Navbars = ({ info }) => {
                                         aria-haspopup="true"
                                         onClick={handleNotifOpen}
                                     >
-                                        <NotificationsNoneOutlinedIcon sx={{ cursor: 'pointer', color: location === '/notifikasi' ? '#7126B5' : 'black' }} />
+                                        <Badge badgeContent={2} color="primary">
+                                            <NotificationsNoneOutlinedIcon sx={{ cursor: 'pointer', color: location === '/notifikasi' ? '#7126B5' : 'black' }} />
+                                        </Badge>
                                     </IconButton>
+                                    <Link to='/wishlist' style={{ textDecoration: 'none', fontSize: '1.5rem' }}>
+                                        <IconButton>
+                                            <FavoriteBorderOutlinedIcon sx={{ cursor: 'pointer', color: location === '/wishlist' ? '#7126B5' : 'black' }} />
+                                        </IconButton>
+                                    </Link>
                                     <Link to='/myaccount' style={{ textDecoration: 'none', fontSize: '1.5rem' }}>
                                         <IconButton>
                                             <PersonOutlineOutlinedIcon sx={{ cursor: 'pointer', color: location === '/myaccount' ? '#7126B5' : 'black' }} />
                                         </IconButton>
                                     </Link>
-                                    <Link to='/wishlist' style={{ textDecoration: 'none', fontSize: '1.5rem' }}>
-                                        <IconButton>
-                                            <FavoriteBorderOutlinedIcon sx={{ cursor: 'pointer', color: location === '/wishlist' ? '#7126B5' : 'black' }}/>
-                                        </IconButton>
-                                    </Link>
                                 </>
                                 :
-                                <Link to='/login' style={{ textDecoration:'none' }}>
+                                <Link to='/login' style={{ textDecoration: 'none' }}>
                                     <Button color='primary' variant='contained' sx={{ borderRadius: '12px', height: '48px', width: '105px' }}><LoginIcon sx={{ mr: 1 }} />Masuk</Button>
                                 </Link>
                             }
