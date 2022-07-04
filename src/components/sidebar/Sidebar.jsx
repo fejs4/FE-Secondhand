@@ -37,17 +37,19 @@ const Sidebar = () => {
             flexDirection={'column'}
         >
             <Box display={'flex'} justifyContent={'space-between'} mb={1} >
-                <Typography sx={{ color: '#000000', fontWeight: 700 }}>
+                <Typography variant='h6' sx={{ cursor: 'pointer',  fontWeight: 700 }} onClick={toggleDrawer(anchor, false)} >
+                <Link to='/' style={{ textDecoration:'none',color: '#000000' }}>
                     Second Hand
+                    </Link>
                 </Typography>
                 <CloseIcon sx={{ cursor: 'pointer' }} onClick={toggleDrawer(anchor, false)} />
             </Box>
             <List>
                 {Object.keys(userProfile).length !== 0 ?
                     <>
-                        {['Notifikasi', 'Daftar Jual', 'Akun Saya'].map((text) => (
+                        {['Notifikasi', 'Daftar Jual', 'Akun Saya', 'Wishlist'].map((text) => (
                         <React.Fragment key={text}>
-                            <Link to={text === 'Notifikasi' ? '/notifikasi' : text === 'Daftar Jual' ? '/daftar-jual' : text === 'Akun Saya' ? '/myaccount' : '/'} style={{ textDecoration: 'none', color: 'black' }}>
+                            <Link to={ text === 'Notifikasi' ? '/notifikasi' : text === 'Daftar Jual' ? '/daftar-jual' : text === 'Akun Saya' ? '/myaccount' : text === 'Wishlist' ? '/wishlist' : '/'} style={{ textDecoration: 'none', color: 'black' }}>
                                 <ListItem disablePadding>
                                     <ListItemButton key={text} >
                                         <ListItemText primary={text} />
