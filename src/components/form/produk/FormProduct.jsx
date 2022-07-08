@@ -92,7 +92,7 @@ const FormProduct = () => {
                             data => {
                                 setTimeout(() => {
                                     navigate(`/daftar-jual`)
-                                }, 500);
+                                }, 2000);
                             }
                         )
                     } else {
@@ -101,7 +101,7 @@ const FormProduct = () => {
                             data => {
                                 setTimeout(() => {
                                     navigate(`/daftar-jual`)
-                                }, 500);
+                                }, 2000);
                             }
                         )
                     }
@@ -127,7 +127,6 @@ const FormProduct = () => {
             product.append("category", data.kategori)
             product.append("price", data.harga)
             product.append("description", data.deskripsi)
-
             files.forEach(file => {
                 product.append("image", file)
             })

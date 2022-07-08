@@ -40,7 +40,7 @@ function App() {
               <Route path='/daftar-jual' element={<DaftarJual />} />
               <Route path='/detail-product-seller/:id' element={<DetailProductSeller />} />
               <Route path='/detail-product-buyer/:id' element={<DetailProductBuyer />} />
-              <Route path='/info-penawar' element={<InfoPenawar />} />
+              <Route path='/info-penawar/:id' element={<InfoPenawar />} />
             </Route>
           </Routes>
         </ThemeProvider>

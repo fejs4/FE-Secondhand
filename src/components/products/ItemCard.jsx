@@ -3,17 +3,15 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchProducts, setDetail, setLoading } from '../../redux/product'
-import Skeleton from '@mui/material/Skeleton';
 import CardLoading from '../loading/CardLoading'
-import axios from 'axios'
 
 const ItemCard = ({ clicked }) => {
     const dispatch = useDispatch()
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
     const data = useSelector(state => state.product.products)
-    const filtered = Object.keys(data).length !== 0 ? data.filter(item => item.publish === true) : ''
     const loading = useSelector(state => state.product.loading)
     const searched = useSelector(state => state.product.searched)
+    const filtered = Object.keys(data).length !== 0 ? data.filter(item => item.publish === true && item.isSold === false) : ''
     React.useEffect(() => {
         dispatch(setDetail({}))
         dispatch(fetchProducts({ clicked, searched }))
@@ -25,7 +23,7 @@ const ItemCard = ({ clicked }) => {
         <>
             <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} mt={3}>
                 {!loading ?
-                    Object.keys(data).length !== 0 ?
+                    Object.keys(filtered).length !== 0 ?
                     filtered.map((item, index) => {
                             return (
                                 <>
@@ -38,7 +36,7 @@ const ItemCard = ({ clicked }) => {
                                                         height="140"
                                                         image={item.images ? `https://be-kel1.herokuapp.com/public/images/${item.images[0]}` : ''}
                                                         alt="pic"
-                                                        sx={{ objectFit: 'contain' }}
+                                                        sx={{ objectFit:{md:'contain', sm:'cover',xs:'contain'} }}
                                                     />
                                                     <CardContent>
                                                         <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
@@ -64,7 +62,7 @@ const ItemCard = ({ clicked }) => {
                             </Typography>
                         </Box>
                     :
-                    <CardLoading key={'loading'} length={Object.keys(data).length} xl={2} />
+                    <CardLoading length={Object.keys(filtered).length} md={4} xl={2} />
                 }
             </Grid>
         </>
