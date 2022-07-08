@@ -1,155 +1,78 @@
-import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from '@mui/material'
+import { Box, Card, CardActionArea, CardContent, CardMedia, Divider, Grid, IconButton, Typography } from '@mui/material'
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import CircleIcon from '@mui/icons-material/Circle';
+import { fetchTawarSeller, setLoading } from '../../../redux/tawar';
+import { Link } from 'react-router-dom';
+import TawarLoading from '../../loading/TawarLoading';
 
 const ProdukDiminati = () => {
-  const [product, setProduct] = React.useState('a');
-  const dataTawar = useSelector(state=>state.tawar.tawar)
-  const userProfile = useSelector(state=>state.auth.userProfile)
-  
+  const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
+  const dispatch = useDispatch()
+  const dataTawar = useSelector(state => state.tawar.tawarSeller)
+  const loading = useSelector(state => state.tawar.loading)
+
+  function addZero(i) {
+    if (i < 10) { i = "0" + i }
+    return i;
+  }
+
+  const toDate = (datenow) => {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    const date = new Date(datenow)
+    return (date.getDate() + " " + months[date.getMonth()] + ", " + addZero(date.getHours()) + ":" + addZero(date.getMinutes()))
+  }
+
+  React.useEffect(() => {
+    dispatch(fetchTawarSeller())
+    setTimeout(() => {
+      dispatch(setLoading(false))
+  }, 1500);
+  }, [dispatch])
   return (
     <>
-      {product ?
-        <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }}>
-          <Grid item xs={6} sm={6} md={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="/images/Product.png"
-                  alt="green iguana"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
-                    Jam Tangan
+      {Object.keys(dataTawar).length !== 0 ?
+        loading ? <TawarLoading length={Object.keys(dataTawar).length}/> : 
+        dataTawar.map((data) => {
+          return (
+            <Link to={`/info-penawar/${data.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+              <Grid container my={1} mx={1} p={1} sx={{
+                cursor: 'pointer', '&:hover': {
+                  backgroundColor: '#eee',
+                }
+              }} >
+                <Grid item xs={2} textAlign="center">
+                  <IconButton >
+                    <Box component={'img'}
+                      src={`https://be-kel1.herokuapp.com/public/images/${data.product.images[0]}`}
+                      sx={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'contain ' }}
+                    />
+                  </IconButton>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="caption" color='text.secondary' component="h2" >
+                    Penawaran Produk
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" mb={1} sx={{ fontSize: { xs: '0.8em', md: '1.2em' } }}>
-                    Aksesoris
+                  <Typography variant='subtitle1' fontWeight={550} my={0} >
+                    {data.product.name}
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
-                    Rp.10.000,00
+                  <Typography variant='subtitle1' fontWeight={550} my={0} >
+                    {formatter.format(data.product.price)}
                   </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={6} md={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="/images/Product.png"
-                  alt="green iguana"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
-                    Jam Tangan
+                  <Typography variant='subtitle1' fontWeight={550} my={0} >
+                    Ditawar  {formatter.format(data.price)}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" mb={1} sx={{ fontSize: { xs: '0.8em', md: '1.2em' } }}>
-                    Aksesoris
+                </Grid>
+                <Grid item xs={4} textAlign="end" >
+                  <Typography variant="caption" color='text.secondary' component="h2" >
+                    {toDate(data.createdAt)} <CircleIcon style={{ color: 'red', fontSize: '0.9em' }} />
                   </Typography>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
-                    Rp.10.000,00
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={6} md={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="/images/Product.png"
-                  alt="green iguana"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
-                    Jam Tangan
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" mb={1} sx={{ fontSize: { xs: '0.8em', md: '1.2em' } }}>
-                    Aksesoris
-                  </Typography>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
-                    Rp.10.000,00
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={6} md={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="/images/Product.png"
-                  alt="green iguana"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
-                    Jam Tangan
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" mb={1} sx={{ fontSize: { xs: '0.8em', md: '1.2em' } }}>
-                    Aksesoris
-                  </Typography>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
-                    Rp.10.000,00
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={6} md={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="/images/Product.png"
-                  alt="green iguana"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
-                    Jam Tangan
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" mb={1} sx={{ fontSize: { xs: '0.8em', md: '1.2em' } }}>
-                    Aksesoris
-                  </Typography>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
-                    Rp.10.000,00
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item xs={6} sm={6} md={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="/images/Product.png"
-                  alt="green iguana"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
-                    Jam Tangan
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" mb={1} sx={{ fontSize: { xs: '0.8em', md: '1.2em' } }}>
-                    Aksesoris
-                  </Typography>
-                  <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
-                    Rp.10.000,00
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        </Grid>
+                </Grid>
+              </Grid>
+              <Divider sx={{ mt: '0 !important' }} />
+            </Link>
+          )
+        })
         :
         <>
           <Box display={'flex'} justifyContent={'center'}>
@@ -157,11 +80,12 @@ const ProdukDiminati = () => {
           </Box>
           <Box display={'flex'} justifyContent={'center'} >
             <Typography component='h5' width={'329px'}>
-              Belum ada produkmu yang terjual nih, sabar ya rejeki nggak kemana kok
+              Belum ada produkmu yang diminati nih, sabar ya rejeki nggak kemana kok
             </Typography>
           </Box>
         </>
       }
+
     </>
   )
 }

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { fetchTawar } from '../../../redux/tawar';
+import { fetchTawarBuyer } from '../../../redux/tawar';
 
 const ProductInterest = ({data,handleOpen}) => {
     // Wishlist
@@ -42,15 +42,14 @@ const ProductInterest = ({data,handleOpen}) => {
     // Tawar
     const dataTawar = useSelector(state=>state.tawar.tawar)
     const tawarID = Object.keys(dataTawar).length !== 0 ? dataTawar.filter(item => item.productId === Number(id)) : ''
-    
 
     React.useEffect(()=>{
         if (onWishtlist) {
             setLove(true)
         }
         dispatch(fetchWishlist())
-        dispatch(fetchTawar())
-    },[id])
+        dispatch(fetchTawarBuyer())
+    },[dataTawar,tawarID])
  
     return (
         <>
@@ -69,15 +68,10 @@ const ProductInterest = ({data,handleOpen}) => {
                 <Typography variant='h6'>
                      {data? formatter.format(data.price) : ''}
                 </Typography>
-                {Object.keys(tawarID).length === 0 ? 
-                <Button color='primary' variant='contained' onClick={handleOpen} sx={{ borderRadius: '16px', height: 'auto', minHeight:'48px', display: { md: 'block', xs: 'none' } }}>
-                    Saya tertarik ingin nego
-                </Button>:  
-                <Button color='primary' variant='contained' disabled onClick={handleOpen} sx={{ borderRadius: '16px', height: 'auto', minHeight:'48px', display: { md: 'block', xs: 'none' }}}>
-                    Menunggu respon penjual
-                </Button>
-                }
                 
+                <Button color='primary' variant='contained' disabled={Object.keys(tawarID).length !== 0 || data.isSold} onClick={handleOpen} sx={{ borderRadius: '16px', height: 'auto', minHeight:'48px', display: { md: 'block', xs: 'none' } }}>
+                    {Object.keys(tawarID).length === 0 ? data.isSold ? 'Produk telah terjual':'Saya tertarik ingin nego' : 'Menunggu respon penjual'}
+                </Button>
             </Box>
         </>
     )

@@ -4,18 +4,20 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const InfoSeller = () => {
-  const [error, setError] = useState(false);
   const [success, setSuccess] = useState(true);
-  const [deleted, setDeleted] = useState(false);
   const user = useSelector(state => state.auth.userProfile)
   const successMsg = useSelector(state => state.product.success)
   const message = useSelector(state => state.product.message)
 
   const handleClose = () => {
-    setError(false);
-    setSuccess(false);
-    setDeleted(false)
+    setSuccess(false)
   };
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setSuccess(false)
+    }, 4000);
+  }, []);
 
   return (
     <Box position="relative" sx={{ mx: { xl: 24, md: 15, sm: 8, xs: 5 }, my: 3 }}>
