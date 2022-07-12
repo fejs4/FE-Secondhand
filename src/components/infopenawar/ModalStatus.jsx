@@ -18,20 +18,24 @@ const style = {
     p: 4,
 };
 
-const ModalStatus = ({ open, handleClose, handlePost, transaksiId, status, setStatus }) => {
+const ModalStatus = ({ open, handleClose, handlePost, transaksiId, status, setStatus, idTransaksi }) => {
     const dispatch = useDispatch()
     const { id } = useParams()
-
     const handleTransaksi = () => {
-        const idTransaksi = localStorage.getItem('idTransaksi')
         try {
             const data = {
                 status: status,
-                transaksiId: idTransaksi
+                transaksiId: Object.keys(idTransaksi).length !== 0? idTransaksi[0].id : null
             }
-            dispatch(updateTransaksi({ data, id }))
-            window.localStorage.removeItem(id)
-            window.localStorage.removeItem('idTransaksi')
+            dispatch(updateTransaksi({ data, id })).then(data => {
+                window.localStorage.removeItem(id)
+                handleClose()
+                // if (data.payload.success) {
+                //     setTimeout(() => {
+                //         window.location.reload()
+                //     }, 1500);
+                // }
+            })
         } catch (err) {
             console.log(err)
         }

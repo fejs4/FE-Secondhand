@@ -69,7 +69,7 @@ const ProductInterest = ({data,handleOpen}) => {
                      {data? formatter.format(data.price) : ''}
                 </Typography>
                 
-                <Button color='primary' variant='contained' disabled={Object.keys(tawarID).length !== 0 || data.isSold} onClick={handleOpen} sx={{ borderRadius: '16px', height: 'auto', minHeight:'48px', display: { md: 'block', xs: 'none' } }}>
+                <Button color='primary' variant='contained' disabled={tawarID.length !== 0 || data.isSold} onClick={handleOpen} sx={{ borderRadius: '16px', height: 'auto', minHeight:'48px', display: { md: 'block', xs: 'none' } }}>
                     {Object.keys(tawarID).length === 0 ? data.isSold ? 'Produk telah terjual':'Saya tertarik ingin nego' : 'Menunggu respon penjual'}
                 </Button>
             </Box>

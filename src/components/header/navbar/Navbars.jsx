@@ -17,6 +17,7 @@ const Navbars = ({ info }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const isNotifOpen = Boolean(anchorEl);
     const location = useLocation().pathname
+    const notification = useSelector(state => state.notif.notification)
     const handleNotifOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -26,7 +27,7 @@ const Navbars = ({ info }) => {
 
     const renderMenu = (
         <Menu
-            PaperProps={{ sx: { width: { md: '30%', xs: '100%' } } }}
+            PaperProps={{ sx: { width: { md: '30%', xs: '100%'}, height:'300px' } }}
             sx={{ top: "50px" }}
             anchorEl={anchorEl}
             anchorOrigin={{
@@ -95,7 +96,7 @@ const Navbars = ({ info }) => {
                                         aria-haspopup="true"
                                         onClick={handleNotifOpen}
                                     >
-                                        <Badge badgeContent={2} color="primary">
+                                        <Badge badgeContent={Object.keys(notification).length} color="primary">
                                             <NotificationsNoneOutlinedIcon sx={{ cursor: 'pointer', color: location === '/notifikasi' ? '#7126B5' : 'black' }} />
                                         </Badge>
                                     </IconButton>

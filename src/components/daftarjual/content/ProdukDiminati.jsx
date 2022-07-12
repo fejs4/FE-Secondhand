@@ -27,6 +27,9 @@ const ProdukDiminati = () => {
   const handleDelete = (e, id) => {
     e.preventDefault()
     dispatch(deleteTawar(id))
+    setTimeout(() => {
+      window.location.reload()
+    }, 1000);
   }
 
   React.useEffect(() => {
@@ -36,16 +39,13 @@ const ProdukDiminati = () => {
     }, 1500);
   }, [dispatch])
 
-  console.log(dataTawar)
-
   return (
     <>
       {Object.keys(dataTawar).length !== 0 ?
         loading ? <TawarLoading length={Object.keys(dataTawar).length} /> :
-          dataTawar.map((data) => {
+          dataTawar.map((data,index) => {
             return (
-              <Link to={`/info-penawar/${data.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-
+              <Link key={index} to={`/info-penawar/${data.id}`} style={{ textDecoration: 'none', color: 'black' }}>
                 <Grid container my={1} mx={1} p={1} sx={{
                   cursor: 'pointer', '&:hover': {
                     backgroundColor: '#eee',
