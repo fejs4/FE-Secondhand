@@ -84,6 +84,7 @@ export const deleteTawar = createAsyncThunk(
 
 const initialState = {
     loading: false,
+    loadingDetail:true,
     error: null,
     tawar: {},
     tawarSeller: {},
@@ -100,6 +101,9 @@ const tawarSlice = createSlice({
         setLoading: (state, action) => {
             state.loading = action.payload
         },
+        setLoadingDetail: (state, action) => {
+            state.loadingDetail = action.payload
+        },
         setSuccess: (state, action) => {
             state.success = action.payload
         },
@@ -111,7 +115,7 @@ const tawarSlice = createSlice({
 
         // Fetching Tawar for Buyer
         [fetchTawarBuyer.pending]: (state, action) => {
-            return { ...state, loading: true, error: null, }
+            return { ...state, error: null, }
         },
         [fetchTawarBuyer.fulfilled]: (state, action) => {
             return { ...state, tawar: action.payload.data }
@@ -175,5 +179,5 @@ const tawarSlice = createSlice({
          
     }
 })
-export const { setLoading,setSuccess ,setMessage } = tawarSlice.actions;
+export const { setLoading,setLoadingDetail, setSuccess ,setMessage } = tawarSlice.actions;
 export default tawarSlice.reducer;

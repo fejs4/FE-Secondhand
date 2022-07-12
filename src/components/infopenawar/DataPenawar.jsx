@@ -9,7 +9,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import ModalDiterima from './ModalDiterima';
 import ModalStatus from './ModalStatus';
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchDetailTawar, setLoading } from '../../redux/tawar';
+import { fetchDetailTawar, setLoadingDetail } from '../../redux/tawar';
 import { createTransaksi, fetchTransaksiSeller } from '../../redux/transaksi';
 import InfoPenawaranLoading from '../loading/InfoPenawaranLoading';
 
@@ -70,16 +70,17 @@ const DataPenawar = () => {
 
     const [status, setStatus] = React.useState('')
     const dataTransaksi = useSelector(state => state.transaksi.transaksiSeller)
-    const loading = useSelector(state => state.tawar.loading)
+    const loading = useSelector(state => state.tawar.loadingDetail)
     const idTransaksiProduk = localStorage.getItem("idTransaksiProduk")
     const filterTransaksi = Object.keys(dataTransaksi).length !== 0 && idTransaksiProduk !== null ? dataTransaksi.filter(data => data.id === Number(idTransaksiProduk)) : ''
     
     React.useEffect(() => {
         dispatch(fetchDetailTawar(id))
         dispatch(fetchTransaksiSeller())
-        dispatch(setLoading(false))
-    }, [dispatch]);
-
+        setTimeout(() => {
+            dispatch(setLoadingDetail(false))
+          }, 1500);
+    }, [dispatch,id]);
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={{ xs: 'unset', md: 3 }}>
             <Toolbar position='relative' >
