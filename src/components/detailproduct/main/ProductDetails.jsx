@@ -10,7 +10,7 @@ import ProductInfo from '../seller/ProductInfo'
 import ProductInterest from '../buyer/ProductInterest'
 import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchProductDetail } from '../../../redux/product'
+import { fetchProductDetail, setLoading } from '../../../redux/product'
 import ModalBuyer from '../buyer/ModalBuyer'
 import { setSuccess } from '../../../redux/tawar'
 import { setMessage } from '../../../redux/tawar'
@@ -38,6 +38,7 @@ const ProductDetails = ({ status }) => {
   
   const dataUser = useSelector(state => state.auth.userProfile)
   const detailProduct = useSelector(state => state.product.detailProduct)
+  const loading = useSelector(state => state.product.loading)
   const handlePost = () => {
     if (dataUser.id === detailProduct.user.id) {
       dispatch(setMessage('Tidak dapat melakukan penawaran pada produk sendiri'))
@@ -49,9 +50,11 @@ const ProductDetails = ({ status }) => {
 
   React.useEffect(() => {
     dispatch(fetchProductDetail(id))
+    setTimeout(() => {
+      dispatch(setLoading(false))
+    }, 2000);
   }, []);
 
-  const loading = false
 
   return (
     <>

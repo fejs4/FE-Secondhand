@@ -32,7 +32,6 @@ const ModalStatus = ({ open, handleClose, handlePost, transaksiId, status, setSt
             dispatch(updateTransaksi({ data, id }))
             window.localStorage.removeItem(id)
             window.localStorage.removeItem('idTransaksi')
-            window.localStorage.removeItem('accept')
         } catch (err) {
             console.log(err)
         }
