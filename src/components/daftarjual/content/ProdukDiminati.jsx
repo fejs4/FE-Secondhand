@@ -64,7 +64,7 @@ const ProdukDiminati = () => {
                       <Typography variant="caption" color='text.secondary' component="h2" sx={{ marginRight:1 }}>
                         Penawaran Produk 
                       </Typography>
-                      <Typography variant="caption" color='text.secondary' component="h2" sx={{ color: data.status === 'accepted' ? 'green' : data.status === 'rejected' ? 'red' : 'yellow' }}>
+                      <Typography variant="caption" color='text.secondary' component="h2" sx={{  color: data.status === 'accepted' ? 'green' : data.status === 'rejected' ? 'red' : 'orange' }}>
                         {data.status === 'accepted' ? 'Accepted' : data.status === 'rejected' ? 'Rejected' : 'Waiting'}
                       </Typography>
                     </Box>
@@ -80,9 +80,9 @@ const ProdukDiminati = () => {
                   </Grid>
                   <Grid item xs={4} textAlign="end" >
                     <Typography variant="caption" color='text.secondary' component="h2" >
-                      {toDate(data.createdAt)} <CircleIcon style={{ color: 'red', fontSize: '0.9em' }} />
+                      {toDate(data.createdAt)} <CircleIcon style={{ color: 'red', fontSize: '0.9em', }} />
                     </Typography>
-                    <IconButton onClick={(e) => handleDelete(e, data.id)}>
+                    <IconButton onClick={(e) => handleDelete(e, data.id)} sx={{ display: data.status === 'waiting' ?  'none' : 'unset' }}>
                       <DeleteOutlineOutlinedIcon sx={{ color: 'red' }} />
                     </IconButton>
                   </Grid>
