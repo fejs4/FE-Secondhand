@@ -25,9 +25,9 @@ const ProdukTerjual = () => {
           {loading ?
             <CardLoading length={Object.keys(produk_terjual).length} md={4}/>
           :
-            produk_terjual.productSold.map((item) => {
+            produk_terjual.productSold.map((item, index) => {
               return (
-                <Grid item xs={6} sm={3} md={4} >
+                <Grid key={index} item xs={6} sm={3} md={4} >
                   <Link to={`/detail-product-seller/${item.id}`} style={{ textDecoration: 'none' }}>
                     <Card >
                       <CardActionArea>

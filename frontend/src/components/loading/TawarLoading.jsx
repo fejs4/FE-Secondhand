@@ -1,11 +1,11 @@
-import { Card, CardActionArea, CardContent, Divider, Grid, Skeleton } from '@mui/material'
+import { Box, Divider, Grid, Skeleton } from '@mui/material'
 import React from 'react'
 
 const TawarLoading = ({length}) => {
     var rows = [];
     for (var i = 0; i < length; i++) {
         rows.push(
-            <>
+            <Box key={i}>
                 <Grid container my={1} mx={1} p={1}>
                     <Grid item xs={2} display={'flex'} justifyContent={'center'}>
                         <Skeleton variant="circular" width={40} height={40} sx={{mt:1.5}}/>
@@ -21,7 +21,8 @@ const TawarLoading = ({length}) => {
                     </Grid>
                 </Grid>
                 <Divider sx={{ mt: '0 !important' }} />
-            </>)
+            </Box>
+            )
     }
 
     return (

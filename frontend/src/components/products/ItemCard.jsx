@@ -26,8 +26,7 @@ const ItemCard = ({ clicked,page }) => {
                     Object.keys(filtered).length !== 0 ?
                     filtered.map((item, index) => {
                             return (
-                                <>
-                                    <Grid key={index} item xs={6} sm={6} md={4} xl={2}  >
+                                    <Grid key={item.id} item xs={6} sm={6} md={4} xl={2}  >
                                         <Link to={`/detail-product-buyer/${item.id}`} style={{ textDecoration: 'none' }}>
                                             <Card sx={{ maxWidth: 345 }}>
                                                 <CardActionArea>
@@ -53,7 +52,6 @@ const ItemCard = ({ clicked,page }) => {
                                             </Card>
                                         </Link>
                                     </Grid>
-                                </>
                             )
                         }) :
                         <Box component={'div'} mx={'auto'} mt={3}>

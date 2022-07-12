@@ -46,10 +46,9 @@ const ListProductJual = () => {
                 </Grid>
                 {!loading ?
                     Object.keys(data).length !== 0 ?
-                        data.map((items) => {
+                        data.map((items, index) => {
                             return (
-                                <>
-                                    <Grid item xs={6} sm={6} md={4} >
+                                    <Grid key={index} item xs={6} sm={6} md={4} >
                                         <Link to={`/detail-product-seller/${items.id}`} style={{ textDecoration: 'none' }}>
                                             <Card sx={{ maxWidth: 345 }}>
                                                 <CardActionArea>
@@ -78,8 +77,6 @@ const ListProductJual = () => {
                                             </Card>
                                         </Link>
                                     </Grid>
-
-                                </>
                             )
                         })
                         : '' :

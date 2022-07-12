@@ -6,8 +6,7 @@ const CardLoading = ({ length, md, xl }) => {
     var rows = [];
     for (var i = 0; i <  length; i++) {
         rows.push(
-            <>
-                <Grid item xs={6} sm={6} md={md} xl={xl}  >
+                <Grid key={i} item xs={6} sm={6} md={md} xl={xl}  >
                     <Card sx={{ maxWidth: 345, height: '100%' }}>
                         <CardActionArea sx={{ height: '100%' }}>
                             <Skeleton sx={{ height: 140 }} animation="wave" variant="rectangular" />
@@ -19,7 +18,7 @@ const CardLoading = ({ length, md, xl }) => {
                         </CardActionArea>
                     </Card>
                 </Grid>
-            </>)
+            )
     }
 
 return (

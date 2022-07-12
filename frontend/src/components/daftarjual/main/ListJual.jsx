@@ -20,7 +20,7 @@ const ListJual = () => {
           <CategoryJualSwiper category={setClickedCategory} clicked={clickedCategory}/>
         </Grid>
         <Grid item xs={12} md={8} xl={9} >
-          {clickedCategory === 'Semua Produk'? <ListProductJual/> : clickedCategory === 'Diminati'? <ProdukDiminati/> : clickedCategory === 'Terjual'? <ProdukTerjual/> : <ListProductJual/>}
+          {clickedCategory === 'Semua Produk'? <ListProductJual/> : clickedCategory === 'Diminati'? <ProdukDiminati/> : <ProdukTerjual/> }
         </Grid>
       </Grid>
     </Box>

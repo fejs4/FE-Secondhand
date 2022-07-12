@@ -37,7 +37,7 @@ const Products = () => {
         <FloatingButton />
       </Box>
       <Box component='div' sx={{ display: 'flex', justifyContent: 'flex-start', mt: 3 }}>
-          <Pagination count={10} color="secondary" page={page} onChange={handleChange} />
+          <Pagination count={10} color="primary" page={page} onChange={handleChange} />
         </Box>
     </Box>
   )

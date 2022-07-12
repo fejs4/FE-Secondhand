@@ -37,10 +37,7 @@ const DataPenawar = () => {
         return (date.getDate() + " " + months[date.getMonth()] + ", " + addZero(date.getHours()) + ":" + addZero(date.getMinutes()))
     }
     
-    
     const detailPenawaran = useSelector(state => state.tawar.detailTawar)
-    const sold = localStorage.getItem(id)
-    
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
 
     const handleReject = () => { 
@@ -52,14 +49,19 @@ const DataPenawar = () => {
                 status: "rejected",
                 tawarId: id
             }
-            dispatch(createTransaksi(data))
+            dispatch(createTransaksi(data)).then(data => {
+                // if (data.payload.success) {
+                //     setTimeout(() => {
+                //         window.location.reload()
+                //     }, 1500);
+                // }
+            })
         } catch (err) {
             console.log(err);
         }
     }
 
     const handleCreate = () => {
-        localStorage.setItem(id, true)
         setOpenAgreement(true)
         try {
             const data = {
@@ -70,27 +72,32 @@ const DataPenawar = () => {
                 tawarId: id
             }
             dispatch(createTransaksi(data)).then(data => {
-                localStorage.setItem("idTransaksiProduk", data.payload.data.id)
-            }
-            )
+                if (data.payload.success) {
+                    localStorage.setItem(id, true)
+                }
+            })
         } catch (err) {
             console.log(err);
         }
     }
 
-    const [status, setStatus] = React.useState('')
-    const dataTransaksi = useSelector(state => state.transaksi.transaksiSeller)
 
+    const [status, setStatus] = React.useState('')
+    const [confirm, setConfirm] = React.useState(false)
+    const dataTransaksi = useSelector(state => state.transaksi.transaksiSeller)
     const loading = useSelector(state => state.tawar.loadingDetail)
     const filterTransaksi = Object.keys(dataTransaksi).length !== 0 ? dataTransaksi.filter(data => data.tawarId === Number(id)) : ''
     
     React.useEffect(() => {
         dispatch(fetchDetailTawar(id))
         dispatch(fetchTransaksiSeller())
+        if (Object.keys(filterTransaksi).length !== 0 && filterTransaksi[0].status === 'pending') {
+            setConfirm(true)
+        }
         setTimeout(() => {
             dispatch(setLoadingDetail(false))
-          }, 1500);
-    }, [dispatch,id]);
+          }, 1500)
+    }, [dispatch,dataTransaksi])
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={{ xs: 'unset', md: 3 }}>
             <Toolbar position='relative' >
@@ -123,30 +130,30 @@ const DataPenawar = () => {
                                                 Penawaran Produk
                                             </Typography>
                                             <Typography variant='subtitle1' fontWeight={550} my={0} >
-                                                {detailPenawaran[0].product.name || filterTransaksi[0].product.name}
+                                                {detailPenawaran[0].product.name}
                                             </Typography>
                                             <Typography variant='subtitle1' fontWeight={550} my={0} >
-                                                {formatter.format(detailPenawaran[0].product.price) || filterTransaksi[0].product.price}
+                                                {formatter.format(detailPenawaran[0].product.price)}
                                             </Typography>
                                             <Typography variant='subtitle1' fontWeight={550} my={0} >
-                                                Ditawar {formatter.format(detailPenawaran[0].price) || filterTransaksi[0].price}
+                                                Ditawar {formatter.format(detailPenawaran[0].price)}
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={3} sm={4} textAlign="end" >
                                             <Typography variant="caption" color='text.secondary' component="h2" >
-                                                {toDate(detailPenawaran[0].createdAt) || toDate(filterTransaksi[0].createdAt)}
+                                                {toDate(detailPenawaran[0].createdAt)}
                                             </Typography>
                                         </Grid>
                                         <Grid container spacing={1} mt={2} item xs={12} justifyContent={'end'}>
-                                            {sold ?
+                                            {confirm ? 
                                                 <>
                                                     <Grid item xs={3}>
-                                                        <Button fullWidth variant="outlined" color="primary" onClick={handleOpenStatus} sx={{ height: '40px', borderRadius: '25px' }} >
+                                                        <Button fullWidth variant="outlined" color="primary" onClick={handleOpenStatus} sx={{ height: '40px', borderRadius: '25px',display: filterTransaksi[0].status !== 'pending' ? 'none' : 'block' }} >
                                                             Status
                                                         </Button>
                                                     </Grid>
                                                     <Grid item xs={3}>
-                                                        <Button fullWidth variant="contained" color="primary" sx={{ height: '40px', borderRadius: '25px' }}>
+                                                        <Button fullWidth variant="contained" color="primary" sx={{ height: '40px', borderRadius: '25px', display: filterTransaksi[0].status !== 'pending' ? 'none' : 'flex', alignItems:'center' }}>
                                                             <Typography variant='caption'>
                                                                 Hubungi di
                                                             </Typography>
@@ -178,7 +185,7 @@ const DataPenawar = () => {
                     }
                 </Box>
             </Toolbar>
-            <ModalStatus handleClose={handleCloseStatus} open={openStatus} status={status} setStatus={setStatus} />
+            <ModalStatus handleClose={handleCloseStatus} open={openStatus} status={status} setStatus={setStatus} idTransaksi={filterTransaksi} />
             <ModalDiterima handleClose={handleCloseAgreement} open={openAgreement} data={detailPenawaran} />
 
         </Box >
