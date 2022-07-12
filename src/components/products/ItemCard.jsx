@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { fetchProducts, setDetail, setLoading } from '../../redux/product'
 import CardLoading from '../loading/CardLoading'
 
-const ItemCard = ({ clicked }) => {
+const ItemCard = ({ clicked,page }) => {
     const dispatch = useDispatch()
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
     const data = useSelector(state => state.product.products)
@@ -14,11 +14,11 @@ const ItemCard = ({ clicked }) => {
     const filtered = Object.keys(data).length !== 0 ? data.filter(item => item.publish === true && item.isSold === false) : ''
     React.useEffect(() => {
         dispatch(setDetail({}))
-        dispatch(fetchProducts({ clicked, searched }))
+        dispatch(fetchProducts({ clicked, searched,page }))
         setTimeout(() => {
             dispatch(setLoading(false))
         }, 1500);
-    }, [clicked, searched])
+    }, [clicked, searched,page])
     return (
         <>
             <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} mt={3}>

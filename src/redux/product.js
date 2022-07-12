@@ -3,8 +3,8 @@ import axios from "axios";
 
 export const fetchProducts = createAsyncThunk(
     'product/fetchProducts',
-    async ({clicked,searched}) => {
-        const response = await axios.get(`https://be-kel1.herokuapp.com/products`)
+    async ({clicked,searched, page}) => {
+        const response = await axios.get(`https://be-kel1.herokuapp.com/products?tab=${page}`)
         const responseFilter = await axios.get(`https://be-kel1.herokuapp.com/product/filter?cat=${clicked}`)
         const searchFilter = await axios.get(`https://be-kel1.herokuapp.com/product?search=${searched}`)
         if (searched !== '') {

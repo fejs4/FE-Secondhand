@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Pagination, Typography } from '@mui/material'
 import React from 'react'
 import FilterCategory from '../FilterCategory'
 import FloatingButton from '../FloatingButton'
@@ -9,6 +9,7 @@ import { setLoadingWeb } from '../../../redux/product'
 
 const Products = () => {
   const [clicked, setClicked] = React.useState('Semua');
+  const [page, setPage] = React.useState(1)
   const userProfile = useSelector(state => state.auth.userProfile)
   const loading = useSelector(state => state.product.loadingWeb)
   const navigate = useNavigate()
@@ -20,6 +21,10 @@ const Products = () => {
       navigate('/login')
     }
   }
+
+  const handleChange = (event, value) => {
+    setPage(value);
+  }
   
   return (
     <Box sx={{ mx: { lg: 15, md: 15, sm: 7, xs: 5 }, mt: { xs: 20, md: 'unset' }, pb: 3 }}>
@@ -27,10 +32,13 @@ const Products = () => {
         Telusuri Kategori
       </Typography>
       <FilterCategory clicked={clicked} setClicked={setClicked}/>
-      <ItemCard clicked={clicked}/>
+      <ItemCard clicked={clicked} page={page}/>
       <Box display={'flex'} onClick={handleSell} justifyContent={'center'}>
         <FloatingButton />
       </Box>
+      <Box component='div' sx={{ display: 'flex', justifyContent: 'flex-start', mt: 3 }}>
+          <Pagination count={10} color="secondary" page={page} onChange={handleChange} />
+        </Box>
     </Box>
   )
 }
