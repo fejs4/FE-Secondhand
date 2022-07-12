@@ -80,9 +80,9 @@ const DataPenawar = () => {
 
     const [status, setStatus] = React.useState('')
     const dataTransaksi = useSelector(state => state.transaksi.transaksiSeller)
+
     const loading = useSelector(state => state.tawar.loadingDetail)
-    const idTransaksiProduk = localStorage.getItem("idTransaksiProduk")
-    const filterTransaksi = Object.keys(dataTransaksi).length !== 0 && idTransaksiProduk !== null ? dataTransaksi.filter(data => data.id === Number(idTransaksiProduk)) : ''
+    const filterTransaksi = Object.keys(dataTransaksi).length !== 0 ? dataTransaksi.filter(data => data.tawarId === Number(id)) : ''
     
     React.useEffect(() => {
         dispatch(fetchDetailTawar(id))
@@ -116,7 +116,7 @@ const DataPenawar = () => {
                                 <Box component={'div'} rowGap={2} p={{ xs: 'unset', md: 2 }} display={'flex'} mt={1} sx={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)', borderRadius: '16px' }}>
                                     <Grid container my={1} p={1} >
                                         <Grid item xs={3} sm={2} textAlign="center">
-                                            <Box component={'img'} src={`https://be-kel1.herokuapp.com/public/images/${detailPenawaran[0].product.images[0] || filterTransaksi[0].product.images[0]}`} sx={{ height: '60px', width: '60px', objectFit: 'contain', borderRadius: '16px' }} />
+                                            <Box component={'img'} src={`https://be-kel1.herokuapp.com/public/images/${detailPenawaran[0].product.images[0] }`} sx={{ height: '60px', width: '60px', objectFit: 'contain', borderRadius: '16px' }} />
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Typography variant="caption" color='text.secondary' component="h2" >
@@ -156,12 +156,12 @@ const DataPenawar = () => {
                                                 </>
                                                 :
                                                 <>
-                                                    <Grid item xs={3} >
+                                                    <Grid item xs={3} sx={{ display: Object.keys(filterTransaksi).length !== 0 ? filterTransaksi[0].status !== 'pending' ? 'none' : 'block' : 'unset' }}>
                                                         <Button fullWidth variant="outlined" color="primary" onClick={handleReject} sx={{ height: '40px', borderRadius: '25px', }} >
                                                             Tolak
                                                         </Button>
                                                     </Grid>
-                                                    <Grid item xs={3} >
+                                                    <Grid item xs={3} sx={{ display: Object.keys(filterTransaksi).length !== 0 ? filterTransaksi[0].status !== 'pending' ? 'none' : 'block' : 'unset' }}>
                                                         <Button fullWidth variant="contained" color="primary" onClick={handleCreate} sx={{ height: '40px', borderRadius: '25px', }}>
                                                             Terima
                                                         </Button>

@@ -3,7 +3,7 @@ import React from 'react'
 
 const TawarLoading = ({length}) => {
     var rows = [];
-    for (var i = 0; i < 1; i++) {
+    for (var i = 0; i < length; i++) {
         rows.push(
             <>
                 <Grid container my={1} mx={1} p={1}>

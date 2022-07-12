@@ -6,7 +6,7 @@ export const fetchProducts = createAsyncThunk(
     async ({clicked,searched, page}) => {
         const response = await axios.get(`https://be-kel1.herokuapp.com/products?tab=${page}`)
         const responseFilter = await axios.get(`https://be-kel1.herokuapp.com/product/filter?cat=${clicked}`)
-        const searchFilter = await axios.get(`https://be-kel1.herokuapp.com/product?search=${searched}`)
+        const searchFilter = await axios.get(`https://be-kel1.herokuapp.com/search/product?search=${searched}`)
         if (searched !== '') {
             return searchFilter.data.data.filtered
         }else if (clicked === 'Semua'){
