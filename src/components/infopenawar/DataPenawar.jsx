@@ -17,7 +17,6 @@ import InfoPenawaranLoading from '../loading/InfoPenawaranLoading';
 const DataPenawar = () => {
     const [openAgreement, setOpenAgreement] = React.useState(false)
     const [openStatus, setOpenStatus] = React.useState(false)
-    const [reject, setReject] = React.useState(false)
     const { id } = useParams()
     const dispatch = useDispatch()
 
@@ -25,30 +24,40 @@ const DataPenawar = () => {
     const handleOpenAgreement = async () => { setOpenAgreement(true) }
     const handleCloseStatus = () => { setOpenStatus(false) }
     const handleOpenStatus = () => { setOpenStatus(true) }
-    const handleReject = () => { setReject(true) }
     const handleBack = () => { window.localStorage.removeItem('idTransaksiProduk') }
-
+    
     function addZero(i) {
         if (i < 10) { i = "0" + i }
         return i;
     }
-
+    
     const toDate = (datenow) => {
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
         const date = new Date(datenow)
         return (date.getDate() + " " + months[date.getMonth()] + ", " + addZero(date.getHours()) + ":" + addZero(date.getMinutes()))
     }
-
-
+    
+    
     const detailPenawaran = useSelector(state => state.tawar.detailTawar)
     const sold = localStorage.getItem(id)
-
-    if (!sold) {
-        localStorage.setItem("accept", false)
-    }
-    const accept = localStorage.getItem("accept")
-
+    
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
+
+    const handleReject = () => { 
+        try {
+            const data = {
+                userId: detailPenawaran[0].userId,
+                productId: detailPenawaran[0].productId,
+                price: detailPenawaran[0].price,
+                status: "rejected",
+                tawarId: id
+            }
+            dispatch(createTransaksi(data))
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     const handleCreate = () => {
         localStorage.setItem(id, true)
         setOpenAgreement(true)
@@ -57,7 +66,8 @@ const DataPenawar = () => {
                 userId: detailPenawaran[0].userId,
                 productId: detailPenawaran[0].productId,
                 price: detailPenawaran[0].price,
-                status: "pending"
+                status: "pending",
+                tawarId: id
             }
             dispatch(createTransaksi(data)).then(data => {
                 localStorage.setItem("idTransaksiProduk", data.payload.data.id)
