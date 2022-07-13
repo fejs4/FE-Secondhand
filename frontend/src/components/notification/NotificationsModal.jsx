@@ -10,9 +10,11 @@ const Notifications = () => {
     const notification = useSelector(state => state.notif.notification)
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
     const profileUser = useSelector(state => state.auth.userProfile)
-    const notifTerbitkan = Object.keys(notification).length !== 0 ? notification.filter((item) => item.userId === null) : ''
+    
+    const notifTerbitkan = Object.keys(notification).length !== 0 ? notification.filter((item) => item.userId === null && item.product.publish === true) : ''
     const notifDitawar = Object.keys(notification).length !== 0 ? notification.filter((item) => item.userId !== null && item.userId !== profileUser.id) : ''
     const notifMenawar = Object.keys(notification).length !== 0 ? notification.filter((item) => item.userId === profileUser.id) : ''
+
     function addZero(i) {
         if (i < 10) { i = "0" + i }
         return i;
@@ -32,7 +34,7 @@ const Notifications = () => {
 
     React.useEffect(() => {
         dispatch(fetchNotif())
-    }, [])
+    }, [notification])
 
     return (
         <>
@@ -60,7 +62,7 @@ const Notifications = () => {
                                     {formatter.format(item.product.price)}
                                 </Typography>
                                 <Typography variant='subtitle1' fontWeight={550} my={0} >
-                                    Ditawar {formatter.format(item.tawar)}
+                                    Ditawar {formatter.format(item.tawar.price)}
                                 </Typography>
                             </Grid>
                             <Grid item xs={4}>
@@ -103,7 +105,7 @@ const Notifications = () => {
                                     <s>{formatter.format(item.product.price)}</s>
                                 </Typography>
                                 <Typography variant='subtitle1' fontWeight={550} my={0} >
-                                    Berhasil Ditawar {formatter.format(item.tawar)}
+                                    Berhasil Ditawar {formatter.format(item.tawar.price)}
                                 </Typography>
                             </Grid>
                             <Grid item xs={3} textAlign="end" >

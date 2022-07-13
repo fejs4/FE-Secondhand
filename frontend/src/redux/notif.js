@@ -55,15 +55,12 @@ const notifSlice = createSlice({
     extraReducers: {
         // Fetch Notif
         [fetchNotif.pending]: (state, action) => {
-            console.log('pending')
             return { ...state, loading: true, error: null, }
         },
         [fetchNotif.fulfilled]: (state, action) => {
-            console.log('fulfilled')
             return { ...state, notification: action.payload.data}
         },
         [fetchNotif.rejected]: (state, action) => {
-            console.log('rejected')
             return { ...state, message:action.payload.message, success:action.payload.success  }
         },
 

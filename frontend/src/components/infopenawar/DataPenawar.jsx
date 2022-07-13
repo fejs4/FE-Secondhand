@@ -1,7 +1,7 @@
 import React from 'react';
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 import Toolbar from '@mui/material/Toolbar';
-import { Button, Grid } from '@mui/material';
+import { Alert, Button, Grid, Stack } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import { Box, Typography } from '@mui/material'
 import BuyerInfo from './BuyerInfo';
@@ -10,7 +10,7 @@ import ModalDiterima from './ModalDiterima';
 import ModalStatus from './ModalStatus';
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchDetailTawar, setLoadingDetail } from '../../redux/tawar';
-import { createTransaksi, fetchTransaksiSeller } from '../../redux/transaksi';
+import { createTransaksi, fetchTransaksiSeller, setMessageTransaksi, setSuccess } from '../../redux/transaksi';
 import InfoPenawaranLoading from '../loading/InfoPenawaranLoading';
 
 
@@ -25,22 +25,22 @@ const DataPenawar = () => {
     const handleCloseStatus = () => { setOpenStatus(false) }
     const handleOpenStatus = () => { setOpenStatus(true) }
     const handleBack = () => { window.localStorage.removeItem('idTransaksiProduk') }
-    
+
     function addZero(i) {
         if (i < 10) { i = "0" + i }
         return i;
     }
-    
+
     const toDate = (datenow) => {
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
         const date = new Date(datenow)
         return (date.getDate() + " " + months[date.getMonth()] + ", " + addZero(date.getHours()) + ":" + addZero(date.getMinutes()))
     }
-    
+
     const detailPenawaran = useSelector(state => state.tawar.detailTawar)
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
 
-    const handleReject = () => { 
+    const handleReject = () => {
         try {
             const data = {
                 userId: detailPenawaran[0].userId,
@@ -50,11 +50,14 @@ const DataPenawar = () => {
                 tawarId: id
             }
             dispatch(createTransaksi(data)).then(data => {
-                // if (data.payload.success) {
-                //     setTimeout(() => {
-                //         window.location.reload()
-                //     }, 1500);
-                // }
+                if (data.payload.success) {
+                    dispatch(setMessageTransaksi('Berhasil menolak tawaran'))
+                    dispatch(setSuccess(true))
+                    setTimeout(() => {
+                        dispatch(setMessageTransaksi(''))
+                        dispatch(setSuccess())
+                    }, 2000);
+                }
             })
         } catch (err) {
             console.log(err);
@@ -87,7 +90,11 @@ const DataPenawar = () => {
     const dataTransaksi = useSelector(state => state.transaksi.transaksiSeller)
     const loading = useSelector(state => state.tawar.loadingDetail)
     const filterTransaksi = Object.keys(dataTransaksi).length !== 0 ? dataTransaksi.filter(data => data.tawarId === Number(id)) : ''
-    
+
+    const [alert, setAlert] = React.useState(true)
+    const message = useSelector(state => state.transaksi.message)
+    const success = useSelector(state => state.transaksi.success)
+
     React.useEffect(() => {
         dispatch(fetchDetailTawar(id))
         dispatch(fetchTransaksiSeller())
@@ -96,11 +103,14 @@ const DataPenawar = () => {
         }
         setTimeout(() => {
             dispatch(setLoadingDetail(false))
-          }, 1500)
+        }, 1500)
     }, [dispatch,dataTransaksi])
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={{ xs: 'unset', md: 3 }}>
             <Toolbar position='relative' >
+                <Stack position="absolute" display={message !== '' ? "block" : "none"} className="alert" mx={'auto'} width={{ md: '40%', xs: '90%' }} sx={{ zIndex:100,left: 0, right: 0, top: 0, transition: '0.5s' }} style={{ 'marginTop': alert ? "-15px" : "-350px" }} >
+                    <Alert variant="filled" severity={success ? "success" : "error"} onClose={() => setAlert(false)}>{message}</Alert>
+                </Stack>
                 <Link to={-1}>
                     <ArrowBackSharpIcon onClick={handleBack} sx={{
                         display: { md: 'block', xs: 'none' }, borderRadius: '50px', background: 'white'
@@ -123,7 +133,7 @@ const DataPenawar = () => {
                                 <Box component={'div'} rowGap={2} p={{ xs: 'unset', md: 2 }} display={'flex'} mt={1} sx={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)', borderRadius: '16px' }}>
                                     <Grid container my={1} p={1} >
                                         <Grid item xs={3} sm={2} textAlign="center">
-                                            <Box component={'img'} src={`https://be-kel1.herokuapp.com/public/images/${detailPenawaran[0].product.images[0] }`} sx={{ height: '60px', width: '60px', objectFit: 'contain', borderRadius: '16px' }} />
+                                            <Box component={'img'} src={`https://be-kel1.herokuapp.com/public/images/${detailPenawaran[0].product.images[0]}`} sx={{ height: '60px', width: '60px', objectFit: 'contain', borderRadius: '16px' }} />
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Typography variant="caption" color='text.secondary' component="h2" >
@@ -145,20 +155,22 @@ const DataPenawar = () => {
                                             </Typography>
                                         </Grid>
                                         <Grid container spacing={1} mt={2} item xs={12} justifyContent={'end'}>
-                                            {confirm ? 
+                                            {confirm ?
                                                 <>
                                                     <Grid item xs={3}>
-                                                        <Button fullWidth variant="outlined" color="primary" onClick={handleOpenStatus} sx={{ height: '40px', borderRadius: '25px',display: filterTransaksi[0].status !== 'pending' ? 'none' : 'block' }} >
+                                                        <Button fullWidth variant="outlined" color="primary" onClick={handleOpenStatus} sx={{ height: '40px', borderRadius: '25px', display: filterTransaksi[0].status !== 'pending' ? 'none' : 'block' }} >
                                                             Status
                                                         </Button>
                                                     </Grid>
                                                     <Grid item xs={3}>
-                                                        <Button fullWidth variant="contained" color="primary" sx={{ height: '40px', borderRadius: '25px', display: filterTransaksi[0].status !== 'pending' ? 'none' : 'flex', alignItems:'center' }}>
-                                                            <Typography variant='caption'>
-                                                                Hubungi di
-                                                            </Typography>
-                                                            <WhatsAppIcon sx={{ ml: 1, fontSize: { md: '1rem', xs: '.5rem' } }} />
-                                                        </Button>
+                                                        <a target={"_blank"} href={`https://wa.me/${detailPenawaran[0].user.number_mobile}`} style={{ textDecoration:'none' }}>
+                                                            <Button fullWidth variant="contained" color="primary" sx={{ height: '40px', borderRadius: '25px', display: filterTransaksi[0].status !== 'pending' ? 'none' : 'flex', alignItems: 'center' }}>
+                                                                <Typography variant='caption'>
+                                                                    Hubungi di
+                                                                </Typography>
+                                                                <WhatsAppIcon sx={{ ml: 1, fontSize: { md: '1rem', xs: '.5rem' } }} />
+                                                            </Button>
+                                                        </a>
                                                     </Grid>
                                                 </>
                                                 :

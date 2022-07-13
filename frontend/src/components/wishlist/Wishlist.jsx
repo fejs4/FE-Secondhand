@@ -34,7 +34,7 @@ const Wishlist = ({ wishlist, setWishlist, handleChange }) => {
 
   React.useEffect(() => {
     dispatch(fetchWishlist());
-  }, []);
+  }, [handleDelete]);
 
   return (
     <Box width={{ md: "70%", xs: "100%" }} mx={"auto"} mt={3}>
@@ -66,13 +66,14 @@ const Wishlist = ({ wishlist, setWishlist, handleChange }) => {
                   sx={{
                     boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.15)",
                     borderRadius: "16px",
-                    position: 'relative'
+                    position: 'relative',
+                    width:'100%'
                   }}
                 >
                   <Typography variant="caption" sx={{ padding: .5 ,display: res.product.isSold?'block' : 'none', color: 'white', background: 'grey', fontSize: '.8em', position: 'absolute', borderTopLeftRadius:'16px' }}>
                     Terjual
                   </Typography>
-                  <Box p={2}>
+                  <Box p={2} width={'100%'}>
                     <Grid container my={1} p={1}>
                       <Grid
                         item
