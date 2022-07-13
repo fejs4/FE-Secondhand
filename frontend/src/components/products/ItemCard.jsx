@@ -14,11 +14,11 @@ const ItemCard = ({ clicked,page }) => {
     const filtered = Object.keys(data).length !== 0 ? data.filter(item => item.publish === true && item.isSold === false) : ''
     React.useEffect(() => {
         dispatch(setDetail({}))
-        dispatch(fetchProducts({ clicked, searched,page }))
+        dispatch(fetchProducts({ clicked, searched, page }))
         setTimeout(() => {
             dispatch(setLoading(false))
         }, 1500);
-    }, [clicked, searched,page])
+    }, [clicked, searched, page])
     return (
         <>
             <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} mt={3}>
