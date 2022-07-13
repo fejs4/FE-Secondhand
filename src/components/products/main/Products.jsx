@@ -12,6 +12,7 @@ const Products = () => {
   const [page, setPage] = React.useState(1)
   const userProfile = useSelector(state => state.auth.userProfile)
   const loading = useSelector(state => state.product.loadingWeb)
+  const data = useSelector(state => state.product.products)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const handleSell = () => {

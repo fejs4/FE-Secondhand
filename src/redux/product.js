@@ -4,16 +4,18 @@ import axios from "axios";
 export const fetchProducts = createAsyncThunk(
     'product/fetchProducts',
     async ({clicked,searched, page}) => {
-        const response = await axios.get(`https://be-kel1.herokuapp.com/products?tab=${page}`)
-        const responseFilter = await axios.get(`https://be-kel1.herokuapp.com/product/filter?cat=${clicked}`)
-        const searchFilter = await axios.get(`https://be-kel1.herokuapp.com/search/product?search=${searched}`)
-        if (searched !== '') {
-            return searchFilter.data.data.filtered
-        }else if (clicked === 'Semua'){
+        const all = clicked === 'Semua' ? '' : clicked
+        const response = await axios.get(`https://be-kel1.herokuapp.com/AllProducts?tab=${page}&cat=${all}&search=${searched}`)
+        // const response = await axios.get(`https://be-kel1.herokuapp.com/products?tab=${page}`)
+        // const responseFilter = await axios.get(`https://be-kel1.herokuapp.com/product/filter?cat=${clicked}`)
+        // const searchFilter = await axios.get(`https://be-kel1.herokuapp.com/search/product?search=${searched}`)
+        // if (searched !== '') {
+        //     return searchFilter.data.data.filtered
+        // }else if (clicked === 'Semua'){
             return response.data.data.products
-        }else{
-            return responseFilter.data.data.filtered
-        }
+        // }else{
+        //     return responseFilter.data.data.filtered
+        // }
     }
 );
 

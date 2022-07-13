@@ -155,7 +155,7 @@ const tawarSlice = createSlice({
         [postTawar.fulfilled]: (state, action) => {
             console.log('fetching fulfilled')
             console.log(action.payload)
-            return { ...state, message: action.payload.message, success: action.payload.success}
+            return { ...state, message: 'Harga tawarmu berhasil dikirim ke penjual', success: action.payload.success}
         },
         [postTawar.rejected]: (state, action) => {
             console.log('fetching rejected')

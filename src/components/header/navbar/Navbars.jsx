@@ -24,11 +24,11 @@ const Navbars = ({ info }) => {
     const handleNotifClose = () => {
         setAnchorEl(null);
     };
-
+    const totalNotification = Object.keys(notification).length !== 0 ? notification.filter((item) =>item.product.publish === true) : ''
     const renderMenu = (
         <Menu
             PaperProps={{ sx: { width: { md: '35%', xs: '100%'}, maxHeight:'300px' } }}
-            sx={{ top: "50px" }}
+            sx={{ top: "50px", display: Object.keys(totalNotification).length === 0 ? 'none' : 'block' }}
             anchorEl={anchorEl}
             anchorOrigin={{
                 vertical: 'top',
@@ -96,7 +96,7 @@ const Navbars = ({ info }) => {
                                         aria-haspopup="true"
                                         onClick={handleNotifOpen}
                                     >
-                                        <Badge badgeContent={Object.keys(notification).length} color="primary">
+                                        <Badge badgeContent={Object.keys(totalNotification).length} color="primary">
                                             <NotificationsNoneOutlinedIcon sx={{ cursor: 'pointer', color: location === '/notifikasi' ? '#7126B5' : 'black' }} />
                                         </Badge>
                                     </IconButton>

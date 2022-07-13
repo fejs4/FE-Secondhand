@@ -65,7 +65,7 @@ const transaksiSlice = createSlice({
         setSuccess: (state, action) => {
             state.success = action.payload
         },
-        setMessage: (state, action) => {
+        setMessageTransaksi: (state, action) => {
             state.message = action.payload
         },
     },
@@ -78,7 +78,6 @@ const transaksiSlice = createSlice({
         },
         [createTransaksi.fulfilled]: (state, action) => {
             console.log('fetching fulfilled')
-            console.log(action.payload)
         },
         [createTransaksi.rejected]: (state, action) => {
             console.log('fetching rejected')
@@ -93,6 +92,7 @@ const transaksiSlice = createSlice({
         [updateTransaksi.fulfilled]: (state, action) => {
             console.log('fetching fulfilled')
             console.log(action.payload)
+            return { ...state, message: 'Status produk berhasil diperbaharui', success: action.payload.success, }
         },
         [updateTransaksi.rejected]: (state, action) => {
             console.log('fetching rejected')
@@ -113,5 +113,5 @@ const transaksiSlice = createSlice({
          
     }
 })
-export const { setLoading,setSuccess ,setMessage } = transaksiSlice.actions;
+export const { setLoading,setSuccess ,setMessageTransaksi } = transaksiSlice.actions;
 export default transaksiSlice.reducer;

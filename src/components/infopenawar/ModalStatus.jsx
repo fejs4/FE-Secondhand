@@ -30,11 +30,6 @@ const ModalStatus = ({ open, handleClose, handlePost, transaksiId, status, setSt
             dispatch(updateTransaksi({ data, id })).then(data => {
                 window.localStorage.removeItem(id)
                 handleClose()
-                // if (data.payload.success) {
-                //     setTimeout(() => {
-                //         window.location.reload()
-                //     }, 1500);
-                // }
             })
         } catch (err) {
             console.log(err)

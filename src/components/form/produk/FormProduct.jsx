@@ -35,7 +35,6 @@ function maxFilesValidator(file) {
             message: `Error the maximum file is 4 files`
         };
     }
-
     return null
 }
 
@@ -132,10 +131,9 @@ const FormProduct = () => {
             })
             try {
                 if (id) {
-                    product.append("publish", product.publish)
+                    product.append("publish", productDetails.publish)
                     dispatch(updateProduct({ product, id })).then(
                         data => {
-                            console.log(data)
                             setTimeout(() => {
                                 navigate(`/detail-product-seller/${id}`)
                             }, 1000);

@@ -50,12 +50,11 @@ const ProductDetails = ({ status }) => {
 
   React.useEffect(() => {
     dispatch(fetchProductDetail(id))
+    dispatch()
     setTimeout(() => {
       dispatch(setLoading(false))
     }, 2000);
   }, [])
-
-  console.log(data)
 
   return (
     <>
