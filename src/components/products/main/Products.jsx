@@ -25,20 +25,20 @@ const Products = () => {
   const handleChange = (event, value) => {
     setPage(value);
   }
-  
+
   return (
     <Box sx={{ mx: { lg: 15, md: 15, sm: 7, xs: 5 }, mt: { xs: 20, md: 'unset' }, pb: 3 }}>
       <Typography variant='h5' fontWeight={700} sx={{ fontSize: { xs: '1em', md: '2em' } }}>
         Telusuri Kategori
       </Typography>
-      <FilterCategory clicked={clicked} setClicked={setClicked}/>
-      <ItemCard clicked={clicked} page={page}/>
+      <FilterCategory clicked={clicked} setClicked={setClicked} />
+      <ItemCard clicked={clicked} page={page} />
       <Box display={'flex'} onClick={handleSell} justifyContent={'center'}>
         <FloatingButton />
       </Box>
       <Box component='div' sx={{ display: 'flex', justifyContent: 'flex-start', mt: 3 }}>
-          <Pagination count={10} color="primary" page={page} onChange={handleChange} />
-        </Box>
+        <Pagination count={10} color="primary" page={page} onChange={handleChange} />
+      </Box>
     </Box>
   )
 }

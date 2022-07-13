@@ -17,6 +17,21 @@ export const fetchNotif = createAsyncThunk(
     }
 );
 
+export const deleteNotif = createAsyncThunk(
+    'auth/deleteNotif',
+    async (id) => {
+        const token = localStorage.getItem('token')
+         const response = await axios({
+                method:"DELETE",
+                url:`https://be-kel1.herokuapp.com/notif/${id}`,
+                headers:{
+                    Authorization: token
+                }
+            })
+        return response.data;
+    }
+);
+
 
 const initialState = {
     message: '',
@@ -38,7 +53,7 @@ const notifSlice = createSlice({
         },
     },
     extraReducers: {
-        // Login
+        // Fetch Notif
         [fetchNotif.pending]: (state, action) => {
             console.log('pending')
             return { ...state, loading: true, error: null, }
@@ -49,6 +64,21 @@ const notifSlice = createSlice({
         },
         [fetchNotif.rejected]: (state, action) => {
             console.log('rejected')
+            return { ...state, message:action.payload.message, success:action.payload.success  }
+        },
+
+        // Delete Notif
+        [deleteNotif.pending]: (state, action) => {
+            console.log('pending')
+            return { ...state, loading: true, error: null, }
+        },
+        [deleteNotif.fulfilled]: (state, action) => {
+            console.log('fulfilled')
+            console.log(action.payload)
+        },
+        [deleteNotif.rejected]: (state, action) => {
+            console.log('rejected')
+            console.log(action.payload)
             return { ...state, message:action.payload.message, success:action.payload.success  }
         },
 

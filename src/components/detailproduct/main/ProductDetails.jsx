@@ -53,8 +53,9 @@ const ProductDetails = ({ status }) => {
     setTimeout(() => {
       dispatch(setLoading(false))
     }, 2000);
-  }, []);
+  }, [])
 
+  console.log(data)
 
   return (
     <>

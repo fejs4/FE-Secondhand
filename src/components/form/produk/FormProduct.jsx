@@ -145,7 +145,7 @@ const FormProduct = () => {
                     product.append("publish", false)
                     dispatch(postProducts(product)).then((data) => {
                         setTimeout(() => {
-                            navigate(`/detail-product-seller/${data.payload.data.product.id}`)
+                            navigate(`/detail-product-seller/${data.payload.data.product.productId}`)
                         }, 2000);
                     })
                 }

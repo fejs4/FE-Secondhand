@@ -27,7 +27,7 @@ const Navbars = ({ info }) => {
 
     const renderMenu = (
         <Menu
-            PaperProps={{ sx: { width: { md: '30%', xs: '100%'}, height:'300px' } }}
+            PaperProps={{ sx: { width: { md: '35%', xs: '100%'}, maxHeight:'300px' } }}
             sx={{ top: "50px" }}
             anchorEl={anchorEl}
             anchorOrigin={{

@@ -2,14 +2,17 @@ import { Avatar, Box, Divider, Grid, IconButton, Typography } from '@mui/materia
 import CircleIcon from '@mui/icons-material/Circle';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNotif } from '../../redux/notif';
+import { deleteNotif, fetchNotif } from '../../redux/notif';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Notifications = () => {
     const dispatch = useDispatch()
     const notification = useSelector(state => state.notif.notification)
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
+    const profileUser = useSelector(state => state.auth.userProfile)
     const notifTerbitkan = Object.keys(notification).length !== 0 ? notification.filter((item) => item.userId === null) : ''
-    const notifDitawar = Object.keys(notification).length !== 0 ? notification.filter((item) => item.userId) : ''
+    const notifDitawar = Object.keys(notification).length !== 0 ? notification.filter((item) => item.userId !== null && item.userId !== profileUser.id) : ''
+    const notifMenawar = Object.keys(notification).length !== 0 ? notification.filter((item) => item.userId === profileUser.id) : ''
     function addZero(i) {
         if (i < 10) { i = "0" + i }
         return i;
@@ -21,9 +24,16 @@ const Notifications = () => {
         return (date.getDate() + " " + months[date.getMonth()] + ", " + addZero(date.getHours()) + ":" + addZero(date.getMinutes()))
     }
 
+    const handleDelete = (e, id) => {
+        e.preventDefault()
+        console.log(id)
+        dispatch(deleteNotif(id)).then((res) => console.log(res))
+    }
+
     React.useEffect(() => {
         dispatch(fetchNotif())
-    }, []);
+    }, [])
+
     return (
         <>
             {Object.keys(notifDitawar).length !== 0 ? notifDitawar.map((item, index) => {
@@ -50,13 +60,61 @@ const Notifications = () => {
                                     {formatter.format(item.product.price)}
                                 </Typography>
                                 <Typography variant='subtitle1' fontWeight={550} my={0} >
-                                    Ditawar {formatter.format(item.product.price)}
+                                    Ditawar {formatter.format(item.tawar)}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={4} textAlign="end" >
+                            <Grid item xs={4}>
+                                <Box justifyContent={'flex-end'} alignItems={'center'} display={'flex'} sx={{marginTop:'-8px' }}>
+                                    <Typography variant="caption" color='text.secondary' component="h2" >
+                                        {toDate(item.createdAt)}
+                                    </Typography>
+                                    <IconButton onClick={(e) => handleDelete(e, item.id)}>
+                                        <CloseIcon style={{ color: 'red', fontSize: '.8em' }} />
+                                    </IconButton>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                        <Divider sx={{ mt: '0 !important' }} />
+                    </Box>
+                )
+            }) : ''}
+
+            {Object.keys(notifMenawar).length !== 0 ? notifMenawar.map((item, index) => {
+                return (
+                    <Box key={index}>
+                        <Grid container my={1} p={1} sx={{
+                            cursor: 'pointer', '&:hover': {
+                                backgroundColor: '#eee',
+                            }
+                        }} >
+                            <Grid item xs={2} textAlign="center">
+                                <IconButton >
+                                    <Avatar alt="" src={`https://be-kel1.herokuapp.com/public/images/${item.product.images[0]}`} />
+                                </IconButton>
+                            </Grid>
+                            <Grid item xs={7}>
                                 <Typography variant="caption" color='text.secondary' component="h2" >
-                                {toDate(item.createdAt)} <CircleIcon style={{ color: 'red', fontSize: '0.9em' }} />
+                                    Penawaran Produk
                                 </Typography>
+                                <Typography variant='subtitle1' fontWeight={550} my={0} >
+                                    {item.product.name}
+                                </Typography>
+                                <Typography variant='subtitle1' fontWeight={550} my={0} >
+                                    <s>{formatter.format(item.product.price)}</s>
+                                </Typography>
+                                <Typography variant='subtitle1' fontWeight={550} my={0} >
+                                    Berhasil Ditawar {formatter.format(item.tawar)}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={3} textAlign="end" >
+                                <Box justifyContent={'flex-end'} alignItems={'center'} display={'flex'} sx={{marginTop:'-8px' }}>
+                                    <Typography variant="caption" color='text.secondary' component="h2" >
+                                        {toDate(item.createdAt)}
+                                    </Typography>
+                                    <IconButton onClick={(e) => handleDelete(e, item.id)}>
+                                        <CloseIcon style={{ color: 'red', fontSize: '.8em' }} />
+                                    </IconButton>
+                                </Box>
                             </Grid>
                         </Grid>
                         <Divider sx={{ mt: '0 !important' }} />
@@ -89,9 +147,14 @@ const Notifications = () => {
                                 </Typography>
                             </Grid>
                             <Grid item xs={4} textAlign="end" >
-                                <Typography variant="caption" color='text.secondary' component="h2" >
-                                    {toDate(item.createdAt)} <CircleIcon style={{ color: 'red', fontSize: '0.9em' }} />
-                                </Typography>
+                                <Box justifyContent={'flex-end'} alignItems={'center'} display={'flex'} sx={{marginTop:'-8px' }}>
+                                    <Typography variant="caption" color='text.secondary' component="h2" >
+                                        {toDate(item.createdAt)}
+                                    </Typography>
+                                    <IconButton onClick={(e) => handleDelete(e, item.id)}>
+                                        <CloseIcon style={{ color: 'red', fontSize: '.8em' }} />
+                                    </IconButton>
+                                </Box>
                             </Grid>
                         </Grid>
                         <Divider sx={{ mt: '0 !important' }} />
