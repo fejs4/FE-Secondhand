@@ -137,7 +137,7 @@ const tawarSlice = createSlice({
 
         // Fetching Detail Tawar
         [fetchDetailTawar.pending]: (state, action) => {
-            return { ...state, loading: true, error: null, }
+            return { ...state, error: null }
         },
         [fetchDetailTawar.fulfilled]: (state, action) => {
             console.log()

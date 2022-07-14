@@ -19,7 +19,6 @@ import DetailProductLoading from '../../loading/DetailProductLoading'
 const ProductDetails = ({ status }) => {
   const { id } = useParams()
   const dispatch = useDispatch()
-
   
   const [open, setOpen] = React.useState(false)
   const handleOpenModal = () => setOpen(true)
@@ -50,7 +49,6 @@ const ProductDetails = ({ status }) => {
 
   React.useEffect(() => {
     dispatch(fetchProductDetail(id))
-    dispatch()
     setTimeout(() => {
       dispatch(setLoading(false))
     }, 2000);
@@ -59,7 +57,6 @@ const ProductDetails = ({ status }) => {
   return (
     <>
     {loading? <DetailProductLoading/> :
-    
       <Box sx={{ mx: { xl: 15, md: 15, sm: 0 }, mt: { md: 5, xs: 0 }, pb: 3 }} >
         <Grid container rowSpacing={2} columnSpacing={{ xs: 3, sm: 3, md: 3 }} justifyContent={'center'} position={'relative'} >
           <Box display={{ sm: 'block', md: 'none' }} mt={{ sm: 5, xs: 5 }}>

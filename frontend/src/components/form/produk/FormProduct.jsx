@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProductDetail, postProducts, publishProduct, updateProduct } from '../../../redux/product';
 import axios from 'axios';
 import { formProductValidation } from '../../../validator/validator';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const thumb = {
     display: 'flex',
@@ -41,10 +43,11 @@ function maxFilesValidator(file) {
 
 const FormProduct = () => {
     const [files, setFiles] = useState([]);
-    const [error, setError] = React.useState({});
+    const [error, setError] = useState({});
     const dispatch = useDispatch()
     const location = useLocation().pathname
     const navigate = useNavigate()
+    const [backdrop, setBackdrop] = useState(false)
     const { id } = useParams()
     const productDetails = useSelector(state => state.product.detailProduct)
     const [data, setData] = useState(
@@ -70,6 +73,7 @@ const FormProduct = () => {
         if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
             setData({ ...data, message: 'Gagal memposting produk, lengkapi data', success: false })
         } else {
+            setBackdrop(true)
             try {
                 const token = localStorage.getItem('token');
                 const idProduct = productDetails.id
@@ -121,6 +125,7 @@ const FormProduct = () => {
         if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
             setData({ ...data, message: 'Gagal memposting produk, lengkapi data', success: false })
         } else {
+            setBackdrop(true)
             const product = new FormData()
             product.append("name", data.nama)
             product.append("category", data.kategori)
@@ -314,6 +319,12 @@ const FormProduct = () => {
                     </Grid>
                 </Box>
             </Toolbar>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={backdrop}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </Box>
     )
 }

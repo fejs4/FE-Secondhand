@@ -3,19 +3,11 @@ import axios from "axios";
 
 export const fetchProducts = createAsyncThunk(
     'product/fetchProducts',
-    async ({clicked,searched, page}) => {
+    async ({ clicked, searched, page }) => {
         const all = clicked === 'Semua' ? '' : clicked
         const response = await axios.get(`https://be-kel1.herokuapp.com/AllProducts?tab=${page}&cat=${all}&search=${searched}`)
-        // const response = await axios.get(`https://be-kel1.herokuapp.com/products?tab=${page}`)
-        // const responseFilter = await axios.get(`https://be-kel1.herokuapp.com/product/filter?cat=${clicked}`)
-        // const searchFilter = await axios.get(`https://be-kel1.herokuapp.com/search/product?search=${searched}`)
-        // if (searched !== '') {
-        //     return searchFilter.data.data.filtered
-        // }else if (clicked === 'Semua'){
-            return response.data.data.products
-        // }else{
-        //     return responseFilter.data.data.filtered
-        // }
+
+        return response.data.data.products
     }
 );
 
@@ -58,7 +50,7 @@ export const postProducts = createAsyncThunk(
         const response = await axios({
             method: "POST",
             data: product,
-            url:`https://be-kel1.herokuapp.com/product/`,
+            url: `https://be-kel1.herokuapp.com/product/`,
             headers: {
                 Authorization: token,
             }
@@ -70,12 +62,12 @@ export const postProducts = createAsyncThunk(
 
 export const updateProduct = createAsyncThunk(
     'product/updateProduct',
-    async ({product,id}) => {
+    async ({ product, id }) => {
         const token = localStorage.getItem('token');
         const response = await axios({
             method: "PUT",
             data: product,
-            url:`https://be-kel1.herokuapp.com/product/${id}`,
+            url: `https://be-kel1.herokuapp.com/product/${id}`,
             headers: {
                 Authorization: token,
             }
@@ -115,9 +107,9 @@ const initialState = {
     user: {},
     products: {},
     detailProduct: {},
-    productSold : {},
+    productSold: {},
     productUser: {},
-    searched:'',
+    searched: '',
     message: '',
     success: true
 }
@@ -135,6 +127,10 @@ const productSlice = createSlice({
         setDetail: (state, action) => {
             state.detailProduct = action.payload
         },
+        setMessageProduct:  (state, action) => {
+            state.message = action.payload
+        },
+        
     },
     extraReducers: {
 
@@ -240,5 +236,5 @@ const productSlice = createSlice({
         }
     }
 })
-export const { setLoading,setSearch,setDetail } = productSlice.actions;
+export const { setLoading, setSearch,setMessageProduct, setDetail } = productSlice.actions;
 export default productSlice.reducer;
