@@ -12,7 +12,6 @@ import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProductDetail, setLoading } from '../../../redux/product'
 import ModalBuyer from '../buyer/ModalBuyer'
-import { setSuccess } from '../../../redux/tawar'
 import { setMessage } from '../../../redux/tawar'
 import DetailProductLoading from '../../loading/DetailProductLoading'
 
@@ -52,7 +51,7 @@ const ProductDetails = ({ status }) => {
     setTimeout(() => {
       dispatch(setLoading(false))
     }, 2000);
-  }, [])
+  }, [dispatch, id])
 
   return (
     <>

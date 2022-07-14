@@ -21,7 +21,6 @@ const DataPenawar = () => {
     const dispatch = useDispatch()
 
     const handleCloseAgreement = () => { setOpenAgreement(false) }
-    const handleOpenAgreement = async () => { setOpenAgreement(true) }
     const handleCloseStatus = () => { setOpenStatus(false) }
     const handleOpenStatus = () => { setOpenStatus(true) }
     const handleBack = () => { window.localStorage.removeItem('idTransaksiProduk') }
@@ -104,7 +103,7 @@ const DataPenawar = () => {
         setTimeout(() => {
             dispatch(setLoadingDetail(false))
         }, 1500)
-    }, [dispatch,dataTransaksi])
+    }, [dispatch,dataTransaksi, filterTransaksi, id])
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={{ xs: 'unset', md: 3 }}>
             <Toolbar position='relative' >
@@ -163,7 +162,7 @@ const DataPenawar = () => {
                                                         </Button>
                                                     </Grid>
                                                     <Grid item xs={3}>
-                                                        <a target={"_blank"} href={`https://wa.me/${detailPenawaran[0].user.number_mobile}`} style={{ textDecoration:'none' }}>
+                                                        <a target={"_blank"} rel="noopener noreferrer" href={`https://wa.me/${detailPenawaran[0].user.number_mobile}`} style={{ textDecoration:'none' }}>
                                                             <Button fullWidth variant="contained" color="primary" sx={{ height: '40px', borderRadius: '25px', display: filterTransaksi[0].status !== 'pending' ? 'none' : 'flex', alignItems: 'center' }}>
                                                                 <Typography variant='caption'>
                                                                     Hubungi di

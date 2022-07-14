@@ -1,5 +1,4 @@
 import { Avatar, Box, Divider, Grid, IconButton, Typography } from '@mui/material'
-import CircleIcon from '@mui/icons-material/Circle';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteNotif, fetchNotif } from '../../redux/notif';
@@ -35,7 +34,7 @@ const Notifications = () => {
 
     React.useEffect(() => {
         dispatch(fetchNotif())
-    }, [notification])
+    }, [dispatch,notification])
 
 
     return (
