@@ -25,8 +25,8 @@ const Login = () => {
     });
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const message = useSelector(state=>state.auth.message)
-    const success = useSelector(state=>state.auth.success)
+    const message = useSelector(state => state.auth.message)
+    const success = useSelector(state => state.auth.success)
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -39,13 +39,17 @@ const Login = () => {
                     email: values.email,
                     password: values.password
                 }
-                dispatch(authLogin(user))
-                setTimeout(() => {
-                    window.location.reload()
-                }, 2000);
+                dispatch(authLogin(user)).then((res) => {
+                    if (res.payload.success) {
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 1500)
+                    }
+                })
+
             } catch (error) {
                 console.log(error);
-            }   
+            }
         }
     }
 
@@ -68,6 +72,7 @@ const Login = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
     return (
         <>
             <Grid container height={'100vh'} overflow={'hidden'}>
@@ -103,7 +108,7 @@ const Login = () => {
                                 <OutlinedInput
                                     onChange={handleChange('email')}
                                     type='email'
-                                    error={error.email ? true: false}
+                                    error={error.email ? true : false}
                                     sx={{ borderRadius: '16px' }}
                                     placeholder='Johndoe@gmail.com'
                                 />
@@ -121,7 +126,7 @@ const Login = () => {
                                     type={values.showPassword ? 'text' : 'password'}
                                     value={values.password}
                                     onChange={handleChange('password')}
-                                    error={error.password ? true: false}
+                                    error={error.password ? true : false}
                                     placeholder='Masukkan password'
                                     sx={{ borderRadius: '16px' }}
                                     endAdornment={

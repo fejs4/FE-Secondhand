@@ -13,8 +13,44 @@ export const fetchTawar = createAsyncThunk(
     }
 );
 
+export const fetchTawarBuyer = createAsyncThunk(
+    'tawar/fetchTawarBuyer',
+    async () => {
+        const token = localStorage.getItem('token')
+        const response = await axios.get(`https://be-kel1.herokuapp.com/tawar/user/buy`,
+        {headers: {
+            Authorization: token,
+        }})
+        return response.data;
+    }
+);
+
+export const fetchTawarSeller = createAsyncThunk(
+    'tawar/fetchTawarSeller',
+    async () => {
+        const token = localStorage.getItem('token')
+        const response = await axios.get(`https://be-kel1.herokuapp.com/tawar/user/sell`,
+        {headers: {
+            Authorization: token,
+        }})
+        return response.data;
+    }
+);
+
+export const fetchDetailTawar = createAsyncThunk(
+    'tawar/fetchDetailTawar',
+    async (id) => {
+        const token = localStorage.getItem('token')
+        const response = await axios.get(`https://be-kel1.herokuapp.com/tawar/${id}`,
+        {headers: {
+            Authorization: token,
+        }})
+        return response.data;
+    }
+);
+
 export const postTawar = createAsyncThunk(
-    'wishlist/postTawar',
+    'tawar/postTawar',
     async (data) => {
         const token = localStorage.getItem('token');
         const response = await axios({
@@ -27,14 +63,34 @@ export const postTawar = createAsyncThunk(
         })
         return response.data;
     }
+)
+;
+export const deleteTawar = createAsyncThunk(
+    'tawar/deleteTawar',
+    async (id) => {
+        const token = localStorage.getItem('token');
+        const response = await axios({
+            method: "DELETE",
+            url:`https://be-kel1.herokuapp.com/tawar/${id}`,
+            headers: {
+                Authorization: token,
+            }
+        })
+        return response.data;
+    }
 );
 
 
 
 const initialState = {
     loading: false,
+    loadingDetail:true,
     error: null,
-    tawar: {}
+    tawar: {},
+    tawarSeller: {},
+    detailTawar: {},
+    message:'',
+    success: false
 
 }
 
@@ -45,21 +101,49 @@ const tawarSlice = createSlice({
         setLoading: (state, action) => {
             state.loading = action.payload
         },
+        setLoadingDetail: (state, action) => {
+            state.loadingDetail = action.payload
+        },
+        setSuccess: (state, action) => {
+            state.success = action.payload
+        },
+        setMessage: (state, action) => {
+            state.message = action.payload
+        },
     },
     extraReducers: {
 
-        // Fetching Tawar
-        [fetchTawar.pending]: (state, action) => {
-            console.log('fetching pending')
-            return { ...state, loading: true, error: null, }
+        // Fetching Tawar for Buyer
+        [fetchTawarBuyer.pending]: (state, action) => {
+            return { ...state, error: null, }
         },
-        [fetchTawar.fulfilled]: (state, action) => {
-            console.log('fetching fulfilled')
-            console.log(action.payload)
+        [fetchTawarBuyer.fulfilled]: (state, action) => {
             return { ...state, tawar: action.payload.data }
         },
-        [fetchTawar.rejected]: (state, action) => {
-            console.log('fetching rejected')
+        [fetchTawarBuyer.rejected]: (state, action) => {
+            return { ...state, error: action.error }
+        },
+
+        // Fetching Tawar for Seller
+        [fetchTawarSeller.pending]: (state, action) => {
+            return { ...state, loading: true, error: null, }
+        },
+        [fetchTawarSeller.fulfilled]: (state, action) => {
+            return { ...state, tawarSeller: action.payload.data }
+        },
+        [fetchTawarSeller.rejected]: (state, action) => {
+            return { ...state, error: action.error }
+        },
+
+        // Fetching Detail Tawar
+        [fetchDetailTawar.pending]: (state, action) => {
+            return { ...state, error: null }
+        },
+        [fetchDetailTawar.fulfilled]: (state, action) => {
+            console.log()
+            return { ...state, detailTawar: action.payload.data }
+        },
+        [fetchDetailTawar.rejected]: (state, action) => {
             return { ...state, error: action.error }
         },
 
@@ -71,8 +155,24 @@ const tawarSlice = createSlice({
         [postTawar.fulfilled]: (state, action) => {
             console.log('fetching fulfilled')
             console.log(action.payload)
+            return { ...state, message: 'Harga tawarmu berhasil dikirim ke penjual', success: action.payload.success}
         },
         [postTawar.rejected]: (state, action) => {
+            console.log('fetching rejected')
+            return { ...state, error: action.error }
+        },
+
+        // Delete Tawar
+        [deleteTawar.pending]: (state, action) => {
+            console.log('fetching pending')
+            return { ...state, loading: true, error: null, }
+        },
+        [deleteTawar.fulfilled]: (state, action) => {
+            console.log('fetching fulfilled')
+            console.log(action.payload)
+            return { ...state, message: action.payload.message, success: action.payload.success}
+        },
+        [deleteTawar.rejected]: (state, action) => {
             console.log('fetching rejected')
             return { ...state, error: action.error }
         },
@@ -80,5 +180,5 @@ const tawarSlice = createSlice({
          
     }
 })
-export const { setLoading } = tawarSlice.actions;
+export const { setLoading,setLoadingDetail, setSuccess ,setMessage } = tawarSlice.actions;
 export default tawarSlice.reducer;

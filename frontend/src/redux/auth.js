@@ -59,7 +59,7 @@ const authSlice = createSlice({
             if (action.payload.success) {
                 localStorage.setItem("token", action.payload.data.test.access_token)
             } 
-            return { ...state, message:action.payload.message, success:action.payload.success }
+            return { ...state, message: action.payload.success? action.payload.message : 'Email atau Password Salah', success:action.payload.success }
         },
         [authLogin.rejected]: (state, action) => {
             console.log('rejected')

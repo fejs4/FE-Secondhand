@@ -7,9 +7,10 @@ import { Button, FormControl, FormHelperText, Grid, InputAdornment, InputLabel, 
 import AddIcon from '@mui/icons-material/Add';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductDetail, postProducts, publishProduct, updateProduct } from '../../../redux/product';
-import axios from 'axios';
+import { fetchProductDetail, postProducts, updateProduct } from '../../../redux/product';
 import { formProductValidation } from '../../../validator/validator';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const thumb = {
     display: 'flex',
@@ -27,25 +28,13 @@ const thumbInner = {
 };
 
 
-function maxFilesValidator(file) {
-    const maxFile = 4
-    if (file.length > maxFile) {
-        return {
-            code: "file-overload",
-            message: `Error the maximum file is 4 files`
-        };
-    }
-
-    return null
-}
-
-
 const FormProduct = () => {
     const [files, setFiles] = useState([]);
-    const [error, setError] = React.useState({});
+    const [error, setError] = useState({});
     const dispatch = useDispatch()
     const location = useLocation().pathname
     const navigate = useNavigate()
+    const [backdrop, setBackdrop] = useState(false)
     const { id } = useParams()
     const productDetails = useSelector(state => state.product.detailProduct)
     const [data, setData] = useState(
@@ -60,7 +49,6 @@ const FormProduct = () => {
     )
 
     // Create form product
-    const userProfile = useSelector(state => state.auth.userProfile)
     const handleValidate = (e) => {
         e.preventDefault()
         formProductValidation(data, files, fileRejections, setError)
@@ -71,9 +59,8 @@ const FormProduct = () => {
         if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
             setData({ ...data, message: 'Gagal memposting produk, lengkapi data', success: false })
         } else {
+            setBackdrop(true)
             try {
-                const token = localStorage.getItem('token');
-                const idProduct = productDetails.id
                 const product = new FormData()
                 product.append("name", data.nama)
                 product.append("category", data.kategori)
@@ -92,7 +79,7 @@ const FormProduct = () => {
                             data => {
                                 setTimeout(() => {
                                     navigate(`/daftar-jual`)
-                                }, 500);
+                                }, 2000);
                             }
                         )
                     } else {
@@ -101,7 +88,7 @@ const FormProduct = () => {
                             data => {
                                 setTimeout(() => {
                                     navigate(`/daftar-jual`)
-                                }, 500);
+                                }, 2000);
                             }
                         )
                     }
@@ -122,21 +109,20 @@ const FormProduct = () => {
         if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
             setData({ ...data, message: 'Gagal memposting produk, lengkapi data', success: false })
         } else {
+            setBackdrop(true)
             const product = new FormData()
             product.append("name", data.nama)
             product.append("category", data.kategori)
             product.append("price", data.harga)
             product.append("description", data.deskripsi)
-
             files.forEach(file => {
                 product.append("image", file)
             })
             try {
                 if (id) {
-                    product.append("publish", product.publish)
+                    product.append("publish", productDetails.publish)
                     dispatch(updateProduct({ product, id })).then(
                         data => {
-                            console.log(data)
                             setTimeout(() => {
                                 navigate(`/detail-product-seller/${id}`)
                             }, 1000);
@@ -146,7 +132,7 @@ const FormProduct = () => {
                     product.append("publish", false)
                     dispatch(postProducts(product)).then((data) => {
                         setTimeout(() => {
-                            navigate(`/detail-product-seller/${data.payload.data.product.id}`)
+                            navigate(`/detail-product-seller/${data.payload.data.product.productId}`)
                         }, 2000);
                     })
                 }
@@ -189,7 +175,7 @@ const FormProduct = () => {
         return () => {
             files.forEach(file => URL.revokeObjectURL(file.preview))
         }
-    }, [files, id])
+    }, [dispatch, files, id])
 
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
@@ -317,6 +303,12 @@ const FormProduct = () => {
                     </Grid>
                 </Box>
             </Toolbar>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={backdrop}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </Box>
     )
 }

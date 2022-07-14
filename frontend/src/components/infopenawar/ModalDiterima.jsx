@@ -16,7 +16,8 @@ const style = {
     p: 4,
 };
 
-const ModalDiterima = ({open, handleClose, handlePost}) => {
+const ModalDiterima = ({ open, handleClose, handlePost, data }) => {
+    const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
     return (
         <>
             <Modal
@@ -36,31 +37,31 @@ const ModalDiterima = ({open, handleClose, handlePost}) => {
                     </Typography>
                     <Box display={'flex'} fullWidth sx={{ mt: 3, background: '#EEEEEE', padding: 2, height: '150px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.15)' }}>
                         <Grid container>
-                            <Grid item md={12} display={'flex'} justifyContent={'center'} mb={1}>
+                            <Grid item md={12} xs={12} display={'flex'} justifyContent={'center'} mb={1}>
                                 <Typography variant='p'>Product Match</Typography>
                             </Grid>
-                            <Grid item md={12}>
+                            <Grid item md={12} xs={12} mb={1}>
                                 <Box display={'flex'} flexDirection={'row'}>
-                                    <Box component={'img'} src='/images/Buyer.png' sx={{ height: '48px' }} />
+                                    <Box component={'img'} src={Object.keys(data).length !== 0 ? `https://be-kel1.herokuapp.com/public/profile/${data[0].user.image}` : ''} sx={{ height: '48px', width: '48px', objectFit: 'contain', borderRadius: '16px' }} />
                                     <Box display={'flex'} flexDirection={'column'} ml={2}>
-                                        <Typography variant='subtitle1' >Nama Pembeli</Typography>
-                                        <Typography variant="caption" color='text.secondary'  >Kota</Typography>
+                                        <Typography variant='subtitle1' >{Object.keys(data).length !== 0 ? data[0].user.name : ''}</Typography>
+                                        <Typography variant="caption" color='text.secondary'  >{Object.keys(data).length !== 0 ? data[0].user.city : ''}</Typography>
                                     </Box>
                                 </Box>
                             </Grid>
                             <Grid container item alignItems={'center'} md={12}>
                                 <Box mr={2}>
-                                    <Box component={'img'} src='/images/Product.png' sx={{ height: '48px', width: '48px', borderRadius: '16px' }} />
+                                    <Box component={'img'} src={Object.keys(data).length !== 0 ? `https://be-kel1.herokuapp.com/public/images/${data[0].product.images[0]}` : ''} sx={{ height: '48px', width: '48px', objectFit: 'contain', borderRadius: '16px' }} />
                                 </Box>
                                 <Box>
                                     <Typography variant='subtitle1' fontWeight={550} my={0} >
-                                        Jam Tangan Casio
+                                        {Object.keys(data).length !== 0 ? data[0].product.name : ''}
                                     </Typography>
                                     <Typography variant='subtitle1' fontWeight={550} my={0} >
-                                        Rp 250.000
+                                        <s>{Object.keys(data).length !== 0 ? formatter.format(data[0].product.price) : ''}</s>
                                     </Typography>
                                     <Typography variant='subtitle1' fontWeight={550} my={0} >
-                                        Ditawar Rp 200.000
+                                        Ditawar {Object.keys(data).length !== 0 ? formatter.format(data[0].price) : ''}
                                     </Typography>
                                 </Box>
                             </Grid>
@@ -69,10 +70,12 @@ const ModalDiterima = ({open, handleClose, handlePost}) => {
 
                     </Box>
                     <Button onClick={handlePost} variant='contained' fullWidth color='primary' sx={{ borderRadius: '16px', height: '48px', marginTop: 2 }}>
-                        <Typography>
-                            Hubungi via WhatsApp
-                        </Typography>
-                        <WhatsAppIcon sx={{ ml: 2 }} />
+                        <a target={"_blank"} rel="noopener noreferrer" href={`https://wa.me/${data[0].user.number_mobile}`} style={{ textDecoration: 'none' }}>
+                            <Typography>
+                                Hubungi via WhatsApp
+                            </Typography>
+                            <WhatsAppIcon sx={{ ml: 2 }} />
+                        </a>
                     </Button>
 
                 </Box>

@@ -5,7 +5,7 @@ import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 import PhotoCameraOutlinedIcon from '@mui/icons-material/PhotoCameraOutlined';
 import Toolbar from '@mui/material/Toolbar';
 import { Button, FormControl, FormHelperText, Grid, InputLabel, MenuItem, OutlinedInput, Select, Typography } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { formUserValidation } from '../../../validator/validator';
@@ -34,19 +34,6 @@ const img = {
     objectFit: 'cover'
 };
 
-const maxFile = 1
-
-function maxFilesValidator(file) {
-    if (file.length > maxFile) {
-        return {
-            code: "file-overload",
-            message: `Error the maximum file is 4 files`
-        };
-    }
-
-    return null
-}
-
 const FormProduct = () => {
     const [files, setFiles] = useState([]);
     const [error, setError] = React.useState({});
@@ -60,7 +47,6 @@ const FormProduct = () => {
         success: null
     })
     
-    const navigate = useNavigate()
     const handleValidate = (e) => {
         e.preventDefault()
         formUserValidation(data, files,fileRejections, setError)
@@ -74,7 +60,6 @@ const FormProduct = () => {
             try {
                 const token = localStorage.getItem('token');
                 const product = new FormData()
-                product.append("id", userProfile.id)
                 product.append("name", data.nama)
                 product.append("city", data.kota)
                 product.append("address", data.alamat)
@@ -103,7 +88,6 @@ const FormProduct = () => {
 
     const { getRootProps, getInputProps,fileRejections } = useDropzone({
         maxFiles: 1,
-        validator: maxFilesValidator,
         accept: {
             'image/*': []
         },
