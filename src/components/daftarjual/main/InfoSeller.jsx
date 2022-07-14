@@ -1,13 +1,15 @@
 import { Alert, Avatar, Box, Button, Grid, IconButton, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setMessageProduct } from '../../../redux/product';
 
 const InfoSeller = () => {
   const [success, setSuccess] = useState(true);
   const user = useSelector(state => state.auth.userProfile)
   const successMsg = useSelector(state => state.product.success)
   const message = useSelector(state => state.product.message)
+  const dispatch = useDispatch()
 
   const handleClose = () => {
     setSuccess(false)
@@ -16,6 +18,7 @@ const InfoSeller = () => {
   React.useEffect(() => {
     setTimeout(() => {
       setSuccess(false)
+      dispatch(setMessageProduct(''))
     }, 4000);
   }, []);
 
