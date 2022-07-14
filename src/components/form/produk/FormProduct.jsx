@@ -7,8 +7,7 @@ import { Button, FormControl, FormHelperText, Grid, InputAdornment, InputLabel, 
 import AddIcon from '@mui/icons-material/Add';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductDetail, postProducts, publishProduct, updateProduct } from '../../../redux/product';
-import axios from 'axios';
+import { fetchProductDetail, postProducts, updateProduct } from '../../../redux/product';
 import { formProductValidation } from '../../../validator/validator';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -27,18 +26,6 @@ const thumbInner = {
     minWidth: 0,
     overflow: 'hidden'
 };
-
-
-function maxFilesValidator(file) {
-    const maxFile = 4
-    if (file.length > maxFile) {
-        return {
-            code: "file-overload",
-            message: `Error the maximum file is 4 files`
-        };
-    }
-    return null
-}
 
 
 const FormProduct = () => {
@@ -62,7 +49,6 @@ const FormProduct = () => {
     )
 
     // Create form product
-    const userProfile = useSelector(state => state.auth.userProfile)
     const handleValidate = (e) => {
         e.preventDefault()
         formProductValidation(data, files, fileRejections, setError)
@@ -75,8 +61,6 @@ const FormProduct = () => {
         } else {
             setBackdrop(true)
             try {
-                const token = localStorage.getItem('token');
-                const idProduct = productDetails.id
                 const product = new FormData()
                 product.append("name", data.nama)
                 product.append("category", data.kategori)
@@ -191,7 +175,7 @@ const FormProduct = () => {
         return () => {
             files.forEach(file => URL.revokeObjectURL(file.preview))
         }
-    }, [files, id])
+    }, [dispatch, files, id])
 
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>

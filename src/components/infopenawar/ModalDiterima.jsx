@@ -42,7 +42,7 @@ const ModalDiterima = ({ open, handleClose, handlePost, data }) => {
                             </Grid>
                             <Grid item md={12} xs={12} mb={1}>
                                 <Box display={'flex'} flexDirection={'row'}>
-                                    <Box component={'img'} src={Object.keys(data).length !== 0 ? `https://be-kel1.herokuapp.com/public/profile/${data[0].user.image}` : ''} sx={{ height: '48px', width: '48px', objectFit:'contain', borderRadius: '16px' }} />
+                                    <Box component={'img'} src={Object.keys(data).length !== 0 ? `https://be-kel1.herokuapp.com/public/profile/${data[0].user.image}` : ''} sx={{ height: '48px', width: '48px', objectFit: 'contain', borderRadius: '16px' }} />
                                     <Box display={'flex'} flexDirection={'column'} ml={2}>
                                         <Typography variant='subtitle1' >{Object.keys(data).length !== 0 ? data[0].user.name : ''}</Typography>
                                         <Typography variant="caption" color='text.secondary'  >{Object.keys(data).length !== 0 ? data[0].user.city : ''}</Typography>
@@ -51,7 +51,7 @@ const ModalDiterima = ({ open, handleClose, handlePost, data }) => {
                             </Grid>
                             <Grid container item alignItems={'center'} md={12}>
                                 <Box mr={2}>
-                                    <Box component={'img'} src={Object.keys(data).length !== 0 ? `https://be-kel1.herokuapp.com/public/images/${data[0].product.images[0]}` : ''} sx={{ height: '48px', width: '48px', objectFit:'contain', borderRadius: '16px' }} />
+                                    <Box component={'img'} src={Object.keys(data).length !== 0 ? `https://be-kel1.herokuapp.com/public/images/${data[0].product.images[0]}` : ''} sx={{ height: '48px', width: '48px', objectFit: 'contain', borderRadius: '16px' }} />
                                 </Box>
                                 <Box>
                                     <Typography variant='subtitle1' fontWeight={550} my={0} >
@@ -70,10 +70,12 @@ const ModalDiterima = ({ open, handleClose, handlePost, data }) => {
 
                     </Box>
                     <Button onClick={handlePost} variant='contained' fullWidth color='primary' sx={{ borderRadius: '16px', height: '48px', marginTop: 2 }}>
-                        <Typography>
-                            Hubungi via WhatsApp
-                        </Typography>
-                        <WhatsAppIcon sx={{ ml: 2 }} />
+                        <a target={"_blank"} rel="noopener noreferrer" href={`https://wa.me/${data[0].user.number_mobile}`} style={{ textDecoration: 'none' }}>
+                            <Typography>
+                                Hubungi via WhatsApp
+                            </Typography>
+                            <WhatsAppIcon sx={{ ml: 2 }} />
+                        </a>
                     </Button>
 
                 </Box>

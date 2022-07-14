@@ -20,7 +20,7 @@ const InfoSeller = () => {
       setSuccess(false)
       dispatch(setMessageProduct(''))
     }, 4000);
-  }, []);
+  }, [dispatch]);
 
   return (
     <Box position="relative" sx={{ mx: { xl: 24, md: 15, sm: 8, xs: 5 }, my: 3 }}>
