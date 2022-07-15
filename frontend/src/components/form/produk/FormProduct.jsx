@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import Box from '@mui/material/Box';
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 import Toolbar from '@mui/material/Toolbar';
-import { Button, FormControl, FormHelperText, Grid, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, Typography } from '@mui/material';
+import { Alert, Button, FormControl, FormHelperText, Grid, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, Stack, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
@@ -36,6 +36,7 @@ const FormProduct = () => {
     const navigate = useNavigate()
     const [backdrop, setBackdrop] = useState(false)
     const { id } = useParams()
+    const [alert, setAlert] = useState(true)
     const productDetails = useSelector(state => state.product.detailProduct)
     const [data, setData] = useState(
         {
@@ -57,7 +58,11 @@ const FormProduct = () => {
     const handleCreate = async (e) => {
         e.preventDefault()
         if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
+            setAlert(true)
             setData({ ...data, message: 'Gagal memposting produk, lengkapi data', success: false })
+            setTimeout(() => {
+                setAlert(false)
+            }, 3000);
         } else {
             setBackdrop(true)
             try {
@@ -69,9 +74,6 @@ const FormProduct = () => {
                 files.forEach(file => {
                     product.append("image", file)
                 })
-                for (var pair of product.entries()) {
-                    console.log(pair[0] + ', ' + pair[1]);
-                }
                 if (location !== '/info-produk') {
                     if (productDetails.publish) {
                         product.append("publish", true)
@@ -107,7 +109,11 @@ const FormProduct = () => {
 
     const handlePreview = async () => {
         if (error.name !== '' || error.price !== '' || error.description !== '' || error.photo !== '') {
+            setAlert(true)
             setData({ ...data, message: 'Gagal memposting produk, lengkapi data', success: false })
+            setTimeout(() => {
+                setAlert(false)
+            }, 3000);
         } else {
             setBackdrop(true)
             const product = new FormData()
@@ -123,6 +129,7 @@ const FormProduct = () => {
                     product.append("publish", productDetails.publish)
                     dispatch(updateProduct({ product, id })).then(
                         data => {
+                            console.log(data)
                             setTimeout(() => {
                                 navigate(`/detail-product-seller/${id}`)
                             }, 1000);
@@ -175,10 +182,13 @@ const FormProduct = () => {
         return () => {
             files.forEach(file => URL.revokeObjectURL(file.preview))
         }
-    }, [dispatch, files, id])
+    }, [dispatch, files, id, location])
 
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
+            <Stack position="absolute" display={data.message !== '' ? "block" : "none"} className="alert" mx={'auto'} width={{ md: '40%', xs: '90%' }} sx={{ zIndex: 100, left: 0, right: 0, top: 0, transition: '0.5s' }} style={{ 'marginTop': alert ? "55px" : "-350px" }} >
+                <Alert variant="filled" severity={data.success ? "success" : "error"} onClose={() => setAlert(false)}>{data.message}</Alert>
+            </Stack>
             <Toolbar position='relative' >
                 <Link to={-1}>
                     <ArrowBackSharpIcon sx={{
