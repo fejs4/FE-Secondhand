@@ -1,13 +1,28 @@
 import React from "react";
+import { InputAdornment, Modal, OutlinedInput } from '@mui/material'
 import ArrowBackSharpIcon from "@mui/icons-material/ArrowBackSharp";
 import Toolbar from "@mui/material/Toolbar";
 import { Button, Grid } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import { Link } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteWishlist, fetchWishlist } from "../../redux/wishlist";
+import ModalDeleteWishlist from "../detailproduct/buyer/ModalDeleteWishlist";
 
-const Wishlist = ({ wishlist, setWishlist, handleChange }) => {
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: { md: '360px', xs: '300px' },
+  height: { md: '438px', xs: '400px' },
+  bgcolor: 'background.paper',
+  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.15)',
+  borderRadius: '16px',
+  p: '1rem 2rem 2rem 2rem',
+};
+const Wishlist = ({ wishlist,data, setWishlist, handleChange, handleOpen, setSuccess }) => {
   const dispatch = useDispatch();
   const formatter = new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -19,6 +34,13 @@ const Wishlist = ({ wishlist, setWishlist, handleChange }) => {
     dispatch(deleteWishlist(id))
   }
 
+  const [open, setOpen] = React.useState(false)
+  const handleOpenModal = () => setOpen(true)
+  const handleCloseModal = () => setOpen(false)
+  const handlePost = () => {
+    setOpen(false)
+    setSuccess(true)
+  }
   React.useEffect(() => {
     dispatch(fetchWishlist());
   }, [dispatch, handleDelete]);
@@ -45,6 +67,7 @@ const Wishlist = ({ wishlist, setWishlist, handleChange }) => {
           {Object.keys(wishlistAmbil).length !== 0
             ? wishlistAmbil.map((res) => {
               return (
+                
                 <Box
                   component={"div"}
                   rowGap={2}
@@ -104,7 +127,8 @@ const Wishlist = ({ wishlist, setWishlist, handleChange }) => {
                       <Button
                         variant="outlined"
                         color="primary"
-                        onClick={() => handleDelete(res.id)}
+                        // onClick={() => handleDelete(res.id)}
+                        onClick={handleOpenModal} 
                         sx={{
                           width: "100%",
                           height: "40px",
@@ -113,6 +137,8 @@ const Wishlist = ({ wishlist, setWishlist, handleChange }) => {
                       >
                         Hapus
                       </Button>
+                      <ModalDeleteWishlist  open={open} handleClose={handleCloseModal}/>
+
                       <Link to={`/detail-product-buyer/${res.productId ? res.productId : ''}`} style={{ width: '100%', textDecoration: 'none' }}>
                         <Button
                           variant="contained"
@@ -131,6 +157,7 @@ const Wishlist = ({ wishlist, setWishlist, handleChange }) => {
                 </Box>
               );
             })
+            
             :
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
               <Typography>

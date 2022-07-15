@@ -19,6 +19,7 @@ import React from 'react';
 import ProtectedRoutes from './components/auth/ProtectedRoutes';
 
 import DetailProductDrawer from './components/drawer/DetailProductDrawer';
+import ModalDeleteWishlist from './components/detailproduct/buyer/ModalDeleteWishlist';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               <Route path='/detail-product-seller/:id' element={<DetailProductSeller />} />
               <Route path='/detail-product-buyer/:id' element={<DetailProductBuyer />} />
               <Route path='/info-penawar' element={<InfoPenawar />} />
+              <Route path='/modalswishlist' element={<ModalDeleteWishlist />} />
             </Route>
           </Routes>
         </ThemeProvider>
