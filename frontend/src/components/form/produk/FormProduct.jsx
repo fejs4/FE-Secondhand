@@ -169,7 +169,7 @@ const FormProduct = () => {
     ));
 
     useEffect(() => {
-        if (id) {
+        if (location=== `/info-produk/update/${id}`) {
             dispatch(fetchProductDetail(id))
         }
         return () => {
@@ -275,7 +275,7 @@ const FormProduct = () => {
                             :
                             productDetails.images ?
                                 <Box sx={{ border: '1px dashed #D0D0D0', alignItems: 'center', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
-                                    {productDetails.images.map((item) => { return (<Box component={'img'} src={`https://be-kel1.herokuapp.com/public/images/${item}`} sx={{ borderRadius: { md: '16px', xs: 0 }, width: 100, height: 100, objectFit: 'contain', padding: .5 }} />) })}
+                                    {productDetails.images.map((item, index) => { return (<Box key={index} component={'img'} src={`https://be-kel1.herokuapp.com/public/images/${item}`} sx={{ borderRadius: { md: '16px', xs: 0 }, width: 100, height: 100, objectFit: 'contain', padding: .5 }} />) })}
                                 </Box>
                                 :
                                 <Box sx={{ border: '1px dashed #D0D0D0', width: '96px', height: '96px', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>

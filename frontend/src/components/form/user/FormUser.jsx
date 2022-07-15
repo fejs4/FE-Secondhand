@@ -49,7 +49,7 @@ const FormProduct = () => {
     
     const handleValidate = (e) => {
         e.preventDefault()
-        formUserValidation(data, files,fileRejections, setError)
+        formUserValidation(data, files, fileRejections, setError)
     }
 
     const handleCreate = async (e) => {
