@@ -7,7 +7,7 @@ export const fetchProducts = createAsyncThunk(
         const all = clicked === 'Semua' ? '' : clicked
         const response = await axios.get(`https://be-kel1.herokuapp.com/AllProducts?tab=${page}&cat=${all}&search=${searched}`)
 
-        return response.data.data.products
+        return response.data
     }
 );
 
@@ -95,7 +95,15 @@ export const publishProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
     'product/deleteProduct',
     async (id) => {
-        const response = await axios.delete(`https://be-kel1.herokuapp.com/product/${id}`);
+        const token = localStorage.getItem('token');
+        const response = await axios(
+            {
+                method: "DELETE",
+                url: `https://be-kel1.herokuapp.com/product/${id}`,
+                headers: {
+                    Authorization: token,
+                }
+            })
         return response.data;
     }
 );
@@ -111,7 +119,8 @@ const initialState = {
     productUser: {},
     searched: '',
     message: '',
-    success: true
+    success: true,
+    tab: 1,
 }
 
 const productSlice = createSlice({
@@ -136,15 +145,12 @@ const productSlice = createSlice({
 
         // Fetching Product
         [fetchProducts.pending]: (state, action) => {
-            console.log('pending')
             return { ...state, loading: true, error: null, }
         },
         [fetchProducts.fulfilled]: (state, action) => {
-            console.log('fulfilled')
-            return { ...state, products: action.payload }
+            return { ...state, products: action.payload.data.product, tab: action.payload.tab }
         },
         [fetchProducts.rejected]: (state, action) => {
-            console.log('rejected')
             return { ...state, error: action.error }
         },
 
@@ -232,6 +238,17 @@ const productSlice = createSlice({
         [updateProduct.rejected]: (state, action) => {
             console.log('rejected')
             console.log(action.error)
+            return { ...state, error: action.error }
+        },
+
+        // Delete Product
+        [deleteProduct.pending]: (state, action) => {
+            return { ...state, loading: true, error: null }
+        },
+        [deleteProduct.fulfilled]: (state, action) => {
+            return { ...state, message: action.payload.message, success: action.payload.success }
+        },
+        [deleteProduct.rejected]: (state, action) => {
             return { ...state, error: action.error }
         }
     }

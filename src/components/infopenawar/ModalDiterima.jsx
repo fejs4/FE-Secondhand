@@ -70,11 +70,11 @@ const ModalDiterima = ({ open, handleClose, handlePost, data }) => {
 
                     </Box>
                     <Button onClick={handlePost} variant='contained' fullWidth color='primary' sx={{ borderRadius: '16px', height: '48px', marginTop: 2 }}>
-                        <a target={"_blank"} rel="noopener noreferrer" href={ Object.keys(data).length !== 0 ?  `https://wa.me/${data[0].user.number_mobile}` : ''} style={{ textDecoration: 'none' }}>
+                        <a target={"_blank"} rel="noopener noreferrer" href={ Object.keys(data).length !== 0 ?  `https://wa.me/${data[0].user.number_mobile}` : ''} style={{ textDecoration: 'none', color:'white', display:'flex', justifyContent:'center' }}>
                             <Typography>
                                 Hubungi via WhatsApp
                             </Typography>
-                            <WhatsAppIcon sx={{ ml: 2 }} />
+                            <WhatsAppIcon sx={{ ml: 1 }} />
                         </a>
                     </Button>
 
