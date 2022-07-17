@@ -15,6 +15,7 @@ const Products = () => {
   const tab = useSelector(state => state.product.tab)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  
   const handleSell = () => {
     if (Object.keys(userProfile).length !== 0) {
       if (userProfile.city) {
