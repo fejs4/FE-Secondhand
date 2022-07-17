@@ -34,7 +34,7 @@ const Notifications = () => {
 
     React.useEffect(() => {
         dispatch(fetchNotif())
-    }, [dispatch,notification])
+    }, [dispatch, notification])
 
 
     return (
@@ -130,39 +130,41 @@ const Notifications = () => {
             {Object.keys(notifTerbitkan).length !== 0 ? notifTerbitkan.map((item, index) => {
                 return (
                     <Box key={index}>
-                        <Grid container my={1} p={1} sx={{
-                            cursor: 'pointer', '&:hover': {
-                                backgroundColor: '#eee',
-                            }
-                        }} >
-                            <Grid item xs={2} textAlign="center">
-                                <IconButton >
-                                    <Avatar alt="" src={`https://be-kel1.herokuapp.com/public/images/${item.product.images[0]}`} />
-                                </IconButton>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Typography variant="caption" color='text.secondary' component="h2" >
-                                    Berhasil di terbitkan
-                                </Typography>
-                                <Typography variant='subtitle1' fontWeight={550} my={0} >
-                                    {item.product.name}
-                                </Typography>
-                                <Typography variant='subtitle1' fontWeight={550} my={0} >
-                                    {formatter.format(item.product.price)}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={4} textAlign="end" >
-                                <Box justifyContent={'flex-end'} alignItems={'center'} display={'flex'} sx={{ marginTop: '-8px' }}>
-                                    <Typography variant="caption" color='text.secondary' component="h2" >
-                                        {toDate(item.createdAt)}
-                                    </Typography>
-                                    <IconButton onClick={(e) => handleDelete(e, item.id)}>
-                                        <CloseIcon style={{ color: 'red', fontSize: '.8em' }} />
+                        <Link key={index} to={`/detail-product-buyer/${item.productId}`} style={{ textDecoration: 'none', color: 'black' }}>
+                            <Grid container my={1} p={1} sx={{
+                                cursor: 'pointer', '&:hover': {
+                                    backgroundColor: '#eee',
+                                }
+                            }} >
+                                <Grid item xs={2} textAlign="center">
+                                    <IconButton >
+                                        <Avatar alt="" src={`https://be-kel1.herokuapp.com/public/images/${item.product.images[0]}`} />
                                     </IconButton>
-                                </Box>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Typography variant="caption" color='text.secondary' component="h2" >
+                                        Berhasil di terbitkan
+                                    </Typography>
+                                    <Typography variant='subtitle1' fontWeight={550} my={0} >
+                                        {item.product.name}
+                                    </Typography>
+                                    <Typography variant='subtitle1' fontWeight={550} my={0} >
+                                        {formatter.format(item.product.price)}
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={4} textAlign="end" >
+                                    <Box justifyContent={'flex-end'} alignItems={'center'} display={'flex'} sx={{ marginTop: '-8px' }}>
+                                        <Typography variant="caption" color='text.secondary' component="h2" >
+                                            {toDate(item.createdAt)}
+                                        </Typography>
+                                        <IconButton onClick={(e) => handleDelete(e, item.id)}>
+                                            <CloseIcon style={{ color: 'red', fontSize: '.8em' }} />
+                                        </IconButton>
+                                    </Box>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Divider sx={{ mt: '0 !important' }} />
+                            <Divider sx={{ mt: '0 !important' }} />
+                        </Link>
                     </Box>
                 )
             }) : ''}
