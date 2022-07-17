@@ -216,7 +216,6 @@ const productSlice = createSlice({
         },
         [postProducts.fulfilled]: (state, action) => {
             console.log('fulfilled')
-            console.log(action.payload);
             return { ...state, message: action.payload.message, success: action.payload.success }
         },
         [postProducts.rejected]: (state, action) => {
