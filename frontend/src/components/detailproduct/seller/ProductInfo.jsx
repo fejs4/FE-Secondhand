@@ -1,24 +1,10 @@
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { publishProduct } from '../../../redux/product'
+import { Link, useParams } from 'react-router-dom'
 
-const ProductInfo = ({data}) => {
+const ProductInfo = ({data, handlePublish}) => {
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
     const {id} = useParams()
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const handlePublish = () =>{
-        if (data.publish === false) {
-            dispatch(publishProduct(id))
-            setTimeout(() => {
-                navigate('/daftar-jual')
-            }, 1500);
-        }else{
-            navigate('/daftar-jual')
-        }
-    }
 
     return (
         <>
