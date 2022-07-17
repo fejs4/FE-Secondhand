@@ -75,31 +75,20 @@ const FormProduct = () => {
                     product.append("image", file)
                 })
                 if (location !== '/info-produk') {
-                    if (productDetails.publish) {
-                        product.append("publish", true)
-                        dispatch(updateProduct({ product, id })).then(
-                            data => {
-                                setTimeout(() => {
-                                    navigate(`/daftar-jual`)
-                                }, 2000);
-                            }
-                        )
-                    } else {
-                        product.append("publish", true)
-                        dispatch(updateProduct({ product, id })).then(
-                            data => {
-                                setTimeout(() => {
-                                    navigate(`/daftar-jual`)
-                                }, 2000);
-                            }
-                        )
-                    }
+                    product.append("publish", true)
+                    dispatch(updateProduct({ product, id })).then(
+                        data => {
+                            setTimeout(() => {
+                                navigate(`/daftar-jual`)
+                            }, 3000);
+                        }
+                    )
                 } else {
                     product.append("publish", true)
-                    dispatch(postProducts(product)).then(data => console.log(data))
+                    dispatch(postProducts(product))
                     setTimeout(() => {
                         navigate(`/daftar-jual`)
-                    }, 500);
+                    }, 3000);
                 }
             } catch (error) {
                 console.log(error);
@@ -132,15 +121,25 @@ const FormProduct = () => {
                             console.log(data)
                             setTimeout(() => {
                                 navigate(`/detail-product-seller/${id}`)
-                            }, 1000);
+                            }, 3000);
                         }
                     )
                 } else {
                     product.append("publish", false)
                     dispatch(postProducts(product)).then((data) => {
-                        setTimeout(() => {
-                            navigate(`/detail-product-seller/${data.payload.data.product.productId}`)
-                        }, 2000);
+                        if (data.payload.success) {
+                            setTimeout(() => {
+                                navigate(`/detail-product-seller/${data.payload.data.product.productId}`)
+                            }, 3000);
+                        } else {
+                            setAlert(true)
+                            setData({ ...data, message: data.payload.message, success: false })
+                            setBackdrop(false)
+                            setTimeout(() => {
+                                setAlert(false)
+                            }, 3000);
+                        }
+                        console.log(data)
                     })
                 }
             } catch (err) {
@@ -176,7 +175,7 @@ const FormProduct = () => {
     ));
 
     useEffect(() => {
-        if (location=== `/info-produk/update/${id}`) {
+        if (location === `/info-produk/update/${id}`) {
             dispatch(fetchProductDetail(id))
         }
         return () => {
@@ -317,7 +316,10 @@ const FormProduct = () => {
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 open={backdrop}
             >
-                <CircularProgress color="inherit" />
+                <Box display={'flex'} flexDirection={'column'}>
+                    <CircularProgress color="inherit" sx={{ margin: 'auto', mb: 1 }} />
+                    <Typography variant='h5'>In progress</Typography>
+                </Box>
             </Backdrop>
         </Box>
     )
