@@ -33,8 +33,10 @@ const Notifications = () => {
     }
 
     React.useEffect(() => {
-        dispatch(fetchNotif())
-    }, [dispatch, notification])
+        if (Object.keys(profileUser).length !== 0) {
+            dispatch(fetchNotif())
+        }
+    }, [dispatch, notification,profileUser])
 
 
     return (

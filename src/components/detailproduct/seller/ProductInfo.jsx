@@ -1,10 +1,8 @@
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
 
-const ProductInfo = ({data, handlePublish}) => {
+const ProductInfo = ({data, handlePublish, handleEdit}) => {
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
-    const {id} = useParams()
 
     return (
         <>
@@ -21,11 +19,9 @@ const ProductInfo = ({data, handlePublish}) => {
                     <Button color='primary' onClick={handlePublish} variant='contained' fullWidth sx={{ borderRadius: '16px', height: '48px', display: { md: 'block', xs: 'none' } }}>
                         Terbitkan
                     </Button>
-                <Link to={`/info-produk/update/${id}`} style={{ textDecoration:'none' }}>
-                    <Button color='primary' variant='outlined' fullWidth sx={{ borderRadius: '16px', height: '48px', display: { md: 'block', xs: 'none' } }}>
+                    <Button color='primary' variant='outlined' onClick={handleEdit} fullWidth sx={{ borderRadius: '16px', height: '48px', display: { md: 'block', xs: 'none' } }}>
                         Edit
                     </Button>
-                </Link>
             </Box>
         </>
     )

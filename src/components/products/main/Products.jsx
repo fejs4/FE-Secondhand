@@ -3,7 +3,7 @@ import React from 'react'
 import FilterCategory from '../FilterCategory'
 import FloatingButton from '../FloatingButton'
 import ItemCard from '../ItemCard'
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { setMessage, setSuccess } from '../../../redux/auth'
 import { setMessageUser, setSuccessUser } from '../../../redux/users'
@@ -15,17 +15,17 @@ const Products = () => {
   const tab = useSelector(state => state.product.tab)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  
+
   const handleSell = () => {
     if (Object.keys(userProfile).length !== 0) {
       if (userProfile.city) {
         navigate(`/info-produk`)
-      }else{
+      } else {
         dispatch(setMessageUser('Lengkapi profil untuk dapat menjual produk'))
         dispatch(setSuccessUser(false))
         navigate(`/info-user/${userProfile.id}`)
       }
-     
+
     } else {
       dispatch(setMessage('Anda perlu login untuk dapat menjual produk'))
       dispatch(setSuccess(false))

@@ -42,21 +42,44 @@ const ProductDetails = ({ status }) => {
       dispatch(setMessage('Tidak dapat melakukan penawaran pada produk sendiri'))
     }
     setAlert(true)
+    setTimeout(() => {
+      setAlert(false)
+    }, 3000);
     setOpen(false)
   }
 
   const navigate = useNavigate()
-  const handlePublish = () => {
-    if (data.publish === false) {
-      dispatch(publishProduct(id))
-      setTimeout(() => {
-        navigate('/daftar-jual')
-      }, 1500);
+
+  const handleEdit = () => {
+    if (dataUser.id === detailProduct.user.id) {
+      navigate(`/info-produk/update/${id}`)
     } else {
-      navigate('/daftar-jual')
+      dispatch(setMessage('Tidak dapat melakukan edit produk pada produk orang!'))
+      setAlert(true)
+      setTimeout(() => {
+        setAlert(false)
+      }, 3000);
     }
   }
 
+  const handlePublish = () => {
+    if (dataUser.id === detailProduct.user.id) {
+      if (data.publish === false) {
+        dispatch(publishProduct(id))
+        setTimeout(() => {
+          navigate('/daftar-jual')
+        }, 1500);
+      } else {
+        navigate('/daftar-jual')
+      }
+    } else {
+      dispatch(setMessage('Tidak dapat melakukan publish produk pada produk orang!'))
+      setAlert(true)
+      setTimeout(() => {
+        setAlert(false)
+      }, 3000);
+    }
+  }
 
   React.useEffect(() => {
     dispatch(fetchProductDetail(id))
@@ -87,7 +110,7 @@ const ProductDetails = ({ status }) => {
               </Box>
             </Grid>
             <Grid item xl={4} md={4} xs={12} mx={{ md: 'unset', xs: 3 }}  >
-              {status === 'buyer' ? <ProductInterest data={data} handlePost={handlePost} handleOpen={handleOpenModal} /> : <ProductInfo data={data} handlePublish={handlePublish}/>}
+              {status === 'buyer' ? <ProductInterest data={data} handlePost={handlePost} handleOpen={handleOpenModal} /> : <ProductInfo data={data} handleEdit={handleEdit} handlePublish={handlePublish} />}
               <SellerInfo data={data} />
               <Box component={'div'} p={4} mt={3} display={{ md: 'none', xs: 'block' }} sx={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)', borderRadius: '16px' }}>
                 <DescriptionProduct />
