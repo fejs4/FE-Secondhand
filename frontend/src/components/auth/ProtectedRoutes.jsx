@@ -13,7 +13,26 @@ const ProtectedRoutes = () => {
     const navigate = useNavigate()
     const location = useLocation().pathname
 
-    const onLoginRegister = async () =>{
+    // const AuthVerify = () => {
+    //     const token = localStorage.getItem('token');
+    //     const dateNow = Date.now()
+    //     if (token) {
+    //         const decodedToken = JSON.parse(atob(token.split('.')[1]))
+    //         console.log(decodedToken.exp);
+    //         if (decodedToken.exp < dateNow) {
+    //             window.localStorage.removeItem('token')
+    //         }
+    //     }
+    // }
+
+    // const token = localStorage.getItem('token')
+    // if (token) {
+    //     const decodedToken = JSON.parse(atob(token.split('.')[1]))
+    //     const expdate = new Date(decodedToken.exp)
+        
+    // }
+
+    const onLoginRegister = async () => {
         if (!Object.keys(userLogin).length !== 0) {
             const token = localStorage.getItem('token');
             if (token) {
@@ -28,14 +47,14 @@ const ProtectedRoutes = () => {
                 }).catch(err => {
                     console.log(err);
                 })
-            }else{
+            } else {
                 navigate('/login')
                 setIsLoading(false)
-              }
+            }
         }
     }
 
-    const getAuth = () =>{
+    const getAuth = () => {
         if (!Object.keys(userLogin).length !== 0) {
             const token = localStorage.getItem('token');
             if (token) {
@@ -49,10 +68,10 @@ const ProtectedRoutes = () => {
                 }).catch(err => {
                     console.log(err);
                 })
-            }else{
+            } else {
                 navigate('/')
                 setIsLoading(false)
-              }
+            }
         }
     }
 
@@ -60,25 +79,25 @@ const ProtectedRoutes = () => {
         if (location === '/login' || location === '/register') {
             setTimeout(() => {
                 onLoginRegister()
-                }, 1500);
-        }else{
+            }, 1500);
+        } else {
             setTimeout(() => {
                 getAuth()
-                }, 1500);
+            }, 1500);
         }
     }, [])
     return (
         <>
-        {isLoading ?
-            <Loading/>
-            :
-            userLogin ? 
-            <Outlet/> 
-            : 
-            <Navigate to='/'/>
+            {isLoading ?
+                <Loading />
+                :
+                userLogin ?
+                    <Outlet />
+                    :
+                    <Navigate to='/' />
             }
-      </>
-  )
+        </>
+    )
 }
 
 export default ProtectedRoutes

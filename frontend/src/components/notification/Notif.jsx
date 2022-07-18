@@ -31,8 +31,10 @@ const Notif = () => {
     }
 
     React.useEffect(() => {
-        dispatch(fetchNotif())
-    }, [dispatch])
+        if (Object.keys(profileUser).length !== 0) {
+            dispatch(fetchNotif())
+        }
+    }, [dispatch,profileUser])
 
     return (
         <>
