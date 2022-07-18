@@ -17,17 +17,18 @@ const Navbars = ({ info }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const isNotifOpen = Boolean(anchorEl);
     const location = useLocation().pathname
+    const notification = useSelector(state => state.notif.notification)
     const handleNotifOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleNotifClose = () => {
         setAnchorEl(null);
     };
-
+    const totalNotification = Object.keys(notification).length !== 0 ? notification.filter((item) =>item.product.publish === true) : ''
     const renderMenu = (
         <Menu
-            PaperProps={{ sx: { width: { md: '30%', xs: '100%' } } }}
-            sx={{ top: "50px" }}
+            PaperProps={{ sx: { width: { md: '35%', xs: '100%'}, maxHeight:'300px' } }}
+            sx={{ top: "50px", display: Object.keys(totalNotification).length === 0 ? 'none' : 'block' }}
             anchorEl={anchorEl}
             anchorOrigin={{
                 vertical: 'top',
@@ -95,7 +96,7 @@ const Navbars = ({ info }) => {
                                         aria-haspopup="true"
                                         onClick={handleNotifOpen}
                                     >
-                                        <Badge badgeContent={2} color="primary">
+                                        <Badge badgeContent={Object.keys(totalNotification).length} color="primary">
                                             <NotificationsNoneOutlinedIcon sx={{ cursor: 'pointer', color: location === '/notifikasi' ? '#7126B5' : 'black' }} />
                                         </Badge>
                                     </IconButton>

@@ -44,7 +44,14 @@ const Register = () => {
                     email: values.email,
                     password: values.password
                 }
-                dispatch(authRegister(user))
+                dispatch(authRegister(user)).then((res)=>{
+                    if (res.payload.success) {
+                        setTimeout(() => {
+                            navigate('/login')
+                            dispatch(setMessage(''))
+                        }, 1000)
+                    }
+                })
             } catch (error) {
                 console.log(error);
             }
@@ -66,13 +73,13 @@ const Register = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    React.useEffect(() => {
-        if (success) {
-            setTimeout( () => {
-                window.location.reload()
-            }, 1500);
-        }
-    }, [success]);
+    // React.useEffect(() => {
+    //     if (success) {
+    //         setTimeout( () => {
+    //             window.location.reload()
+    //         }, 1500);
+    //     }
+    // }, [success]);
     return (
         <>
             <Grid container height={'100vh'} overflow={'hidden'}>

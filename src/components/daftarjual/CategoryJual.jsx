@@ -1,9 +1,9 @@
 import { Box, Divider, ListItemIcon, ListItemText, MenuItem, MenuList, Typography } from '@mui/material'
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
 import React from 'react'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const CategoryJual = ({category, clicked}) => {
     return (
@@ -22,10 +22,11 @@ const CategoryJual = ({category, clicked}) => {
                             <ArrowForwardIosIcon sx={{ color:clicked === 'Semua Produk'? '#7126B5' : '', fontSize:'16px' }}/>
                         </Typography>
                     </MenuItem>
-                    <Divider sx={{ mt: '0 !important' }} />
+                    <Divider sx={{ mt: '0 !important'}} />
                     <MenuItem sx={{ paddingLeft: '5px !important', color:clicked === 'Diminati'? '#7126B5' : '' }} onClick={()=> category('Diminati')}>
                         <ListItemIcon>
-                            <FavoriteIcon fontSize="small" sx={{ color:clicked === 'Diminati'? '#7126B5' : '' }}/>
+
+                            <FavoriteBorderIcon fontSize="small" sx={{ color:clicked === 'Diminati'? '#7126B5' : '' }}/>
                         </ListItemIcon>
                         <ListItemText>Diminati</ListItemText>
                         <Typography variant="h5" >
@@ -42,7 +43,6 @@ const CategoryJual = ({category, clicked}) => {
                             <ArrowForwardIosIcon sx={{ color:clicked === 'Terjual'? '#7126B5' : '', fontSize:'16px' }}/>
                         </Typography>
                     </MenuItem>
-
                 </MenuList>
             </Box>
         </>
