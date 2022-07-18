@@ -49,7 +49,9 @@ const initialState = {
     loading: false,
     error: null,
     wishlist: {},
-    productId:null
+    productId:null,
+    message:'',
+    success: false
 
 }
 
@@ -60,20 +62,23 @@ const wishlistSlice = createSlice({
         setLoading: (state, action) => {
             state.loading = action.payload
         },
+        setSuccess: (state, action) => {
+            state.success = action.payload
+        },
+        setMessage: (state, action) => {
+            state.message = action.payload
+        },
     },
     extraReducers: {
 
         // Fetching Wishlist
         [fetchWishlist.pending]: (state, action) => {
-            console.log('fetching pending')
             return { ...state, loading: true, error: null, }
         },
         [fetchWishlist.fulfilled]: (state, action) => {
-            console.log('fetching fulfilled')
-            return { ...state, wishlist: action.payload.data }
+            return { ...state, wishlist: action.payload.data, message: action.payload.message, success: action.payload.success}
         },
         [fetchWishlist.rejected]: (state, action) => {
-            console.log('fetching rejected')
             return { ...state, error: action.error }
         },
 

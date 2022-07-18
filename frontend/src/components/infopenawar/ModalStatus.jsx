@@ -1,7 +1,9 @@
 import React from 'react'
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Grid, Modal, Radio, RadioGroup, Typography } from '@mui/material'
+import { Box, Button, FormControl, FormControlLabel, Modal, Radio, RadioGroup, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
+import { useDispatch } from 'react-redux';
+import { updateTransaksi } from '../../redux/transaksi';
+import { useParams } from 'react-router-dom';
 
 const style = {
     position: 'absolute',
@@ -16,7 +18,23 @@ const style = {
     p: 4,
 };
 
-const ModalStatus = ({ open, handleClose, handlePost }) => {
+const ModalStatus = ({ open, handleClose, handlePost, transaksiId, status, setStatus, idTransaksi }) => {
+    const dispatch = useDispatch()
+    const { id } = useParams()
+    const handleTransaksi = () => {
+        try {
+            const data = {
+                status: status,
+                transaksiId: Object.keys(idTransaksi).length !== 0? idTransaksi[0].id : null
+            }
+            dispatch(updateTransaksi({ data, id })).then(data => {
+                window.localStorage.removeItem(id)
+                handleClose()
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
     return (
         <>
             <Modal
@@ -38,14 +56,14 @@ const ModalStatus = ({ open, handleClose, handlePost }) => {
                                 defaultValue="female"
                                 name="radio-buttons-group"
                             >
-                                <FormControlLabel value="success" control={<Radio />} label="Berhasil Terjual" />
-                                <Typography variant='subtitle1' sx={{ color:'#8A8A8A' }} ml={4}>Kamu telah sepakat menjual produk ini kepada pembeli</Typography>
-                                <FormControlLabel value="fail" control={<Radio />} label="Batalkan Transaksi" />
-                                <Typography variant='subtitle1' sx={{ color:'#8A8A8A' }} ml={4}>Kamu membatalkan transaksi produk ini dengan pembeli</Typography>
+                                <FormControlLabel value="accepted" onChange={(e) => setStatus(e.target.value)} control={<Radio />} label="Berhasil Terjual" />
+                                <Typography variant='subtitle1' sx={{ color: '#8A8A8A' }} ml={4}>Kamu telah sepakat menjual produk ini kepada pembeli</Typography>
+                                <FormControlLabel value="rejected" onChange={(e) => setStatus(e.target.value)} control={<Radio />} label="Batalkan Transaksi" />
+                                <Typography variant='subtitle1' sx={{ color: '#8A8A8A' }} ml={4}>Kamu membatalkan transaksi produk ini dengan pembeli</Typography>
                             </RadioGroup>
                         </FormControl>
                     </Box>
-                    <Button variant='contained' fullWidth color='primary' sx={{ borderRadius: '16px', height: '48px', marginTop: 9 }}>
+                    <Button variant='contained' fullWidth color='primary' onClick={handleTransaksi} sx={{ borderRadius: '16px', height: '48px', marginTop: 9 }}>
                         <Typography>
                             Kirim
                         </Typography>

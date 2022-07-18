@@ -17,7 +17,6 @@ import InfoPenawar from './pages/InfoPenawar';
 import Wishlist from './pages/Wishlist';
 import React from 'react';
 import ProtectedRoutes from './components/auth/ProtectedRoutes';
-
 import DetailProductDrawer from './components/drawer/DetailProductDrawer';
 import ModalDeleteWishlist from './components/detailproduct/buyer/ModalDeleteWishlist';
 
@@ -41,8 +40,7 @@ function App() {
               <Route path='/daftar-jual' element={<DaftarJual />} />
               <Route path='/detail-product-seller/:id' element={<DetailProductSeller />} />
               <Route path='/detail-product-buyer/:id' element={<DetailProductBuyer />} />
-              <Route path='/info-penawar' element={<InfoPenawar />} />
-              <Route path='/modalswishlist' element={<ModalDeleteWishlist />} />
+              <Route path='/info-penawar/:id' element={<InfoPenawar />} />
             </Route>
           </Routes>
         </ThemeProvider>
