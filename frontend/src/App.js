@@ -17,8 +17,6 @@ import InfoPenawar from './pages/InfoPenawar';
 import Wishlist from './pages/Wishlist';
 import React from 'react';
 import ProtectedRoutes from './components/auth/ProtectedRoutes';
-
-import DetailProductDrawer from './components/drawer/DetailProductDrawer';
 import ErrorNotFound from './components/error/ErrorNotFound';
 
 function App() {
