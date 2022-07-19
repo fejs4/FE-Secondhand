@@ -36,7 +36,7 @@ const ProdukTerjual = ({ setSuccess }) => {
             :
             produk_terjual.productSold.map((item, index) => {
               return (
-                <Grid key={index} item xs={6} sm={3} md={4} >
+                <Grid key={index} item xs={6} sm={6} md={4} >
                   <Link to={`/detail-product-seller/${item.id}`} style={{ textDecoration: 'none' }}>
                     <Card >
                       <CardActionArea>
@@ -51,6 +51,7 @@ const ProdukTerjual = ({ setSuccess }) => {
                           height="140"
                           image={`https://be-kel1.herokuapp.com/public/images/${item.images[0]}`}
                           alt="green iguana"
+                          sx={{ objectFit: { md: 'cover', sm: 'cover', xs: 'contain' } }}
                         />
                         <CardContent>
                           <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: { xs: '1.1em', md: '1.5em' } }}>
