@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material";
 
-export const theme = createTheme({
+export const Theme = createTheme({
     breakpoints:{
       values:{
         xs:0,
@@ -11,7 +11,10 @@ export const theme = createTheme({
       }
     },
     typography:{
-      fontFamily:"Poppins, sans-serif"
+      fontFamily:"Poppins, sans-serif",
+      button:{
+        textTransform:'none'
+      }
     },
     palette:{
       primary: {
@@ -23,6 +26,9 @@ export const theme = createTheme({
       background:{
         paper: '#fff',
         purple: '#7126B5'
+      },
+      action: {
+        disabled: '#fff'
       }
     }
 });
