@@ -40,10 +40,10 @@ const FormProduct = () => {
     const productDetails = useSelector(state => state.product.detailProduct)
     const [data, setData] = useState(
         {
-            nama: Object.keys(productDetails).length ? productDetails.name : '',
-            harga: Object.keys(productDetails).length ? productDetails.price : '',
-            kategori: Object.keys(productDetails).length ? productDetails.category : 'semua',
-            deskripsi: Object.keys(productDetails).length ? productDetails.description : '',
+            nama: '',
+            harga: '',
+            kategori:'semua',
+            deskripsi: '',
             message: '',
             success: null
         }
@@ -172,7 +172,17 @@ const FormProduct = () => {
                 />
             </div>
         </div>
-    ));
+    ))
+    
+    useEffect(() => {
+        setData({
+            ...data,
+            nama: Object.keys(productDetails).length !==0 ? productDetails.name : '',
+            harga: Object.keys(productDetails).length !==0 ? productDetails.price : '',
+            kategori: Object.keys(productDetails).length !==0 ? productDetails.category : 'semua',
+            deskripsi: Object.keys(productDetails).length !==0 ? productDetails.description : '',
+        })
+    }, [data,productDetails]);
 
     useEffect(() => {
         if (location === `/info-produk/update/${id}`) {
@@ -205,7 +215,7 @@ const FormProduct = () => {
                         size="small"
                         required
                         error={error.name ? true : false}
-                        defaultValue={data.nama}
+                        value={data.nama}
                         fullWidth
                         placeholder="Nama produk"
                         onChange={(e) => setData({ ...data, nama: e.target.value })}
@@ -224,7 +234,7 @@ const FormProduct = () => {
                         size="small"
                         type='number'
                         error={error.price ? true : false}
-                        defaultValue={data.harga}
+                        value={data.harga}
                         required
                         fullWidth
                         placeholder='0,00'
@@ -261,7 +271,7 @@ const FormProduct = () => {
                         autoComplete='false'
                         fullWidth
                         error={error.description ? true : false}
-                        defaultValue={data.deskripsi}
+                        value={data.deskripsi}
                         multiline
                         rows={4}
                         sx={{ borderRadius: '16px', mt: 0, }}
