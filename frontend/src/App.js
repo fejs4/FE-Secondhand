@@ -17,8 +17,8 @@ import InfoPenawar from './pages/InfoPenawar';
 import Wishlist from './pages/Wishlist';
 import React from 'react';
 import ProtectedRoutes from './components/auth/ProtectedRoutes';
-
 import DetailProductDrawer from './components/drawer/DetailProductDrawer';
+import ModalDeleteWishlist from './components/detailproduct/buyer/ModalDeleteWishlist';
 
 function App() {
   return (
