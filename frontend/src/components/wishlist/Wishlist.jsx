@@ -46,7 +46,6 @@ const Wishlist = ({ wishlist,data, setWishlist, handleChange, handleOpen, setSuc
     return (date.getDate() + " " + months[date.getMonth()] + ", " + addZero(date.getHours()) + ":" + addZero(date.getMinutes()))
   }
 
-
   React.useEffect(() => {
     dispatch(fetchWishlist());
   }, [handleDelete]);
@@ -177,7 +176,7 @@ const Wishlist = ({ wishlist,data, setWishlist, handleChange, handleOpen, setSuc
         </Box>
       </Toolbar>
     </Box>
-  );
+  )
 };
 
 export default Wishlist;

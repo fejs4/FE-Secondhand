@@ -5,6 +5,7 @@ import wishlistReducer from "./wishlist"
 import tawarReducer from "./tawar" 
 import transaksiReducer from "./transaksi"
 import notifReducer from "./notif"
+import userReducer from "./users"
 
 
 const rootReducer = {
@@ -13,7 +14,8 @@ const rootReducer = {
     auth: authReducer,
     tawar: tawarReducer,
     transaksi:transaksiReducer,
-    notif: notifReducer
+    notif: notifReducer,
+    users: userReducer
 }
 
 const store = configureStore({

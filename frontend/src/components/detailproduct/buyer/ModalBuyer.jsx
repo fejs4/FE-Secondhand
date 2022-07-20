@@ -4,6 +4,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { postTawar } from '../../../redux/tawar';
+import { setMessageUser, setSuccessUser } from '../../../redux/users';
+import { setMessage, setSuccess } from '../../../redux/auth';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -25,7 +27,7 @@ const ModalBuyer = ({ data, open, handleClose, handlePost }) => {
     const { id } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    
+
     const handleTawar = async () => {
         if (Object.keys(dataUser).length !== 0) {
             if (dataUser.city !== null) {
@@ -40,13 +42,17 @@ const ModalBuyer = ({ data, open, handleClose, handlePost }) => {
                     } catch (err) {
                         console.log(err)
                     }
-                }else{
+                } else {
                     handlePost()
                 }
-            }else{
+            } else {
+                dispatch(setMessageUser('Lengkapi profil untuk dapat menawar produk'))
+                dispatch(setSuccessUser(false))
                 navigate(`/info-user/${dataUser.id}`)
             }
-        }else{
+        } else {
+            dispatch(setMessage('Anda perlu login untuk dapat menawar produk'))
+            dispatch(setSuccess(false))
             navigate('/login')
         }
     }

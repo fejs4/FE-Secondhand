@@ -1,24 +1,8 @@
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { publishProduct } from '../../../redux/product'
 
-const ProductInfo = ({data}) => {
+const ProductInfo = ({data, handlePublish, handleEdit}) => {
     const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
-    const {id} = useParams()
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const handlePublish = () =>{
-        if (data.publish === false) {
-            dispatch(publishProduct(id))
-            setTimeout(() => {
-                navigate('/daftar-jual')
-            }, 1500);
-        }else{
-            navigate('/daftar-jual')
-        }
-    }
 
     return (
         <>
@@ -35,11 +19,9 @@ const ProductInfo = ({data}) => {
                     <Button color='primary' onClick={handlePublish} variant='contained' fullWidth sx={{ borderRadius: '16px', height: '48px', display: { md: 'block', xs: 'none' } }}>
                         Terbitkan
                     </Button>
-                <Link to={`/info-produk/update/${id}`} style={{ textDecoration:'none' }}>
-                    <Button color='primary' variant='outlined' fullWidth sx={{ borderRadius: '16px', height: '48px', display: { md: 'block', xs: 'none' } }}>
+                    <Button color='primary' variant='outlined' onClick={handleEdit} fullWidth sx={{ borderRadius: '16px', height: '48px', display: { md: 'block', xs: 'none' } }}>
                         Edit
                     </Button>
-                </Link>
             </Box>
         </>
     )

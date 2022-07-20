@@ -17,8 +17,7 @@ import InfoPenawar from './pages/InfoPenawar';
 import Wishlist from './pages/Wishlist';
 import React from 'react';
 import ProtectedRoutes from './components/auth/ProtectedRoutes';
-import DetailProductDrawer from './components/drawer/DetailProductDrawer';
-import ModalDeleteWishlist from './components/detailproduct/buyer/ModalDeleteWishlist';
+import ErrorNotFound from './components/error/ErrorNotFound';
 
 function App() {
   return (
@@ -26,7 +25,7 @@ function App() {
       <BrowserRouter forceRefresh={true}>
         <ThemeProvider theme={Theme}>
           <Routes>
-            <Route path='*' element={<><h1 className='text-center'>404 ERROR</h1></>} />
+            <Route path='*' element={<ErrorNotFound/>} />
             <Route exact path='/' element={<ProtectedRoutes />}>
               <Route path='/' element={<HomePage />} />
               <Route path='/login' element={<Login />} />

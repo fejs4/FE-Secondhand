@@ -4,11 +4,12 @@ import InfoSeller from '../components/daftarjual/main/InfoSeller'
 import ListJual from '../components/daftarjual/main/ListJual'
 
 const DaftarJual = () => {
+  const [success, setSuccess] = React.useState(true);
   return (
     <>
       <Navbars/>
-      <InfoSeller/>
-      <ListJual/>
+      <InfoSeller success={success} setSuccess={setSuccess}/>
+      <ListJual success={success} setSuccess={setSuccess}/>
     </>
   )
 }

@@ -4,11 +4,11 @@ import Box from '@mui/material/Box';
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 import PhotoCameraOutlinedIcon from '@mui/icons-material/PhotoCameraOutlined';
 import Toolbar from '@mui/material/Toolbar';
-import { Button, FormControl, FormHelperText, Grid, InputLabel, MenuItem, OutlinedInput, Select, Typography } from '@mui/material';
+import { Alert, Button, FormControl, FormHelperText, Grid, InputLabel, MenuItem, OutlinedInput, Select, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { formUserValidation } from '../../../validator/validator';
+import { updateUser } from '../../../redux/users';
 
 
 const thumb = {
@@ -38,55 +38,55 @@ const FormProduct = () => {
     const [files, setFiles] = useState([]);
     const [error, setError] = React.useState({});
     const userProfile = useSelector(state => state.auth.userProfile)
+    const [alert, setAlert] = useState(true)
+    const dispatch = useDispatch()
     const [data, setData] = useState({
-        nama: userProfile.name? userProfile.name: '',
-        kota: userProfile.city? userProfile.city:'jakarta',
-        alamat: userProfile.address? userProfile.address:'',
-        nohp: userProfile.number_mobile? userProfile.number_mobile:'',
+        nama: userProfile.name ? userProfile.name : '',
+        kota: userProfile.city ? userProfile.city : 'jakarta',
+        alamat: userProfile.address ? userProfile.address : '',
+        nohp: userProfile.number_mobile ? userProfile.number_mobile : '',
         message: '',
         success: null
     })
+    const messageUser= useSelector(state => state.users.messageUser)
+    const successUser= useSelector(state => state.users.successUser)
     
     const handleValidate = (e) => {
         e.preventDefault()
-        formUserValidation(data, files,fileRejections, setError)
+        formUserValidation(data, files, fileRejections, setError)
     }
 
     const handleCreate = async (e) => {
         e.preventDefault()
         if (error.name !== '' || error.address !== '' || error.photo !== '' || error.phone !== '') {
-            setData({ ...data, message: 'Gagal login, lengkapi data', success: false })
+            setAlert(true)
+            setTimeout(() => {
+                setAlert(false)
+            }, 3000);
         } else {
             try {
-                const token = localStorage.getItem('token');
-                const product = new FormData()
-                product.append("name", data.nama)
-                product.append("city", data.kota)
-                product.append("address", data.alamat)
-                product.append("number_mobile", data.nohp)
-                product.append("image", files[0])
-                const getData = await axios(
-                    {
-                        method: "PUT",
-                        data: product,
-                        url: "https://be-kel1.herokuapp.com/users/profile",
-                        headers: {
-                            Authorization: token,
-                        }
-
-                    }).then(
-                        data => {
-                            setData({ ...data, message:data.data.message , success: data.data.success })
+                const profile = new FormData()
+                profile.append("name", data.nama)
+                profile.append("city", data.kota)
+                profile.append("address", data.alamat)
+                profile.append("number_mobile", data.nohp)
+                profile.append("image", files[0])
+                dispatch(updateUser(profile)).then(
+                    data => {
+                        setAlert(true)
+                        setTimeout(() => {
+                            setAlert(false)
                             window.location.reload()
-                        }
-                    )
+                        },2000)
+                    }
+                )
             } catch (error) {
                 console.log(error);
             }
         }
     }
 
-    const { getRootProps, getInputProps,fileRejections } = useDropzone({
+    const { getRootProps, getInputProps, fileRejections } = useDropzone({
         maxFiles: 1,
         accept: {
             'image/*': []
@@ -114,9 +114,13 @@ const FormProduct = () => {
     ));
     useEffect(() => {
         return () => files.forEach(file => URL.revokeObjectURL(file.preview));
-    }, [data.success])
+    }, [files])
+
     return (
         <Box width={{ md: '70%', xs: '90%' }} mx={'auto'} mt={3}>
+            <Stack position="absolute" display={data.message || messageUser !== '' ? "block" : "none"} className="alert" mx={'auto'} width={{ md: '40%', xs: '90%' }} sx={{ zIndex: 100, left: 0, right: 0, top: 0, transition: '0.5s' }} style={{ 'marginTop': alert ? "55px" : "-350px" }} >
+                <Alert variant="filled" severity={data.success || successUser ? "success" : "error"} onClose={() => setAlert(false)}>{data.message || messageUser}</Alert>
+            </Stack>
             <Toolbar position='relative' >
                 <Link to={-1}>
                     <ArrowBackSharpIcon sx={{
@@ -133,13 +137,15 @@ const FormProduct = () => {
                         <Box sx={{ color: "primary", background: '#E2D4F0', height: '100%', width: '100%', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
                             <input {...getInputProps()} type='file' name='images-product' multiple />
                             {userProfile.image ? userProfile.image.length !== 0 ?
-                            <Box component={'img'}
-                            src={`https://be-kel1.herokuapp.com/public/profile/${userProfile.image}`}
-                            alt='profile'
-                            sx={{ width:'96px', height:'96px', objectFit:'cover', boxShadow:' 0px 0px 10px rgba(0, 0, 0, 0.15)',
-                            display: thumbs.length !== 0 ? 'none' : 'block' }}
-                            /> : '' : files.length !== 0 ? '' 
-                            : <PhotoCameraOutlinedIcon sx={{ color: '#7126B5' }} />}
+                                <Box component={'img'}
+                                    src={`https://be-kel1.herokuapp.com/public/profile/${userProfile.image}`}
+                                    alt='profile'
+                                    sx={{
+                                        width: '96px', height: '96px', objectFit: 'cover', boxShadow: ' 0px 0px 10px rgba(0, 0, 0, 0.15)',
+                                        display: thumbs.length !== 0 ? 'none' : 'block'
+                                    }}
+                                /> : '' : files.length !== 0 ? ''
+                                : <PhotoCameraOutlinedIcon sx={{ color: '#7126B5' }} />}
                             <Box display={'flex'} flexWrap={'wrap'}>
                                 {thumbs}
                             </Box>
@@ -156,15 +162,15 @@ const FormProduct = () => {
                         sx={{ mt: 0, borderRadius: '16px', p: 1 }}
                         size="small"
                         required
-                        error={error.name ? true: false}
-                        defaultValue={userProfile.name? userProfile.name : ''}
+                        error={error.name ? true : false}
+                        defaultValue={userProfile.name ? userProfile.name : ''}
                         fullWidth
                         placeholder="Nama"
                         id="name"
                         autoComplete='false'
                         onChange={(e) => setData({ ...data, nama: e.target.value })}
                     />
-                    <FormHelperText sx={{ color: 'red', position: 'relative', mb:2 }}>
+                    <FormHelperText sx={{ color: 'red', position: 'relative', mb: 2 }}>
                         <Typography variant='p' sx={{ fontSize: '12px', position: 'absolute' }}>
                             {error.name ? error.name : ''}
                         </Typography>
@@ -175,8 +181,8 @@ const FormProduct = () => {
                         <Select
                             id="demo-simple-select"
                             required
-                            sx={{ mt: 0, borderRadius: '16px', mb:2 }}
-                            defaultValue={userProfile.city? userProfile.city : data.kota}
+                            sx={{ mt: 0, borderRadius: '16px', mb: 2 }}
+                            defaultValue={userProfile.city ? userProfile.city : data.kota}
                             onChange={(e) => setData({ ...data, kota: e.target.value })}
                         >
                             <MenuItem sx={{ width: '100%' }} value={'jakarta'}>Jakarta</MenuItem>
@@ -190,15 +196,15 @@ const FormProduct = () => {
                         type='text'
                         autoComplete='false'
                         fullWidth
-                        error={error.address? true: false}
-                        defaultValue={userProfile.address? userProfile.address : ''}
+                        error={error.address ? true : false}
+                        defaultValue={userProfile.address ? userProfile.address : ''}
                         multiline
                         rows={4}
                         onChange={(e) => setData({ ...data, alamat: e.target.value })}
                         sx={{ borderRadius: '16px', mt: 0 }}
                         placeholder="Contoh: Jalan Ikan Hiu 33"
                     />
-                    <FormHelperText sx={{ color: 'red', position: 'relative', mb:2 }}>
+                    <FormHelperText sx={{ color: 'red', position: 'relative', mb: 2 }}>
                         <Typography variant='p' sx={{ fontSize: '12px', position: 'absolute' }}>
                             {error.address ? error.address : ''}
                         </Typography>
@@ -209,14 +215,14 @@ const FormProduct = () => {
                         sx={{ mt: 0, borderRadius: '16px', p: 1 }}
                         size="small"
                         required
-                        defaultValue={userProfile.number_mobile? userProfile.number_mobile : ''}
-                        error={error.phone? true: false}
+                        defaultValue={userProfile.number_mobile ? userProfile.number_mobile : ''}
+                        error={error.phone ? true : false}
                         fullWidth
                         placeholder='+62812345678'
                         autoComplete='false'
                         onChange={(e) => setData({ ...data, nohp: e.target.value })}
                     />
-                    <FormHelperText sx={{ color: 'red', position: 'relative', mb:2 }}>
+                    <FormHelperText sx={{ color: 'red', position: 'relative', mb: 2 }}>
                         <Typography variant='p' sx={{ fontSize: '12px', position: 'absolute' }}>
                             {error.phone ? error.phone : ''}
                         </Typography>

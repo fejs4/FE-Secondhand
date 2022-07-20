@@ -11,6 +11,7 @@ const ItemCard = ({ clicked,page }) => {
     const data = useSelector(state => state.product.products)
     const loading = useSelector(state => state.product.loading)
     const searched = useSelector(state => state.product.searched)
+    
     const filtered = Object.keys(data).length !== 0 ? data.filter(item => item.publish === true && item.isSold === false) : ''
     React.useEffect(() => {
         dispatch(setDetail({}))
@@ -18,7 +19,7 @@ const ItemCard = ({ clicked,page }) => {
         setTimeout(() => {
             dispatch(setLoading(false))
         }, 1500);
-    }, [clicked, searched, page])
+    }, [dispatch, clicked, searched, page])
     return (
         <>
             <Grid container rowSpacing={3} columnSpacing={{ xs: 3, sm: 3, md: 3 }} mt={3}>
