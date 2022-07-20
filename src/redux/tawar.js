@@ -149,31 +149,23 @@ const tawarSlice = createSlice({
 
         // Post Tawar
         [postTawar.pending]: (state, action) => {
-            console.log('fetching pending')
             return { ...state, loading: true, error: null, }
         },
         [postTawar.fulfilled]: (state, action) => {
-            console.log('fetching fulfilled')
-            console.log(action.payload)
             return { ...state, message: 'Harga tawarmu berhasil dikirim ke penjual', success: action.payload.success}
         },
         [postTawar.rejected]: (state, action) => {
-            console.log('fetching rejected')
             return { ...state, error: action.error }
         },
 
         // Delete Tawar
         [deleteTawar.pending]: (state, action) => {
-            console.log('fetching pending')
             return { ...state, loading: true, error: null, }
         },
         [deleteTawar.fulfilled]: (state, action) => {
-            console.log('fetching fulfilled')
-            console.log(action.payload)
             return { ...state, message: action.payload.message, success: action.payload.success}
         },
         [deleteTawar.rejected]: (state, action) => {
-            console.log('fetching rejected')
             return { ...state, error: action.error }
         },
 

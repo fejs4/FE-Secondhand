@@ -50,35 +50,26 @@ const authSlice = createSlice({
     extraReducers: {
         // Login
         [authLogin.pending]: (state, action) => {
-            console.log('pending')
             return { ...state, loading: true, error: null, }
         },
         [authLogin.fulfilled]: (state, action) => {
-            console.log('fulfilled')
-            console.log(action.payload)
             if (action.payload.success) {
                 localStorage.setItem("token", action.payload.data.test.access_token)
             } 
             return { ...state, message: action.payload.success? action.payload.message : 'Email atau Password Salah', success:action.payload.success }
         },
         [authLogin.rejected]: (state, action) => {
-            console.log('rejected')
-            console.log(action.payload);
             return { ...state, message:action.payload.message, success:action.payload.success  }
         },
 
         // Register
         [authRegister.pending]: (state, action) => {
-            console.log('pending')
             return { ...state, loading: true, error: null, }
         },
         [authRegister.fulfilled]: (state, action) => {
-            console.log('fulfilled')
             return { ...state, message:action.payload.message, success:action.payload.success }
         },
         [authRegister.rejected]: (state, action) => {
-            console.log('rejected')
-            console.log(action.payload);
             return { ...state, error: action.error, success:action.payload.success }
         }
     }

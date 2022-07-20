@@ -39,17 +39,12 @@ const usersSlice = createSlice({
     extraReducers: {
         // Update User
         [updateUser.pending]: (state, action) => {
-            console.log('pending')
             return { ...state, loading: true, error: null, }
         },
         [updateUser.fulfilled]: (state, action) => {
-            console.log('fulfilled')
-            console.log(action.payload)
             return { ...state, messageUser: action.payload.success ? action.payload.message : 'Gagal update profile', successUser: action.payload.success }
         },
         [updateUser.rejected]: (state, action) => {
-            console.log('rejected')
-            console.log(action.payload);
             return { ...state, messageUser: action.payload.message, successUser: action.payload.success }
         },
 

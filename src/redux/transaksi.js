@@ -73,30 +73,23 @@ const transaksiSlice = createSlice({
 
         // Create Transaksi 
         [createTransaksi.pending]: (state, action) => {
-            console.log('fetching pending')
             return { ...state, loading: true, error: null, }
         },
         [createTransaksi.fulfilled]: (state, action) => {
-            console.log('fetching fulfilled')
+            return { ...state}
         },
         [createTransaksi.rejected]: (state, action) => {
-            console.log('fetching rejected')
             return { ...state, error: action.error }
         },
 
         // Update Transaksi 
         [updateTransaksi.pending]: (state, action) => {
-            console.log('fetching pending')
             return { ...state, loading: true, error: null, }
         },
         [updateTransaksi.fulfilled]: (state, action) => {
-            console.log('fetching fulfilled')
-            console.log(action.payload)
             return { ...state, message: 'Status produk berhasil diperbaharui', success: action.payload.success, }
         },
         [updateTransaksi.rejected]: (state, action) => {
-            console.log('fetching rejected')
-            console.log(action.payload)
             return { ...state, error: action.error }
         },
 
