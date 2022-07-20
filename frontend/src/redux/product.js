@@ -220,7 +220,6 @@ const productSlice = createSlice({
         },
         [postProducts.rejected]: (state, action) => {
             console.log('rejected')
-            console.log(action.payload)
             return { ...state, error: action.payload, message: action.payload.message, success: action.payload.success }
         },
 

@@ -13,24 +13,16 @@ const ProtectedRoutes = () => {
     const navigate = useNavigate()
     const location = useLocation().pathname
 
-    // const AuthVerify = () => {
-    //     const token = localStorage.getItem('token');
-    //     const dateNow = Date.now()
-    //     if (token) {
-    //         const decodedToken = JSON.parse(atob(token.split('.')[1]))
-    //         console.log(decodedToken.exp);
-    //         if (decodedToken.exp < dateNow) {
-    //             window.localStorage.removeItem('token')
-    //         }
-    //     }
-    // }
-
-    // const token = localStorage.getItem('token')
-    // if (token) {
-    //     const decodedToken = JSON.parse(atob(token.split('.')[1]))
-    //     const expdate = new Date(decodedToken.exp)
-        
-    // }
+    const AuthVerify = () => {
+        const token = localStorage.getItem('token');
+        const dateNow = Date.now()
+        if (token) {
+            const decodedToken = JSON.parse(atob(token.split('.')[1]))
+            if ((decodedToken.exp*1000) < dateNow) {
+                window.localStorage.removeItem('token')
+            }
+        }
+    }
 
     const onLoginRegister = async () => {
         if (!Object.keys(userLogin).length !== 0) {
@@ -76,6 +68,7 @@ const ProtectedRoutes = () => {
     }
 
     React.useEffect(() => {
+        AuthVerify()
         if (location === '/login' || location === '/register') {
             setTimeout(() => {
                 onLoginRegister()
