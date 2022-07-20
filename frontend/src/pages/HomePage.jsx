@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 import Banner from '../components/header/Banner'
 import Navbars from '../components/header/navbar/Navbars'
