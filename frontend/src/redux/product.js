@@ -167,75 +167,56 @@ const productSlice = createSlice({
 
         // Publish Product
         [publishProduct.pending]: (state, action) => {
-            console.log('pending')
             return { ...state, loading: true, error: null }
         },
         [publishProduct.fulfilled]: (state, action) => {
-            console.log(action.payload)
-            console.log('fulfilled')
             return { ...state, message: action.payload.message, success: action.payload.success }
         },
         [publishProduct.rejected]: (state, action) => {
-            console.log('rejected')
-            console.log(action.payload)
             return { ...state, error: action.error }
         },
 
         // Fetching Product Detail
         [fetchProductDetail.pending]: (state, action) => {
-            console.log('pending')
             return { ...state, loading: true, error: null }
         },
         [fetchProductDetail.fulfilled]: (state, action) => {
-            console.log('fulfilled')
             return { ...state, detailProduct: action.payload }
         },
         [fetchProductDetail.rejected]: (state, action) => {
-            console.log('rejected')
             return { ...state, error: action.error }
         },
 
         // Fetching Product Sold
         [fetchProductSold.pending]: (state, action) => {
-            console.log('pending')
             return { ...state, loading: true, error: null }
         },
         [fetchProductSold.fulfilled]: (state, action) => {
-            console.log('fulfilled')
             return { ...state, productSold: action.payload.data }
         },
         [fetchProductSold.rejected]: (state, action) => {
-            console.log('rejected')
             return { ...state, error: action.error }
         },
 
         // Post Product
         [postProducts.pending]: (state, action) => {
-            console.log('pending')
             return { ...state, loading: true, error: null }
         },
         [postProducts.fulfilled]: (state, action) => {
-            console.log('fulfilled')
             return { ...state, message: action.payload.message, success: action.payload.success }
         },
         [postProducts.rejected]: (state, action) => {
-            console.log('rejected')
             return { ...state, error: action.payload, message: action.payload.message, success: action.payload.success }
         },
 
         // Update Product
         [updateProduct.pending]: (state, action) => {
-            console.log('pending')
             return { ...state, loading: true, error: null }
         },
         [updateProduct.fulfilled]: (state, action) => {
-            console.log('fulfilled')
-            console.log(action.payload)
             return { ...state, message: action.payload.message, success: action.payload.success }
         },
         [updateProduct.rejected]: (state, action) => {
-            console.log('rejected')
-            console.log(action.error)
             return { ...state, error: action.error }
         },
 

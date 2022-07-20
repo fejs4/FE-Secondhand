@@ -175,14 +175,16 @@ const FormProduct = () => {
     ))
     
     useEffect(() => {
-        setData({
-            ...data,
-            nama: Object.keys(productDetails).length !==0 ? productDetails.name : '',
-            harga: Object.keys(productDetails).length !==0 ? productDetails.price : '',
-            kategori: Object.keys(productDetails).length !==0 ? productDetails.category : 'semua',
-            deskripsi: Object.keys(productDetails).length !==0 ? productDetails.description : '',
-        })
-    }, [data,productDetails]);
+        if (location !== `/info-produk`) {
+            setData({
+                ...data,
+                nama: Object.keys(productDetails).length !==0 ? productDetails.name : '',
+                harga: Object.keys(productDetails).length !==0 ? productDetails.price : '',
+                kategori: Object.keys(productDetails).length !==0 ? productDetails.category : 'semua',
+                deskripsi: Object.keys(productDetails).length !==0 ? productDetails.description : '',
+            })
+        }
+    }, [location,productDetails]);
 
     useEffect(() => {
         if (location === `/info-produk/update/${id}`) {

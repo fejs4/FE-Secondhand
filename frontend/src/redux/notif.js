@@ -66,16 +66,12 @@ const notifSlice = createSlice({
 
         // Delete Notif
         [deleteNotif.pending]: (state, action) => {
-            console.log('pending')
             return { ...state, loading: true, error: null, }
         },
         [deleteNotif.fulfilled]: (state, action) => {
-            console.log('fulfilled')
             console.log(action.payload)
         },
         [deleteNotif.rejected]: (state, action) => {
-            console.log('rejected')
-            console.log(action.payload)
             return { ...state, message:action.payload.message, success:action.payload.success  }
         },
 

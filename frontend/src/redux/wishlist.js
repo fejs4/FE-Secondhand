@@ -84,27 +84,21 @@ const wishlistSlice = createSlice({
 
          // Post Wishlist
          [postWishlist.pending]: (state, action) => {
-            console.log('post pending')
             return { ...state, loading: true, error: null }
         },
         [postWishlist.fulfilled]: (state, action) => {
-            console.log('post fulfilled')
-            console.log(action.payload);
+            return { ...state }
         },
         [postWishlist.rejected]: (state, action) => {
-            console.log('post rejected')
-            console.log(action.payload);
             return { ...state, error: action.error }
         },
 
         // Delete Wishlist
         [deleteWishlist.pending]: (state, action) => {
-            console.log('delete pending')
             return { ...state, loading: true, error: null }
         },
         [deleteWishlist.fulfilled]: (state, action) => {
-            console.log('delete fulfilled')
-            console.log(action.payload);
+            return { ...state }
         },
         [deleteWishlist.rejected]: (state, action) => {
             console.log('delete rejected')
