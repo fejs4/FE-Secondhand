@@ -2,12 +2,12 @@ import { Box, Card, CardActionArea, CardContent, CardMedia, Divider, Grid, IconB
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import CircleIcon from '@mui/icons-material/Circle';
-import { deleteTawar, fetchTawarSeller, setLoading, setSuccess } from '../../../redux/tawar';
+import { deleteTawar, fetchTawarSeller, setLoading, setMessage } from '../../../redux/tawar';
 import { Link } from 'react-router-dom';
 import TawarLoading from '../../loading/TawarLoading';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
-const ProdukDiminati = () => {
+const ProdukDiminati = ({setSuccess}) => {
   const formatter = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
   const dispatch = useDispatch()
   const dataTawar = useSelector(state => state.tawar.tawarSeller)
@@ -30,8 +30,9 @@ const ProdukDiminati = () => {
       if (data.payload.success) {
         setSuccess(true)
         setTimeout(() => {
-          window.location.reload()
-        }, 2000)
+          dispatch(setMessage(''))
+          window.location.reload()  
+        }, 2000);
       }
     })
   }
@@ -41,7 +42,7 @@ const ProdukDiminati = () => {
     setTimeout(() => {
       dispatch(setLoading(false))
     }, 1500);
-  }, [dispatch])
+  }, [dispatch,deleteTawar])
 
   return (
     <>
