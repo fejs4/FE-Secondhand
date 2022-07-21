@@ -20,7 +20,7 @@ const ProductInterest = ({data,handleOpen}) => {
     const detailProduct = useSelector(state => state.product.detailProduct)
 
     const handleWishlist = async () => {
-        if (dataUser.id !== detailProduct.user.id) {
+        if (Object.keys(dataUser).length !== 0 && dataUser.id !== detailProduct.user.id) {
             if (love === false) {
                 setLove(true)
                 const data =  {
@@ -31,7 +31,9 @@ const ProductInterest = ({data,handleOpen}) => {
                 setLove(false)
                 const detailWishlist = wishlistAmbil.filter(item => item.productId === Number(id))
                 const dataId = detailWishlist[0].id
-                dispatch(deleteWishlist(dataId))
+                if (dataId) {
+                    dispatch(deleteWishlist(dataId))
+                }
             }
         }
     }
@@ -40,13 +42,18 @@ const ProductInterest = ({data,handleOpen}) => {
     const dataTawar = useSelector(state=>state.tawar.tawar)
     const tawarID = Object.keys(dataTawar).length !== 0 ? dataTawar.filter(item => item.productId === Number(id)) : ''
 
+    React.useEffect(() => {
+        dispatch(fetchTawarBuyer())
+    },[dispatch])
+
     React.useEffect(()=>{
         if (onWishlist) {
             setLove(true)
+        }else{
+            setLove(false)
         }
         dispatch(fetchWishlist())
-        dispatch(fetchTawarBuyer())
-    },[dispatch,onWishlist,dataTawar,tawarID])
+    },[dispatch,onWishlist])
 
  
     return (

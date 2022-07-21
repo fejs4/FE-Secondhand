@@ -12,7 +12,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProductDetail, publishProduct, setLoading } from '../../../redux/product'
 import ModalBuyer from '../buyer/ModalBuyer'
-import { setMessage } from '../../../redux/tawar'
+import { setMessage, setSuccess } from '../../../redux/tawar'
 import DetailProductLoading from '../../loading/DetailProductLoading'
 
 const ProductDetails = ({ status }) => {
@@ -55,6 +55,7 @@ const ProductDetails = ({ status }) => {
       navigate(`/info-produk/update/${id}`)
     } else {
       dispatch(setMessage('Tidak dapat melakukan edit produk pada produk orang!'))
+      dispatch(setSuccess(false))
       setAlert(true)
       setTimeout(() => {
         setAlert(false)
@@ -74,6 +75,7 @@ const ProductDetails = ({ status }) => {
       }
     } else {
       dispatch(setMessage('Tidak dapat melakukan publish produk pada produk orang!'))
+      dispatch(setSuccess(false))
       setAlert(true)
       setTimeout(() => {
         setAlert(false)
@@ -113,7 +115,7 @@ const ProductDetails = ({ status }) => {
               {status === 'buyer' ? <ProductInterest data={data} handlePost={handlePost} handleOpen={handleOpenModal} /> : <ProductInfo data={data} handleEdit={handleEdit} handlePublish={handlePublish} />}
               <SellerInfo data={data} />
               <Box component={'div'} p={4} mt={3} display={{ md: 'none', xs: 'block' }} sx={{ boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)', borderRadius: '16px' }}>
-                <DescriptionProduct />
+                <DescriptionProduct data={data}/>
               </Box>
               <Box display={{ xs: 'flex', md: 'none' }} justifyContent={'center'}>
                 {status === 'buyer' ? <PublishBuyer data={data} handleOpen={handleOpenModal} /> : <PublishSeller handlePublish={handlePublish} />}

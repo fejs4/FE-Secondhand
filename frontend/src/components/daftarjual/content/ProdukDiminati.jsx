@@ -2,7 +2,7 @@ import { Box, Card, CardActionArea, CardContent, CardMedia, Divider, Grid, IconB
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import CircleIcon from '@mui/icons-material/Circle';
-import { deleteTawar, fetchTawarSeller, setLoading } from '../../../redux/tawar';
+import { deleteTawar, fetchTawarSeller, setLoading, setSuccess } from '../../../redux/tawar';
 import { Link } from 'react-router-dom';
 import TawarLoading from '../../loading/TawarLoading';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -26,10 +26,14 @@ const ProdukDiminati = () => {
 
   const handleDelete = (e, id) => {
     e.preventDefault()
-    dispatch(deleteTawar(id))
-    setTimeout(() => {
-      window.location.reload()
-    }, 1000);
+    dispatch(deleteTawar(id)).then((data) =>{
+      if (data.payload.success) {
+        setSuccess(true)
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000)
+      }
+    })
   }
 
   React.useEffect(() => {
